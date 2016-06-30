@@ -1,0 +1,711 @@
+[
+  {
+     "fields":{
+     "name_ch":"曾鈺成"
+    ,"name_en":"TSANG Yok-sing"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"1"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"何俊仁"
+    ,"name_en":"Albert HO"
+    ,"party":3
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"2"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"李卓人"
+    ,"name_en":"LEE Cheuk-yan"
+    ,"party":7
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"3"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"涂謹申"
+    ,"name_en":"James TO"
+    ,"party":3
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"4"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"陳鑑林"
+    ,"name_en":"CHAN Kam-lam"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"5"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"梁耀忠"
+    ,"name_en":"LEUNG Yiu-chung"
+    ,"party":14
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"6"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"劉皇發"
+    ,"name_en":"Dr LAU Wong-fat"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"7"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"劉慧卿"
+    ,"name_en":"Emily LAU"
+    ,"party":3
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"8"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"譚耀宗"
+    ,"name_en":"TAM Yiu-chung"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"9"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"石禮謙"
+    ,"name_en":"Abraham SHEK"
+    ,"party":2
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"10"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"張宇人"
+    ,"name_en":"Tommy CHEUNG"
+    ,"party":6
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"11"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"馮檢基"
+    ,"name_en":"Frederick FUNG"
+    ,"party":12
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"12"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"方剛"
+    ,"name_en":"Vincent FANG"
+    ,"party":6
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"13"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"王國興"
+    ,"name_en":"WONG Kwok-hing"
+    ,"party":4
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"14"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"李國麟"
+    ,"name_en":"Prof Joseph LEE"
+    ,"party":null
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"15"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"林健鋒"
+    ,"name_en":"Jeffrey LAM"
+    ,"party":2
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"16"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"梁君彥"
+    ,"name_en":"Andrew LEUNG"
+    ,"party":2
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"17"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"黃定光"
+    ,"name_en":"WONG Ting-kwong"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"18"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"何秀蘭"
+    ,"name_en":"Cyd HO"
+    ,"party":7
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"19"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"李慧琼"
+    ,"name_en":"Starry LEE"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"20"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"林大輝"
+    ,"name_en":"Dr LAM Tai-fai"
+    ,"party":null
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"21"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"陳克勤"
+    ,"name_en":"CHAN Hak-kan"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"22"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"陳健波"
+    ,"name_en":"CHAN Kin-por"
+    ,"party":null
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"23"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"梁美芬"
+    ,"name_en":"Dr Priscilla LEUNG"
+    ,"party":2
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"24"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"梁家騮"
+    ,"name_en":"Dr LEUNG Ka-lau"
+    ,"party":null
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"25"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"張國柱"
+    ,"name_en":"CHEUNG Kwok-che"
+    ,"party":7
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"26"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"黃國健"
+    ,"name_en":"WONG Kwok-kin"
+    ,"party":4
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"27"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"葉國謙"
+    ,"name_en":"IP Kwok-him"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"28"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"葉劉淑儀"
+    ,"name_en":"Mrs Regina IP"
+    ,"party":18
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"29"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"謝偉俊"
+    ,"name_en":"Paul TSE"
+    ,"party":19
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"30"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"梁家傑"
+    ,"name_en":"Alan LEONG"
+    ,"party":5
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"31"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"梁國雄"
+    ,"name_en":"LEUNG Kwok-hung"
+    ,"party":16
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"32"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"陳偉業"
+    ,"name_en":"Albert CHAN"
+    ,"party":10
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"33"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"黃毓民"
+    ,"name_en":"WONG Yuk-man"
+    ,"party":20
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"34"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"毛孟靜"
+    ,"name_en":"Claudia MO"
+    ,"party":5
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"35"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"田北辰"
+    ,"name_en":"Michael TIEN"
+    ,"party":18
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"36"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"田北俊"
+    ,"name_en":"James TIEN"
+    ,"party":6
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"37"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"吳亮星"
+    ,"name_en":"NG Leung-sing"
+    ,"party":null
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"38"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"何俊賢"
+    ,"name_en":"Steven HO"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"39"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"易志明"
+    ,"name_en":"Frankie YICK"
+    ,"party":6
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"40"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"胡志偉"
+    ,"name_en":"WU Chi-wai"
+    ,"party":3
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"41"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"姚思榮"
+    ,"name_en":"YIU Si-wing"
+    ,"party":null
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"42"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"范國威"
+    ,"name_en":"Gary FAN"
+    ,"party":13
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"43"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"馬逢國"
+    ,"name_en":"MA Fung-kwok"
+    ,"party":17
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"44"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"莫乃光"
+    ,"name_en":"Charles Peter MOK"
+    ,"party":11
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"45"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"陳志全"
+    ,"name_en":"CHAN Chi-chuen"
+    ,"party":10
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"46"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"陳恒鑌"
+    ,"name_en":"CHAN Han-pan"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"47"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"陳家洛"
+    ,"name_en":"Dr Kenneth CHAN"
+    ,"party":5
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"48"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"陳婉嫻"
+    ,"name_en":"CHAN Yuen-han"
+    ,"party":4
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"49"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"梁志祥"
+    ,"name_en":"LEUNG Che-cheung"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"50"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"梁繼昌"
+    ,"name_en":"Kenneth LEUNG"
+    ,"party":11
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"51"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"麥美娟"
+    ,"name_en":"Alice MAK"
+    ,"party":4
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"52"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"郭家麒"
+    ,"name_en":"Dr KWOK Ka-ki"
+    ,"party":5
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"53"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"郭偉强"
+    ,"name_en":"KWOK Wai-keung"
+    ,"party":4
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"54"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"郭榮鏗"
+    ,"name_en":"Dennis KWOK"
+    ,"party":5
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"55"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"張華峰"
+    ,"name_en":"Christopher CHEUNG"
+    ,"party":2
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"56"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"張超雄"
+    ,"name_en":"Dr Fernando CHEUNG"
+    ,"party":7
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"57"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"單仲偕"
+    ,"name_en":"SIN Chung-kai"
+    ,"party":3
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"58"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"黃碧雲"
+    ,"name_en":"Dr Helena WONG"
+    ,"party":3
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"59"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"葉建源"
+    ,"name_en":"IP Kin-yuen"
+    ,"party":21
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"60"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"葛珮帆"
+    ,"name_en":"Dr Elizabeth QUAT"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"61"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"廖長江"
+    ,"name_en":"Martin LIAO"
+    ,"party":null
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"62"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"潘兆平"
+    ,"name_en":"POON Siu-ping"
+    ,"party":22
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"63"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"鄧家彪"
+    ,"name_en":"TANG Ka-piu"
+    ,"party":4
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"64"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"蔣麗芸"
+    ,"name_en":"Dr CHIANG Lai-wan"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"65"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"盧偉國"
+    ,"name_en":"Ir Dr LO Wai-kwok"
+    ,"party":2
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"66"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"鍾國斌"
+    ,"name_en":"CHUNG Kwok-pan"
+    ,"party":6
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"67"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"鍾樹根"
+    ,"name_en":"Christopher CHUNG"
+    ,"party":1
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"68"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"謝偉銓"
+    ,"name_en":"Tony TSE"
+    ,"party":null
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"69"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"楊岳橋"
+    ,"name_en":"Alvin YEUNG"
+    ,"party":5
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"70"
+    
+  },
+  {
+     "fields":{
+     "name_ch":"湯家驊"
+    ,"name_en":"Ronny TONG"
+    ,"party":5
+     }
+    ,"model":"legco.Individual"
+    ,"pk":"71"
+    
+  }]
