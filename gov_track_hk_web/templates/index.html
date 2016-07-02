@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% block page_content%}
+<table id="latest-votes" class="cell-border">
+  <thead>
+    <tr>
+        <th width="10%">Date</th>
+        <th width="72%">Motion</th>
+    </tr>
+  </thead>
+</table>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<h2>政黨</h2>
+<table id="parties">
+</table>
+<script>
+$(document).ready(function() {
+    $('#latest-votes').DataTable( {
+        "ajax": { 
+            url:"/api/latest_votes/",
+            dataSrc:""
+        },
+        "searching": false,
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "columns": [
+            { "data": "date" },
+            { "data": "motion.name_ch" },
+        ]
+    } );
+
+    $('#parties').DataTable( {
+        "ajax": { 
+            url:"/api/parties/",
+            dataSrc:""
+        },
+        "searching": false,
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "columns": [
+            { "data": "name_ch" }
+        ]
+    } );
+} );
+</script>
+{% endblock %}
