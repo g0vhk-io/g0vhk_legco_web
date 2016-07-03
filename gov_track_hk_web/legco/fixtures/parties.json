@@ -1,8 +1,9 @@
 [
   {
      "fields":{
-     "name_en":"Democratic Alliance for the Betterment and Progress of Hong Kong"
-    ,"name_ch":"民主建港協進聯盟"
+     "name_en":"Democratic Alliance for the Betterment and Progress of Hong Kong",
+     "name_ch":"民主建港協進聯盟",
+     "image": "/static/legco/party/dab.png"
      }
     ,"model":"legco.Party"
     ,"pk":1
@@ -10,8 +11,9 @@
   },
   {
      "fields":{
-     "name_en":"Business and Professionals Alliance for Hong Kong"
-    ,"name_ch":"香港經濟民生聯盟"
+     "name_en":"Business and Professionals Alliance for Hong Kong",
+     "name_ch":"香港經濟民生聯盟",
+     "image": "/static/legco/party/bpa.png"
      }
     ,"model":"legco.Party"
     ,"pk":2
@@ -19,8 +21,9 @@
   },
   {
      "fields":{
-     "name_en":"Democratic Party"
-    ,"name_ch":"民主黨"
+     "name_en":"Democratic Party",
+     "name_ch":"民主黨",
+     "image": "/static/legco/party/dp.png"
      }
     ,"model":"legco.Party"
     ,"pk":3
@@ -28,8 +31,9 @@
   },
   {
      "fields":{
-     "name_en":"Hong Kong Federation of Trade Unions"
-    ,"name_ch":"香港工會聯合會"
+     "name_en":"Hong Kong Federation of Trade Unions",
+     "name_ch":"香港工會聯合會",
+     "image": "/static/legco/party/ftu.png"
      }
     ,"model":"legco.Party"
     ,"pk":4
@@ -37,8 +41,9 @@
   },
   {
      "fields":{
-     "name_en":"Civic Party"
-    ,"name_ch":"公民黨"
+     "name_en":"Civic Party",
+     "name_ch":"公民黨",
+     "image": "/static/legco/party/cp.png"
      }
     ,"model":"legco.Party"
     ,"pk":5
@@ -46,8 +51,9 @@
   },
   {
      "fields":{
-     "name_en":"Liberal Party"
-    ,"name_ch":"自由黨"
+     "name_en":"Liberal Party",
+     "name_ch":"自由黨",
+     "image": "/static/legco/party/lip.png"
      }
     ,"model":"legco.Party"
     ,"pk":6
@@ -55,8 +61,9 @@
   },
   {
      "fields":{
-     "name_en":"Labour Party"
-    ,"name_ch":"工黨"
+     "name_en":"Labour Party",
+     "name_ch":"工黨",
+     "image": "/static/legco/party/lap.png"
      }
     ,"model":"legco.Party"
     ,"pk":7
@@ -64,17 +71,9 @@
   },
   {
      "fields":{
-     "name_en":"New People's Party"
-    ,"name_ch":"新民黨"
-     }
-    ,"model":"legco.Party"
-    ,"pk":8
-    
-  },
-  {
-     "fields":{
-     "name_en":"New Territories Association of Societies"
-    ,"name_ch":"新界社團聯會"
+     "name_en":"New Territories Association of Societies",
+     "name_ch":"新界社團聯會",
+     "image": "/static/legco/party/ntas.png"
      }
     ,"model":"legco.Party"
     ,"pk":9
@@ -82,8 +81,9 @@
   },
   {
      "fields":{
-     "name_en":"People Power"
-    ,"name_ch":"人民力量"
+     "name_en":"People Power",
+     "name_ch":"人民力量",
+     "image": "/static/legco/party/pp.png"
      }
     ,"model":"legco.Party"
     ,"pk":10
@@ -91,8 +91,9 @@
   },
   {
      "fields":{
-     "name_en":"Professional Commons"
-    ,"name_ch":"公共專業聯盟"
+     "name_en":"Professional Commons",
+     "name_ch":"公共專業聯盟",
+     "image": "/static/legco/party/pc.png"
      }
     ,"model":"legco.Party"
     ,"pk":11
@@ -100,8 +101,9 @@
   },
   {
      "fields":{
-     "name_en":"Hong Kong Association for Democracy and People's Livelihood"
-    ,"name_ch":"香港民主民生協進會"
+     "name_en":"Hong Kong Association for Democracy and People's Livelihood",
+     "name_ch":"香港民主民生協進會",
+     "image": "/static/legco/party/adpl.png"
      }
     ,"model":"legco.Party"
     ,"pk":12
@@ -109,8 +111,9 @@
   },
   {
      "fields":{
-     "name_en":"Neo Democrats"
-    ,"name_ch":"新民主同盟"
+     "name_en":"Neo Democrats",
+     "name_ch":"新民主同盟",
+     "image": "/static/legco/party/nd.png"
      }
     ,"model":"legco.Party"
     ,"pk":13
@@ -118,8 +121,9 @@
   },
   {
      "fields":{
-     "name_en":"Neighbourhood and Worker's Service Centre"
-    ,"name_ch":"街坊工友服務處"
+     "name_en":"Neighbourhood and Worker's Service Centre",
+     "name_ch":"街坊工友服務處",
+     "image": "/static/legco/party/nwsc.png"
      }
     ,"model":"legco.Party"
     ,"pk":14
@@ -127,17 +131,9 @@
   },
   {
      "fields":{
-     "name_en":"Federation of Hong Kong and Kowloon Labour Unions"
-    ,"name_ch":"港九勞工社團聯會"
-     }
-    ,"model":"legco.Party"
-    ,"pk":15
-    
-  },
-  {
-     "fields":{
-     "name_en":"League of Social Democrats"
-    ,"name_ch":"社會民主連線"
+     "name_en":"League of Social Democrats",
+     "name_ch":"社會民主連線",
+     "image": "/static/legco/party/lsd.png"
      }
     ,"model":"legco.Party"
     ,"pk":16
@@ -146,7 +142,8 @@
   {
      "fields":{
      "name_en":"New Century Forum"
-    ,"name_ch":"新世紀論壇"
+    ,"name_ch":"新世紀論壇",
+     "image": "/static/legco/party/ncf.png"
      }
     ,"model":"legco.Party"
     ,"pk":17
@@ -155,6 +152,7 @@
      "fields":{
      "name_en":"New People's Party"
     ,"name_ch":"新民黨"
+    ,"image": "/static/legco/party/npp.png"
      }
     ,"model":"legco.Party"
     ,"pk":18
@@ -163,6 +161,7 @@
      "fields":{
      "name_en":"創建力量"
     ,"name_ch":"創建力量"
+    ,"image": ""
      }
     ,"model":"legco.Party"
     ,"pk":19
@@ -171,6 +170,7 @@
      "fields":{
      "name_en":"Proletariat Political Institute"
     ,"name_ch":"普羅政治學苑"
+    ,"image": "/static/legco/party/ppi.png"
      }
     ,"model":"legco.Party"
     ,"pk":20
@@ -178,7 +178,8 @@
   },{
      "fields":{
      "name_en":"Hong Kong Professional Teachers' Union"
-    ,"name_ch":"教協"
+    ,"name_ch":"教協",
+    "image": "/static/legco/party/ptu.png"
      }
     ,"model":"legco.Party"
     ,"pk":21
@@ -187,6 +188,7 @@
      "fields":{
      "name_en":"The Federation of Hong Kong and Kowloon Labour Unions"
     ,"name_ch":"港九勞工社團聯會"
+    ,"image": "/static/legco/party/flu.png"
      }
     ,"model":"legco.Party"
     ,"pk":22

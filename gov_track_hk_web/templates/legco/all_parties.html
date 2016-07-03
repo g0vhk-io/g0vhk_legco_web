@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% block page_content%}
+<center>
+<h2>政黨</h2>
+</center>
+<table width="90%" align="center">
+{% for party in parties %}
+{% if forloop.counter == 1 %}
+    <tr>
+    {% endif %}
+ 
+       <td width="30%">
+           <a href="/legco/party/{{party.id}}">{{party.name_ch}}</a><br/>
+           <img src="{{party.image}}" height="50"/>
+       
+           <br/>
+           <br/>
+           <br/>
+       </td>
+
+
+{% if forloop.counter|divisibleby:"3" and forloop.counter > 0 %}
+    </tr>
+    {% endif %}
+ {% if forloop.counter|divisibleby:"3" or forloop.counter == forloop.last %}
+    <tr>
+    {% endif %}
+ 
+{% endfor %}
+</table>
+{% endblock%}

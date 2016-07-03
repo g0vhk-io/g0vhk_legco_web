@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% block page_content%}
+<div style="width:20%" class="panel panel-default">
+    <div class="panel-heading">最常缺席議員</div>
+    <div class="panel-body">
+        <table id="most-absent" class="cell-border">
+            <thead>
+            <tr>
+                <th width="50%">議員</th>
+                <th width="50%">缺席會議次數</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $('#most-absent').DataTable( {
+        "ajax": { 
+            url:"/api/most_absent/",
+            dataSrc:""
+        },
+        "searching": false,
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "columns": [
+            { "data": "individual.name" },
+            { "data": "count" },
+        ]
+    } );
+} );
+</script>
+{% endblock %}

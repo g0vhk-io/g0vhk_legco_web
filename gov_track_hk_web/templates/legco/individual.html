@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+{% block page_content%}
+<h2>政黨/{{party.name_ch}}</h2>
+<table>
+{% for individual in individuals %}
+    <tr>
+        <td><a href="/legco/individual/{{individual.id}}">{{individual.name_ch}}</a></td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock%}

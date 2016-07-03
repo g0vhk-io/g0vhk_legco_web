@@ -8,15 +8,6 @@
     </tr>
   </thead>
 </table>
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<h2>政黨</h2>
-<table id="parties">
-</table>
 <script>
 $(document).ready(function() {
     $('#latest-votes').DataTable( {
@@ -31,20 +22,6 @@ $(document).ready(function() {
         "columns": [
             { "data": "date" },
             { "data": "motion.name_ch" },
-        ]
-    } );
-
-    $('#parties').DataTable( {
-        "ajax": { 
-            url:"/api/parties/",
-            dataSrc:""
-        },
-        "searching": false,
-        "paging": false,
-        "ordering": false,
-        "info": false,
-        "columns": [
-            { "data": "name_ch" }
         ]
     } );
 } );

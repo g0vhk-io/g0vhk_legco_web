@@ -5,6 +5,7 @@ from datetime import datetime
 class Party(models.Model):
     name_en = models.CharField(max_length=512)
     name_ch = models.CharField(max_length=512)
+    image = models.CharField(max_length=512)
     def __str__(self):
         return self.name_en + "-" + self.name_ch
 
