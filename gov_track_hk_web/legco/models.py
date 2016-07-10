@@ -83,3 +83,13 @@ class IndividualVote(models.Model):
     def __str__(self):
         return self.vote.motion.name_en + " " + self.individual.name_en + " " + self.result
 
+class NewsArticle(models.Model):
+    individuals = models.ManyToManyField(Individual)
+    parties = models.ManyToManyField(Party)
+    link = models.CharField(max_length=2048, unique=True)
+    title = models.CharField(max_length=2048)
+    text = models.TextField(max_length=33554432, default="")
+    image = models.TextField(max_length=33554432, default=None, blank=True, null=True)
+    source = models.CharField(max_length=256)
+    def __str__(self):
+        return self.source + " " + self.title

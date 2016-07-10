@@ -128,5 +128,13 @@ STATICFILES_DIRS = [
     '/var/www/static/',
 ]
 
+MORPH_IO_API_KEY = os.environ['MORPH_API_KEY']
 
 STATIC_URL = '/static/'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp/django_cache',
+    }
+}

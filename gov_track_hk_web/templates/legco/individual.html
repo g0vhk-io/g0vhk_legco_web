@@ -1,10 +1,19 @@
-{% extends 'base.html'%}
+{% extends 'legco/base.html'%}
 {% block page_content%}
-<h2>政黨/{{party.name_ch}}</h2>
+<h2>{{individual.party.name_ch}}/{{individual.name_ch}}</h2>
+<h3>相關新聞</h3>
 <table>
-{% for individual in individuals %}
+{% for n in related_news %}
     <tr>
-        <td><a href="/legco/individual/{{individual.id}}">{{individual.name_ch}}</a></td>
+        <td><a href="{{n.link}}">{{n.title}}</a></td>
+    </tr>
+{% endfor %}
+</table>
+<h3>相關投票</h3>
+<table>
+{% for vr in related_votes %}
+    <tr>
+        <td>{{vr.vote.motion.name_ch}} {{vr.result}}</td>
     </tr>
 {% endfor %}
 </table>

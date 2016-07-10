@@ -23,20 +23,14 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">首頁<span class="sr-only">(current)</span></a></li>
-                <li class="active"><a href="#">立法會</a></li>
-                <li><a href="#">區議會</a></li>
-                <li><a href="#">登入 / 訂閱</a></li>
+                <li class="{% if tbar == 'home' %}active{% endif %}" ><a href="/">首頁<span class="sr-only">(current)</span></a></li>
+                <li class="{% if tbar == 'legco' %}active{% endif %}"><a href="legco">立法會</a></li>
+                <li class="{% if tbar == 'dc' %}active{% endif %}"><a href="#">區議會</a></li>
+                <li class="{% if tbar == 'sub' %}active{% endif %}"><a href="#">登入 / 訂閱</a></li>
             </ul>
         </div>
-        <div>
-            <ul class="nav nav-tabs">
-                <li class="{% if nbar == 'home' %}active{% endif %}"><a href="/legco">首頁<span class="sr-only">(current)</span></a></li>
-                <li class="{% if nbar == 'vote' %}active{% endif %}"><a href="/legco/vote">投票結果</a></li>
-                <li class="{% if nbar == 'party' %}active{% endif %}"><a href="/legco/party">政黨</a></li>
-                <li class="{% if nbar == 'news' %}active{% endif %}"><a href="/legco/party">新聞</a></li>
-            </ul>
-        </div>
+        {% block sub_nav %}
+        {% endblock %}
     </div>
 </nav>
 {% block page_content%}

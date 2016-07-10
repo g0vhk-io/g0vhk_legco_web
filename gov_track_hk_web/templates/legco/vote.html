@@ -1,13 +1,13 @@
-{% extends 'base.html'%}
+{% extends 'legco/base.html'%}
 {% block page_content%}
-<table id="latest-votes" class="cell-border">
-  <thead>
-    <tr>
-        <th width="10%">Date</th>
-        <th width="72%">Motion</th>
-    </tr>
-  </thead>
+<div style="width:30%;margin-left:10px">
+<h3>最新投票結果</h3>
+<table id="latest-votes">
+ <thead style="display:none">
+  <tr></tr>
+ </thead>
 </table>
+</div>
 <script>
 $(document).ready(function() {
     $('#latest-votes').DataTable( {
@@ -20,8 +20,30 @@ $(document).ready(function() {
         "ordering": false,
         "info": false,
         "columns": [
-            { "data": "date" },
-            { "data": "motion.name_ch" },
+            { "render": 
+                function ( data, type, row ) {
+                    console.log(row);
+                    var label_class = "label-primary";
+                    var overall_result = row.summaries.filter(function(s) {return s.     summary_type == "OVER";})[0].result;
+                    if (overall_result == "Passed")
+                    {
+                        label_class = "label-success";
+                    }
+                    else
+                    if (overall_result == "Negatived")
+                    {
+                        label_class = "label-danger"
+                    }
+                    var s = "<div class=\"panel panel-default\">";
+                    s += "<div class=\"panel-heading\">" + row.date + " "  + row.time + "</div>";
+                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.motion.name_ch ;
+                    s += "<br/><div style=\"margin-bottom:7px;margin-top:7px;\">結果: <span class=\"label " + label_class + "\">" + overall_result +  "</span></div>"
+                    s += "動議人: " + row.motion.mover_ch ;
+                    s += "</div>"
+                    s += "</div>";
+                    return s;
+                }
+            },
         ]
     } );
 } );
