@@ -1,6 +1,17 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
 <h2>{{individual.party.name_ch}}/{{individual.name_ch}}</h2>
+<img src="{{individual.image}}"/>
+
+<h3>Stat</h3>
+<table class="table table-bordered">
+{% for f in frequency %}
+    <tr>
+        <td>{{f.result}}</td><td>{{f.dcount}}</td>
+    </tr>
+{% endfor %}
+</table>
+
 <h3>相關新聞</h3>
 <table>
 {% for n in related_news %}
@@ -10,10 +21,11 @@
 {% endfor %}
 </table>
 <h3>相關投票</h3>
-<table>
+<table class="table table-bordered">
 {% for vr in related_votes %}
     <tr>
-        <td>{{vr.vote.motion.name_ch}} {{vr.result}}</td>
+        <td><a href="/legco/vote/{{vr.vote.id}}/">{{vr.vote.motion.name_ch}}</a></td>
+        <td>{{vr.result}}</td>
     </tr>
 {% endfor %}
 </table>

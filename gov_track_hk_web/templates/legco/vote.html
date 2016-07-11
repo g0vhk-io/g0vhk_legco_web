@@ -34,13 +34,22 @@ $(document).ready(function() {
                     {
                         label_class = "label-danger"
                     }
-                    var s = "<div class=\"panel panel-default\">";
+                    var s = "";
+                    
+                        
+                    s += "<div class=\"panel panel-default\">";
                     s += "<div class=\"panel-heading\">" + row.date + " "  + row.time + "</div>";
+
                     s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.motion.name_ch ;
                     s += "<br/><div style=\"margin-bottom:7px;margin-top:7px;\">結果: <span class=\"label " + label_class + "\">" + overall_result +  "</span></div>"
                     s += "動議人: " + row.motion.mover_ch ;
+
+                    s += "<a class=\"btn-block\" href=\"/legco/vote/" + row.id  + "/\">"
+                    s += "Go";
+                    s += "</a>";
                     s += "</div>"
                     s += "</div>";
+
                     return s;
                 }
             },

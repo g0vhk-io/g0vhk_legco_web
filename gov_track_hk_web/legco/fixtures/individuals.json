@@ -3,6 +3,7 @@
      "fields":{
      "name_ch":"曾鈺成"
     ,"name_en":"TSANG Yok-sing"
+    ,"image": "/static/legco/member/tys.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -13,6 +14,7 @@
      "fields":{
      "name_ch":"何俊仁"
     ,"name_en":"Albert HO"
+    ,"image": "/static/legco/member/hcy.jpg"
     ,"party":3
      }
     ,"model":"legco.Individual"
@@ -23,6 +25,7 @@
      "fields":{
      "name_ch":"李卓人"
     ,"name_en":"LEE Cheuk-yan"
+    ,"image": "/static/legco/member/lcy.jpg"
     ,"party":7
      }
     ,"model":"legco.Individual"
@@ -33,6 +36,7 @@
      "fields":{
      "name_ch":"涂謹申"
     ,"name_en":"James TO"
+    ,"image": "/static/legco/member/tks.jpg"
     ,"party":3
      }
     ,"model":"legco.Individual"
@@ -43,6 +47,7 @@
      "fields":{
      "name_ch":"陳鑑林"
     ,"name_en":"CHAN Kam-lam"
+    ,"image": "/static/legco/member/ckl.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -53,6 +58,7 @@
      "fields":{
      "name_ch":"梁耀忠"
     ,"name_en":"LEUNG Yiu-chung"
+    ,"image": "/static/legco/member/lyc.jpg"
     ,"party":14
      }
     ,"model":"legco.Individual"
@@ -63,6 +69,7 @@
      "fields":{
      "name_ch":"劉皇發"
     ,"name_en":"Dr LAU Wong-fat"
+    ,"image": "/static/legco/member/lwf.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -73,6 +80,7 @@
      "fields":{
      "name_ch":"劉慧卿"
     ,"name_en":"Emily LAU"
+    ,"image": "/static/legco/member/lwh.jpg"
     ,"party":3
      }
     ,"model":"legco.Individual"
@@ -83,6 +91,7 @@
      "fields":{
      "name_ch":"譚耀宗"
     ,"name_en":"TAM Yiu-chung"
+    ,"image": "/static/legco/member/tyc.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -93,6 +102,7 @@
      "fields":{
      "name_ch":"石禮謙"
     ,"name_en":"Abraham SHEK"
+    ,"image": "/static/legco/member/slh.jpg"
     ,"party":2
      }
     ,"model":"legco.Individual"
@@ -103,6 +113,7 @@
      "fields":{
      "name_ch":"張宇人"
     ,"name_en":"Tommy CHEUNG"
+    ,"image": "/static/legco/member/cyy.jpg"
     ,"party":6
      }
     ,"model":"legco.Individual"
@@ -113,6 +124,7 @@
      "fields":{
      "name_ch":"馮檢基"
     ,"name_en":"Frederick FUNG"
+    ,"image": "/static/legco/member/fkk.jpg"
     ,"party":12
      }
     ,"model":"legco.Individual"
@@ -123,6 +135,7 @@
      "fields":{
      "name_ch":"方剛"
     ,"name_en":"Vincent FANG"
+    ,"image": "/static/legco/member/fk.jpg"
     ,"party":6
      }
     ,"model":"legco.Individual"
@@ -133,6 +146,7 @@
      "fields":{
      "name_ch":"王國興"
     ,"name_en":"WONG Kwok-hing"
+    ,"image": "/static/legco/member/wkh.jpg"
     ,"party":4
      }
     ,"model":"legco.Individual"
@@ -143,6 +157,7 @@
      "fields":{
      "name_ch":"李國麟"
     ,"name_en":"Prof Joseph LEE"
+    ,"image": "/static/legco/member/lklj.jpg"
     ,"party":null
      }
     ,"model":"legco.Individual"
@@ -153,6 +168,7 @@
      "fields":{
      "name_ch":"林健鋒"
     ,"name_en":"Jeffrey LAM"
+    ,"image": "/static/legco/member/lkf.jpg"
     ,"party":2
      }
     ,"model":"legco.Individual"
@@ -163,6 +179,7 @@
      "fields":{
      "name_ch":"梁君彥"
     ,"name_en":"Andrew LEUNG"
+    ,"image": "/static/legco/member/lky.jpg"
     ,"party":2
      }
     ,"model":"legco.Individual"
@@ -173,16 +190,18 @@
      "fields":{
      "name_ch":"黃定光"
     ,"name_en":"WONG Ting-kwong"
+    ,"image": "/static/legco/member/wtk.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
-    ,"pk":"1"
+    ,"pk":"18"
     
   },
   {
      "fields":{
      "name_ch":"何秀蘭"
     ,"name_en":"Cyd HO"
+    ,"image": "/static/legco/member/hsl.jpg"
     ,"party":7
      }
     ,"model":"legco.Individual"
@@ -192,6 +211,7 @@
   {
      "fields":{
      "name_ch":"李慧琼"
+     ,"image": "/static/legco/member/lwks.jpg"
     ,"name_en":"Starry LEE"
     ,"party":1
      }
@@ -203,6 +223,7 @@
      "fields":{
      "name_ch":"林大輝"
     ,"name_en":"Dr LAM Tai-fai"
+    ,"image": "/static/legco/member/ltf.jpg"
     ,"party":null
      }
     ,"model":"legco.Individual"
@@ -213,16 +234,18 @@
      "fields":{
      "name_ch":"陳克勤"
     ,"name_en":"CHAN Hak-kan"
+    ,"image": "/static/legco/member/chk.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
-    ,"pk":"1"
+    ,"pk":"22"
     
   },
   {
      "fields":{
      "name_ch":"陳健波"
     ,"name_en":"CHAN Kin-por"
+    ,"image": "/static/legco/member/ckp.jpg"
     ,"party":null
      }
     ,"model":"legco.Individual"
@@ -233,6 +256,7 @@
      "fields":{
      "name_ch":"梁美芬"
     ,"name_en":"Dr Priscilla LEUNG"
+    ,"image": "/static/legco/member/lmf.jpg"
     ,"party":2
      }
     ,"model":"legco.Individual"
@@ -243,6 +267,7 @@
      "fields":{
      "name_ch":"梁家騮"
     ,"name_en":"Dr LEUNG Ka-lau"
+    ,"image": "/static/legco/member/lkl.jpg"
     ,"party":null
      }
     ,"model":"legco.Individual"
@@ -253,6 +278,7 @@
      "fields":{
      "name_ch":"張國柱"
     ,"name_en":"CHEUNG Kwok-che"
+    ,"image": "/static/legco/member/ckc.jpg"
     ,"party":7
      }
     ,"model":"legco.Individual"
@@ -263,6 +289,7 @@
      "fields":{
      "name_ch":"黃國健"
     ,"name_en":"WONG Kwok-kin"
+    ,"image": "/static/legco/member/wkk.jpg"
     ,"party":4
      }
     ,"model":"legco.Individual"
@@ -273,6 +300,7 @@
      "fields":{
      "name_ch":"葉國謙"
     ,"name_en":"IP Kwok-him"
+    ,"image": "/static/legco/member/ikh.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -283,6 +311,7 @@
      "fields":{
      "name_ch":"葉劉淑儀"
     ,"name_en":"Mrs Regina IP"
+    ,"image": "/static/legco/member/ilsy.jpg"
     ,"party":18
      }
     ,"model":"legco.Individual"
@@ -293,6 +322,7 @@
      "fields":{
      "name_ch":"謝偉俊"
     ,"name_en":"Paul TSE"
+    ,"image": "/static/legco/member/twc.jpg"
     ,"party":19
      }
     ,"model":"legco.Individual"
@@ -303,6 +333,7 @@
      "fields":{
      "name_ch":"梁家傑"
     ,"name_en":"Alan LEONG"
+    ,"image": "/static/legco/member/lkk.jpg"
     ,"party":5
      }
     ,"model":"legco.Individual"
@@ -313,6 +344,7 @@
      "fields":{
      "name_ch":"梁國雄"
     ,"name_en":"LEUNG Kwok-hung"
+    ,"image": "/static/legco/member/lkh.jpg"
     ,"party":16
      }
     ,"model":"legco.Individual"
@@ -322,7 +354,8 @@
   {
      "fields":{
      "name_ch":"陳偉業"
-    ,"name_en":"Albert CHAN"
+   ,"name_en":"Albert CHAN"
+   ,"image": "/static/legco/member/cwy.jpg"
     ,"party":10
      }
     ,"model":"legco.Individual"
@@ -333,6 +366,7 @@
      "fields":{
      "name_ch":"黃毓民"
     ,"name_en":"WONG Yuk-man"
+    ,"image": "/static/legco/member/wym.jpg"
     ,"party":20
      }
     ,"model":"legco.Individual"
@@ -343,6 +377,7 @@
      "fields":{
      "name_ch":"毛孟靜"
     ,"name_en":"Claudia MO"
+    ,"image": "/static/legco/member/mc.jpg"
     ,"party":5
      }
     ,"model":"legco.Individual"
@@ -353,6 +388,7 @@
      "fields":{
      "name_ch":"田北辰"
     ,"name_en":"Michael TIEN"
+    ,"image": "/static/legco/member/tps.jpg"
     ,"party":18
      }
     ,"model":"legco.Individual"
@@ -363,6 +399,7 @@
      "fields":{
      "name_ch":"田北俊"
     ,"name_en":"James TIEN"
+    ,"image": "/static/legco/member/tpc.jpg"
     ,"party":6
      }
     ,"model":"legco.Individual"
@@ -373,6 +410,7 @@
      "fields":{
      "name_ch":"吳亮星"
     ,"name_en":"NG Leung-sing"
+    ,"image": "/static/legco/member/nls.jpg"
     ,"party":null
      }
     ,"model":"legco.Individual"
@@ -383,6 +421,7 @@
      "fields":{
      "name_ch":"何俊賢"
     ,"name_en":"Steven HO"
+    ,"image": "/static/legco/member/hcys.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -393,6 +432,7 @@
      "fields":{
      "name_ch":"易志明"
     ,"name_en":"Frankie YICK"
+    ,"image": "/static/legco/member/ycm.jpg"
     ,"party":6
      }
     ,"model":"legco.Individual"
@@ -403,6 +443,7 @@
      "fields":{
      "name_ch":"胡志偉"
     ,"name_en":"WU Chi-wai"
+    ,"image": "/static/legco/member/wcw.jpg"
     ,"party":3
      }
     ,"model":"legco.Individual"
@@ -413,6 +454,7 @@
      "fields":{
      "name_ch":"姚思榮"
     ,"name_en":"YIU Si-wing"
+    ,"image": "/static/legco/member/ysw.jpg"
     ,"party":null
      }
     ,"model":"legco.Individual"
@@ -423,6 +465,7 @@
      "fields":{
      "name_ch":"范國威"
     ,"name_en":"Gary FAN"
+    ,"image": "/static/legco/member/fkw.jpg"
     ,"party":13
      }
     ,"model":"legco.Individual"
@@ -433,6 +476,7 @@
      "fields":{
      "name_ch":"馬逢國"
     ,"name_en":"MA Fung-kwok"
+    ,"image": "/static/legco/member/mfk.jpg"
     ,"party":17
      }
     ,"model":"legco.Individual"
@@ -443,6 +487,7 @@
      "fields":{
      "name_ch":"莫乃光"
     ,"name_en":"Charles Peter MOK"
+    ,"image": "/static/legco/member/mcp.jpg"
     ,"party":11
      }
     ,"model":"legco.Individual"
@@ -453,6 +498,7 @@
      "fields":{
      "name_ch":"陳志全"
     ,"name_en":"CHAN Chi-chuen"
+    ,"image": "/static/legco/member/ccc.jpg"
     ,"party":10
      }
     ,"model":"legco.Individual"
@@ -463,6 +509,7 @@
      "fields":{
      "name_ch":"陳恒鑌"
     ,"name_en":"CHAN Han-pan"
+    ,"image": "/static/legco/member/chp.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -473,6 +520,7 @@
      "fields":{
      "name_ch":"陳家洛"
     ,"name_en":"Dr Kenneth CHAN"
+    ,"image": "/static/legco/member/ckl.jpg"
     ,"party":5
      }
     ,"model":"legco.Individual"
@@ -483,6 +531,7 @@
      "fields":{
      "name_ch":"陳婉嫻"
     ,"name_en":"CHAN Yuen-han"
+    ,"image": "/static/legco/member/cyh.jpg"
     ,"party":4
      }
     ,"model":"legco.Individual"
@@ -493,6 +542,7 @@
      "fields":{
      "name_ch":"梁志祥"
     ,"name_en":"LEUNG Che-cheung"
+    ,"image": "/static/legco/member/lcc.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -503,6 +553,7 @@
      "fields":{
      "name_ch":"梁繼昌"
     ,"name_en":"Kenneth LEUNG"
+    ,"image": "/static/legco/member/lk.jpg"
     ,"party":11
      }
     ,"model":"legco.Individual"
@@ -513,6 +564,7 @@
      "fields":{
      "name_ch":"麥美娟"
     ,"name_en":"Alice MAK"
+    ,"image": "/static/legco/member/mmk.jpg"
     ,"party":4
      }
     ,"model":"legco.Individual"
@@ -523,6 +575,7 @@
      "fields":{
      "name_ch":"郭家麒"
     ,"name_en":"Dr KWOK Ka-ki"
+    ,"image": "/static/legco/member/kkk.jpg"
     ,"party":5
      }
     ,"model":"legco.Individual"
@@ -533,6 +586,7 @@
      "fields":{
      "name_ch":"郭偉强"
     ,"name_en":"KWOK Wai-keung"
+    ,"image": "/static/legco/member/kwl.jpg"
     ,"party":4
      }
     ,"model":"legco.Individual"
@@ -543,6 +597,7 @@
      "fields":{
      "name_ch":"郭榮鏗"
     ,"name_en":"Dennis KWOK"
+    ,"image": "/static/legco/member/kd.jpg"
     ,"party":5
      }
     ,"model":"legco.Individual"
@@ -553,6 +608,7 @@
      "fields":{
      "name_ch":"張華峰"
     ,"name_en":"Christopher CHEUNG"
+    ,"image": "/static/legco/member/cwf.jpg"
     ,"party":2
      }
     ,"model":"legco.Individual"
@@ -563,6 +619,7 @@
      "fields":{
      "name_ch":"張超雄"
     ,"name_en":"Dr Fernando CHEUNG"
+    ,"image": "/static/legco/member/cch.jpg"
     ,"party":7
      }
     ,"model":"legco.Individual"
@@ -573,6 +630,7 @@
      "fields":{
      "name_ch":"單仲偕"
     ,"name_en":"SIN Chung-kai"
+    ,"image": "/static/legco/member/sck.jpg"
     ,"party":3
      }
     ,"model":"legco.Individual"
@@ -583,6 +641,7 @@
      "fields":{
      "name_ch":"黃碧雲"
     ,"name_en":"Dr Helena WONG"
+    ,"image": "/static/legco/member/wpw.jpg"
     ,"party":3
      }
     ,"model":"legco.Individual"
@@ -593,6 +652,7 @@
      "fields":{
      "name_ch":"葉建源"
     ,"name_en":"IP Kin-yuen"
+    ,"image": "/static/legco/member/iky.jpg"
     ,"party":21
      }
     ,"model":"legco.Individual"
@@ -603,6 +663,7 @@
      "fields":{
      "name_ch":"葛珮帆"
     ,"name_en":"Dr Elizabeth QUAT"
+    ,"image": "/static/legco/member/qe.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -613,6 +674,7 @@
      "fields":{
      "name_ch":"廖長江"
     ,"name_en":"Martin LIAO"
+    ,"image": "/static/legco/member/lck.jpg"
     ,"party":null
      }
     ,"model":"legco.Individual"
@@ -623,6 +685,7 @@
      "fields":{
      "name_ch":"潘兆平"
     ,"name_en":"POON Siu-ping"
+    ,"image": "/static/legco/member/psp.jpg"
     ,"party":22
      }
     ,"model":"legco.Individual"
@@ -633,6 +696,7 @@
      "fields":{
      "name_ch":"鄧家彪"
     ,"name_en":"TANG Ka-piu"
+    ,"image": "/static/legco/member/tkp.jpg"
     ,"party":4
      }
     ,"model":"legco.Individual"
@@ -643,6 +707,7 @@
      "fields":{
      "name_ch":"蔣麗芸"
     ,"name_en":"Dr CHIANG Lai-wan"
+    ,"image": "/static/legco/member/clw.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -653,6 +718,7 @@
      "fields":{
      "name_ch":"盧偉國"
     ,"name_en":"Ir Dr LO Wai-kwok"
+    ,"image": "/static/legco/member/lwk.jpg"
     ,"party":2
      }
     ,"model":"legco.Individual"
@@ -663,6 +729,7 @@
      "fields":{
      "name_ch":"鍾國斌"
     ,"name_en":"CHUNG Kwok-pan"
+    ,"image": "/static/legco/member/ckpf.jpg"
     ,"party":6
      }
     ,"model":"legco.Individual"
@@ -673,6 +740,7 @@
      "fields":{
      "name_ch":"鍾樹根"
     ,"name_en":"Christopher CHUNG"
+    ,"image": "/static/legco/member/cwf.jpg"
     ,"party":1
      }
     ,"model":"legco.Individual"
@@ -683,6 +751,7 @@
      "fields":{
      "name_ch":"謝偉銓"
     ,"name_en":"Tony TSE"
+    ,"image": "/static/legco/member/twct.jpg"
     ,"party":null
      }
     ,"model":"legco.Individual"
@@ -693,6 +762,7 @@
      "fields":{
      "name_ch":"楊岳橋"
     ,"name_en":"Alvin YEUNG"
+    ,"image": "/static/legco/member/ynk.jpg"
     ,"party":5
      }
     ,"model":"legco.Individual"
@@ -703,6 +773,7 @@
      "fields":{
      "name_ch":"湯家驊"
     ,"name_en":"Ronny TONG"
+    ,"image": "/static/legco/member/tkw.jpg"
     ,"party":5
      }
     ,"model":"legco.Individual"

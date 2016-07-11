@@ -46,7 +46,7 @@ class LatestVotesViewSet(viewsets.ViewSet):
              'vote_count': summary.vote_count,
              'result': summary.result
             })
-        results = [{'date': q.date, 'time': q.time, 'motion': {'name_ch': q.motion.name_ch, 'mover_ch': q.motion.mover_ch},'summaries':summary_dict[q.id]} for q in queryset]
+        results = [{'date': q.date, 'time': q.time, 'id': q.id, 'motion': {'name_ch': q.motion.name_ch, 'mover_ch': q.motion.mover_ch},'summaries':summary_dict[q.id]} for q in queryset]
         return Response(results)
 
 class PartiesViewSet(viewsets.ModelViewSet):

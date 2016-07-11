@@ -5,7 +5,16 @@
 <table>
 {% for individual in individuals %}
     <tr>
-        <td><a href="/legco/individual/{{individual.id}}">{{individual.name_ch}}</a></td>
+        <td><a href="/legco/individual/{{individual.id}}">{{individual.name_ch}}</a><img src="{{individual.image}}"/></td>
+    </tr>
+{% endfor %}
+</table>
+
+<h3>相關新聞</h3>
+<table>
+{% for n in related_news %}
+    <tr>
+        <td><a href="{{n.link}}">{{n.title}}</a></td>
     </tr>
 {% endfor %}
 </table>
