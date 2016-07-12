@@ -43,7 +43,8 @@ class Council(models.Model):
 class Meeting(models.Model):
     date = models.DateField()
     meeting_type = models.CharField(max_length=1024,default=None)
-    source_url = models.CharField(max_length=2048, null=True, unique=True)
+    key = models.CharField(max_length=255, default="no-key", blank=True, null=True, unique=True)
+    source_url = models.CharField(max_length=2048, null=True)
     def __str__(self):
         return self.date.strftime('%Y-%m-%d') + "-" + str(self.source_url)
 
@@ -87,7 +88,8 @@ class IndividualVote(models.Model):
 class NewsArticle(models.Model):
     individuals = models.ManyToManyField(Individual)
     parties = models.ManyToManyField(Party)
-    link = models.CharField(max_length=2048, unique=True)
+    link = models.CharField(max_length=2048)
+    key = models.CharField(max_length=255, default="no-key", blank=True, null=True, unique=True)
     title = models.CharField(max_length=2048)
     text = models.TextField(max_length=33554432, default="")
     image = models.TextField(max_length=33554432, default=None, blank=True, null=True)

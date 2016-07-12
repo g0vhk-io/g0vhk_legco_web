@@ -31,8 +31,9 @@ class IndividiualSerializer(serializers.ModelSerializer):
 
 class LatestVotesViewSet(viewsets.ViewSet):
     def list(self, request):
-        queryset = Vote.objects.all().prefetch_related('motion').order_by('-date', '-time')[0:20]
-        summaries = VoteSummary.objects.filter(vote__in = queryset)
+        queryset = Vote.objects.all().prefetch_related('motion').order_by('-date', '-time')[:20]
+        pks = [i.id for i in queryset]
+        summaries = VoteSummary.objects.filter(vote__pk__in = pks)
         summary_dict = {}
         for summary in summaries:
             if summary.vote.id not in summary_dict:
