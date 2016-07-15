@@ -1,24 +1,18 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
-<div style="width:30%;margin-left:10px">
-<h3>最新投票結果</h3>
-<table id="latest-votes">
+<div style="width:50%">
+<table id="votes-search">
  <thead style="display:none">
   <tr></tr>
  </thead>
 </table>
-</div>
 <script>
 $(document).ready(function() {
-    $('#latest-votes').DataTable( {
+    $('#votes-search').DataTable( {
         "ajax": { 
-            url:"/api/latest_votes/",
+            url:"/api/votes_search/%20/",
             dataSrc:""
         },
-        "searching": false,
-        "paging": false,
-        "ordering": false,
-        "info": false,
         "columns": [
             { "render": 
                 function ( data, type, row ) {
@@ -57,4 +51,7 @@ $(document).ready(function() {
     } );
 } );
 </script>
+
+
+</div>
 {% endblock %}

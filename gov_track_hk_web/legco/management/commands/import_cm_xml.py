@@ -4,6 +4,14 @@ from legco.models import Meeting, Vote, Motion, Individual, IndividualVote, Vote
 from lxml import etree
 from datetime import *
 from dateutil.parser import *
+import md5
+
+def parse_date(s):
+    return datetime.strptime(s, "%d/%m/%Y")
+
+def parse_time(s):
+    return datetime.strptime(s or "00:00:00", "%H:%M:%S")
+
 class Command(BaseCommand):
     help = 'Closes the specified poll for voting'
 
@@ -22,23 +30,28 @@ class Command(BaseCommand):
         for meeting_node in doc.xpath('//meeting'):
             with transaction.atomic():
                 meeting = Meeting()
-                start_date = parse(meeting_node.attrib['start-date'])
-                meeting.date = start_date.date()
+                meeting.date = parse_date(meeting_node.attrib['start-date'])
                 meeting.meeting_type = meeting_node.attrib['type']
                 meeting.source_url = url
+                meeting.key =  str(md5.new(url).hexdigest())
                 meeting.save()
                 for vote_node in meeting_node.xpath('./vote'):
                     motion = Motion()
-                    motion.name_en = vote_node.xpath('motion-en')[0].text
+                    motion.name_en = vote_node.xpath('motion-en')[0].text or ""
                     motion.name_ch = vote_node.xpath('motion-ch')[0].text
-                    motion.mover_en = vote_node.xpath('mover-en')[0].text
-                    motion.mover_ch = vote_node.xpath('mover-ch')[0].text
-                    motion.mover_type = vote_node.xpath('mover-type')[0].text
+                    if len(vote_node.xpath('mover-en')) > 0:
+                        motion.mover_en = vote_node.xpath('mover-en')[0].text
+                        motion.mover_ch = vote_node.xpath('mover-ch')[0].text
+                        motion.mover_type = vote_node.xpath('mover-type')[0].text
+                    else:
+                        motion.mover_en = ""
+                        motion.mover_ch = ""
+                        motion.mover_type = ""
                     motion.save()
                     vote = Vote()
                     vote.meeting = meeting
-                    vote.date = parse(vote_node.xpath('vote-date')[0].text).date()
-                    vote.time = parse(vote_node.xpath('vote-time')[0].text).time()
+                    vote.date = parse_date(vote_node.xpath('vote-date')[0].text)
+                    vote.time = parse_time(vote_node.xpath('vote-time')[0].text)
                     vote.vote_number = int(vote_node.attrib['number'])
                     vote.separate = vote_node.xpath('vote-separate-mechanism')[0].text == "Yes"
                     vote.motion = motion

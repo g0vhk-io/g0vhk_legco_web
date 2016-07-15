@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from django.db.models import Q
 from django.core.cache import cache
 from rest_framework import viewsets
 from django.db.models import Count
@@ -49,6 +51,30 @@ class LatestVotesViewSet(viewsets.ViewSet):
             })
         results = [{'date': q.date, 'time': q.time, 'id': q.id, 'motion': {'name_ch': q.motion.name_ch, 'mover_ch': q.motion.mover_ch},'summaries':summary_dict[q.id]} for q in queryset]
         return Response(results)
+
+class VotesSearchViewSet(viewsets.ViewSet):
+    def list(self, request, keyword):
+        queryset = Vote.objects.all().prefetch_related('motion').filter(Q(motion__name_ch__contains = keyword) | Q(motion__mover_ch__contains = keyword)).order_by('-date', '-time')[0:100]
+        pks = [i.id for i in queryset]
+        summaries = VoteSummary.objects.filter(vote__pk__in = pks)
+        summary_dict = {}
+        for summary in summaries:
+            if summary.vote.id not in summary_dict:
+                summary_dict[summary.vote.id] = []
+            summary_dict[summary.vote.id].append(
+            {'summary_type': summary.summary_type,
+             'present_count':summary.present_count,
+             'yes_count':summary.yes_count,
+             'no_count':summary.no_count,
+             'abstain_count':summary.abstain_count,
+             'vote_count': summary.vote_count,
+             'result': summary.result
+            })
+        results = [{'date': q.date, 'time': q.time, 'id': q.id, 'motion': {'name_ch': q.motion.name_ch, 'mover_ch': q.motion.mover_ch},'summaries':summary_dict[q.id]} for q in queryset]
+        return Response(results)
+
+
+
 
 class PartiesViewSet(viewsets.ModelViewSet):
     queryset = Party.objects.all()

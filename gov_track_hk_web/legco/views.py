@@ -40,3 +40,8 @@ def party_view(request, pk):
 def all_parties_view(request):
     parties = Party.objects.all()
     return render(request, 'legco/all_parties.html', {'parties': parties, 'nbar': 'party', 'tbar': 'legco'})
+
+def all_bills_view(request):
+    return render(request, 'legco/bill.html', {'nbar': 'bill', 'tbar': 'legco'})
+
+
