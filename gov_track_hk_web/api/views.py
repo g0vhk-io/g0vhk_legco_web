@@ -3,10 +3,11 @@ from django.db.models import Q
 from django.core.cache import cache
 from rest_framework import viewsets
 from django.db.models import Count
-from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary
+from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill
 from rest_framework import serializers
 from rest_framework.response import Response
 from gov_track_hk_web.settings import MORPH_IO_API_KEY
+from datetime import datetime
 import requests
 
 class MotionSerializer(serializers.ModelSerializer):
@@ -73,7 +74,21 @@ class VotesSearchViewSet(viewsets.ViewSet):
         results = [{'date': q.date, 'time': q.time, 'id': q.id, 'motion': {'name_ch': q.motion.name_ch, 'mover_ch': q.motion.mover_ch},'summaries':summary_dict[q.id]} for q in queryset]
         return Response(results)
 
+class BillsSearchViewSet(viewsets.ViewSet):
+    def list(self, request, keyword):
+        queryset = Bill.objects.all().prefetch_related('committee').prefetch_related('first_reading').prefetch_related('second_reading').prefetch_related('third_reading').filter(bill_title_ch__contains = keyword).order_by('-committee__bills_committee_formation_date')[0:100]
+        pks = [i.id for i in queryset]
+        results = [{'id': q.id, 'title': q.bill_title_ch, 'committee': q.committee.bills_committee_title_ch, 'ordinance': q.ordinance_title_ch} for q in queryset]
+        return Response(results)
 
+
+class LatestBillsViewSet(viewsets.ViewSet):
+    def list(self, request):
+        bills = Bill.objects.filter(third_reading__third_reading_date = datetime.min)
+        output = []
+        for bill in bills:
+            output.append({'title_en': bill.bill_title_en, 'title_ch': bill.bill_title_ch, 'id': bill.id})
+        return Response(output)
 
 
 class PartiesViewSet(viewsets.ModelViewSet):

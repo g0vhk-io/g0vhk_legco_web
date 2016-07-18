@@ -97,3 +97,17 @@ class NewsArticle(models.Model):
     source = models.CharField(max_length=256)
     def __unicode__(self):
         return self.source + " " + self.title
+
+class Question(models.Model):
+    individual = models.ForeignKey(Individual)
+    key = models.CharField(max_length=100, unique=True)
+    date = models.DateField()
+    question_type = models.CharField(max_length=255)
+    link = models.CharField(max_length=1024, default="")
+    question = models.TextField(max_length=33554432, default="")
+    answer = models.TextField(max_length=33554432, default="")
+    responder = models.CharField(max_length=255)
+    question_type = models.CharField(max_length=512)
+    title_ch = models.CharField(max_length=512, default="")
+    def __unicode__(self):
+        return self.date.strftime("%Y-%m-%d") + self.individual.name_ch + self.title_ch

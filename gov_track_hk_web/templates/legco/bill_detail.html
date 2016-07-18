@@ -1,0 +1,48 @@
+{% extends 'legco/base.html'%}
+{% load legco_extras %}
+{% block page_content%}
+
+
+<h1>{{bill.bill_title_ch}}<small>{{bill.proposed_by_ch}}</small></h1>
+<div>
+    <div class="panel panel-default" style="width:30%;float:left">
+        <div class="panel-heading">資料</div>
+        <table class="table table-bordered">
+        <tr>
+            <td>刊登憲報日期: </td><td>{{bill.bill_gazette_date|parse_date_chinese}}</td>
+        </tr>
+        <tr>
+            <td>首讀日期: </td><td>{{bill.first_reading.first_reading_date|parse_date_chinese}}</td>
+        </tr>
+        <tr>
+            <td>二讀日期: </td><td>{{bill.second_reading.second_reading_date|parse_date_chinese}}</td>
+        </tr>
+     
+        <tr>
+            <td>三讀日期: </td><td>{{bill.third_reading.third_reading_date|parse_date_chinese}}</td>
+        </tr>
+        
+        <tr>
+            <td colspan="2"><a href="{{bill.ordinance_content_url_ch}}">提出的法案</a></td>
+        </tr>
+        <tr>
+            <td colspan="2"><a href="{{bill.ordinance_gazette_content_url_ch}}">通過的法案</a></td>
+        </tr>
+        </table>
+    </div>
+    <div style="float:left;width:30%; margin-left:20px" class="panel panel-default">
+        <div class="panel-heading">委員會</div>
+        <table class="table table-bordered">
+            <tr>
+                <td>{{bill.committee.bills_committee_title_ch}}</td>
+            </tr>
+        </table>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+
+<h2>首讀</h2><br/>
+
+<h2>二讀</h2><br/>
+<h2>三讀</h2><br/>
+{% endblock%}

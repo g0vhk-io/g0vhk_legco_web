@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Count
-from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary
+from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill
 # Create your views here.
 
 
@@ -44,4 +44,6 @@ def all_parties_view(request):
 def all_bills_view(request):
     return render(request, 'legco/bill.html', {'nbar': 'bill', 'tbar': 'legco'})
 
-
+def bill_detail_view(request, pk):
+    bill = Bill.objects.prefetch_related('committee').prefetch_related('first_reading').prefetch_related('second_reading').prefetch_related('third_reading').get(pk=pk)
+    return render(request, 'legco/bill_detail.html', {'nbar': 'bill', 'tbar': 'legco', 'bill': bill})

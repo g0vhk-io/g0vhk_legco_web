@@ -26,6 +26,23 @@
     </div>
     </div>
 </div>
+<div style="width:40%;float:left;margin-left:10px;">
+
+    <h2>最新法案</h2>
+    <div class="panel panel-default">
+    <div class="panel-body">
+        <table id="latest-bills" class="cell-border">
+            <thead>
+            <tr>
+                <th width="50%">法案</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    </div>
+    </div>
+</div>
+
 <script>
 $(document).ready(function() {
     $('#latest-votes').DataTable( {
@@ -90,6 +107,29 @@ $(document).ready(function() {
         "columns": [
             { "data": "individual.name" },
             { "data": "count" },
+        ]
+    } );
+} );
+</script>
+
+<script>
+$(document).ready(function() {
+    $('#latest-bills').DataTable( {
+        "ajax": { 
+            url:"/api/latest_bills/",
+            dataSrc:""
+        },
+        "searching": false,
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "columns": [
+            { "render":
+                function ( data, type, row ) {
+                    var html = "<a href=\"/legco/bill/" + row['id'] + "\">" + row['title_ch'] + "</a>";
+                    return html;
+                },
+            }
         ]
     } );
 } );

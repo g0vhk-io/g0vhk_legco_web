@@ -1,4 +1,45 @@
 {% extends 'legco/base.html'%}
 {% block page_content %}
 <h1>法案</h1>
+<div style="width:40%">
+<table id="bills-search" style="width:100%">
+ <thead style="display:none">
+  <tr></tr>
+ </thead>
+</table>
+<script>
+$(document).ready(function() {
+    $('#bills-search').DataTable( {
+        "bSort": false,
+        "ajax": { 
+            url:"/api/bills_search//",
+            dataSrc:""
+        },
+        "columns": [
+            { "width": "100%","render": 
+                function ( data, type, row ) {
+                    console.log(row);
+                    var s = "";
+                    
+                        
+                    s += "<div class=\"panel panel-default\">";
+                    s += "<div class=\"panel-heading\">" + row.title + "</div>";
+
+                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.title ;
+                    s += "<a class=\"btn-block\" href=\"/legco/bill/" + row.id  + "/\">"
+                    s += "Go";
+                    s += "</a>";
+                    s += "</div>"
+                    s += "</div>";
+
+                    return s;
+                }
+            },
+        ]
+    } );
+} );
+</script>
+
+
+</div>
 {% endblock%}
