@@ -3,6 +3,11 @@ from datetime import datetime
 from bill_model import *
 # Create your models here.
 
+class Keyword(models.Model):
+    keyword = models.CharField(max_length=128, unique=True)
+    def __unicode__(self):
+        return self.keyword
+
 class Party(models.Model):
     name_en = models.CharField(max_length=512)
     name_ch = models.CharField(max_length=512)
@@ -109,5 +114,9 @@ class Question(models.Model):
     responder = models.CharField(max_length=255)
     question_type = models.CharField(max_length=512)
     title_ch = models.CharField(max_length=512, default="")
+    keywords = models.ManyToManyField(Keyword)
     def __unicode__(self):
         return self.date.strftime("%Y-%m-%d") + self.individual.name_ch + self.title_ch
+
+
+

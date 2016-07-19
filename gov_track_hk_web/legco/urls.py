@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^individual/(?P<pk>[0-9]+)/$', individual_view),
     url(r'^bill/(?P<pk>[0-9]+)/$', bill_detail_view),
     url(r'^bill/$', all_bills_view),
+    url(r'^question/$', all_questions_view),
 ]
 
 

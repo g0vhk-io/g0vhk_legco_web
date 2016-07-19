@@ -15,7 +15,7 @@ import re
 
 
 url_pattern = "http://www.legco.gov.hk/yr%d-%d/chinese/counmtg/question/ques%d%d.htm"
-year_ranges = [(12, 13), (13, 14), (14, 15), (15, 16)]
+year_ranges = [(15, 16)]
 
 def all_text(node):
     return "".join([x for x in node.itertext()])
@@ -72,6 +72,11 @@ class Command(BaseCommand):
                     try:
                         press_release = all_text(detail_root.xpath("//div[@id=\"pressrelease\"]")[0])
                     except IndexError:
+                        detail_r = requests.get(link)
+                        detail_r.encoding = "utf-8"
+                        output = detail_r.text
+                        output = cleaner.clean_html(output)
+                        detail_root = etree.HTML(output)
                         press_release = all_text(detail_root.xpath("//span[@id=\"pressrelease\"]")[0])
                     question_start = press_release.find(u'以下')
                     reply_start = press_release.rfind(u'答覆：')

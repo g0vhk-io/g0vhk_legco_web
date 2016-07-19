@@ -1,0 +1,55 @@
+{% extends 'legco/base.html'%}
+{% load legco_extras %}
+{% block page_content%}
+<h1>質詢</h1>
+<div style="width:40%">
+<table id="questions-search" style="width:100%">
+ <thead style="display:none">
+  <tr></tr>
+ </thead>
+</table>
+<script>
+$(document).ready(function() {
+    $('#questions-search').DataTable( {
+        "bSort": false,
+        "ajax": { 
+            url:"/api/questions",
+            dataSrc:""
+        },
+        "columns": [
+            { "width": "100%","render": 
+                function ( data, type, row ) {
+                    console.log(row);
+                    var s = "";
+                    
+                        
+                    s += "<div class=\"panel panel-default\">";
+                    s += "<div class=\"panel-heading\">" + row.title + "</div>";
+
+                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.individual + " " + row.date + "<br/>";
+                    s += "問題: <br/>" + row.question + "<br/><br/>" ;
+                    s += "答覆: <br/>" + row.answer;
+                    s += "<a class=\"btn-block\" href=\"/legco/question/" + row.id  + "/\">";
+                    
+                    s += "Go";
+                    s += "</a>";
+                    s += "關鍵字:&nbsp;";
+                    for (var i = 0; i < row.keywords.length; i++)
+                    {
+                        s += "<span class=\"label label-default\">" + row.keywords[i] + "</span>&nbsp;"
+                    }
+                    s += "</div>"
+                    s += "</div>";
+
+                    return s;
+                }
+            },
+        ]
+    } );
+} );
+</script>
+
+</div>
+{% endblock%}
+
+
