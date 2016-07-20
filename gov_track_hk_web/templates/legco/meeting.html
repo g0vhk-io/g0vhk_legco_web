@@ -1,0 +1,44 @@
+{% extends 'legco/base.html'%}
+{% load legco_extras %}
+{% block page_content%}
+
+<div class="container">
+  <div class="page-header">
+    <h1 id="timeline">會議過程正式紀錄</h1>
+  </div>
+
+<ul class="timeline">
+{% for s in speeches %}
+<li class="{% if forloop.counter|divisibleby:2 %}timeline-inverted{%endif%}">
+      <div class="timeline-badge success"></div>
+      <div class="timeline-panel">
+        <div class="timeline-heading">
+            <h4 class="timeline-title">{{s.title_ch}}</h4>
+            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>&nbsp;約&nbsp;{{s.est_min}}&nbsp;分鐘</small></p>
+        </div>
+        <div class="timeline-body">
+            <table>
+            <tr>
+            {% if s.individual != None %}    
+            <td valign="top">
+            <img src="{{s.individual.image}}" width="30" style="padding-right:5px"/>
+            </td>
+            {% endif %}
+            <td>
+            <p>
+            {{s.text_ch_short |linebreaksbr}}
+                {% if s.text_ch_more|length > 0 %}
+                <p class="collapse" id="viewdetails{{forloop.counter}}">{{s.text_ch_more|linebreaksbr}}</p>
+                <a class="btn" data-toggle="collapse" data-target="#viewdetails{{forloop.counter}}">展開</a><br/>
+                {%endif%}
+            </td>
+            </tr>
+            </table>
+
+        </div>
+      </div>
+    </li>
+{% endfor%}
+</ul>
+</div>
+{% endblock%}

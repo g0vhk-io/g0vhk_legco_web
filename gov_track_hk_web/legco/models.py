@@ -118,5 +118,18 @@ class Question(models.Model):
     def __unicode__(self):
         return self.date.strftime("%Y-%m-%d") + self.individual.name_ch + self.title_ch
 
+class MeetingSpeech(models.Model):
+    individual = models.ForeignKey(Individual, null=True, blank=True)
+    title_ch = models.CharField(max_length=100)
+    text_ch = models.TextField(max_length=33554432, default="")
+    bookmark = models.CharField(max_length=100)
+    sequence_number = models.IntegerField(default=0)
+
+
+class MeetingHansard(models.Model):
+    date = models.DateField()
+    key = models.CharField(max_length=128, unique=True)
+    source_url = models.CharField(max_length=2048)
+    speeches = models.ManyToManyField(MeetingSpeech)
 
 

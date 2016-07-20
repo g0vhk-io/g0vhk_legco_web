@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^bill/(?P<pk>[0-9]+)/$', bill_detail_view),
     url(r'^bill/$', all_bills_view),
     url(r'^question/$', all_questions_view),
+    url(r'^meeting/(?P<pk>[0-9]+)/$', hansard_view),
 ]
 
 

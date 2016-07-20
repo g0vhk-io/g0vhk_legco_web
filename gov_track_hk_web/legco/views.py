@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Count
-from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill
+from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard
 # Create your views here.
 
 
@@ -51,4 +51,11 @@ def bill_detail_view(request, pk):
 def all_questions_view(request):
     return render(request, 'legco/questions.html', {'nbar': 'question', 'tbar': 'legco'})
 
-
+def hansard_view(request, pk):
+    meeting = MeetingHansard.objects.prefetch_related('speeches').prefetch_related('speeches__individual').get(pk=pk)
+    speeches = [s for s in meeting.speeches.all() if s.title_ch != ""]
+    for speech in speeches:
+        speech.est_min = int(len(speech.text_ch) * 0.012)
+        speech.text_ch_short = speech.text_ch[0:100]
+        speech.text_ch_more = speech.text_ch[100:]
+    return render(request, 'legco/meeting.html', {'meeting': meeting, 'speeches': speeches})
