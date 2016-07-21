@@ -126,10 +126,17 @@ class MeetingSpeech(models.Model):
     sequence_number = models.IntegerField(default=0)
 
 
+class MeetingPersonel(models.Model):
+    individual = models.ForeignKey(Individual, null=True, blank=True)
+    title_ch = models.CharField(max_length=100)
+
 class MeetingHansard(models.Model):
     date = models.DateField()
     key = models.CharField(max_length=128, unique=True)
     source_url = models.CharField(max_length=2048)
     speeches = models.ManyToManyField(MeetingSpeech)
-
+    members_present = models.ManyToManyField(MeetingPersonel, related_name='present')
+    members_absent = models.ManyToManyField(MeetingPersonel, related_name='absent')
+    public_officers = models.ManyToManyField(MeetingPersonel, related_name='officers')
+    clerks = models.ManyToManyField(MeetingPersonel, related_name='clerks')
 

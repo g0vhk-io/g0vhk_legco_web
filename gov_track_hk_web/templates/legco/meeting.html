@@ -3,10 +3,34 @@
 {% block page_content%}
 
 <div class="container">
-  <div class="page-header">
-    <h1 id="timeline">會議過程正式紀錄</h1>
-  </div>
+    <h1>會議過程正式紀錄 | {{meeting.date|parse_date_chinese}}</h1>
+    <div class="page-header">
+        <h1>出席議員</h1>
+    </div>
+    {%for p in present%}
+    {%if p.individual != None %}<a href="/legco/individual/{{p.individual.id}}/">{%endif%}
+        {{p.title_ch}}{%if p.individual != None %}</a>{%endif%}&nbsp;
+    {%endfor%}
+    <div><h1>缺席議員</h1>
+    {%for p in absent%}
+    {%if p.individual != None %}<a href="/legco/individual/{{p.individual.id}}/">{%endif%}
+        {{p.title_ch}}{%if p.individual != None %}</a>{%endif%}&nbsp;
+    {%endfor%}
+   <div><h1>出席政府官員</h1>
+    {%for p in public%}
+    {{p.title_ch}}&nbsp;
+    {%endfor%}
+   <div><h1>列席秘書</h1>
+    {%for p in clerks%}
+    {{p.title_ch}}&nbsp;
+    {%endfor%}
+   
 
+
+    <div class="page-header">
+        <h1 id="timeline">會議過程正式紀錄</h1>
+    </div>
+    
 <ul class="timeline">
 {% for s in speeches %}
 <li class="{% if forloop.counter|divisibleby:2 %}timeline-inverted{%endif%}">
@@ -28,7 +52,7 @@
             <p>
             {{s.text_ch_short |linebreaksbr}}
                 {% if s.text_ch_more|length > 0 %}
-                <p class="collapse" id="viewdetails{{forloop.counter}}">{{s.text_ch_more|linebreaksbr}}</p>
+                <span class="collapse" id="viewdetails{{forloop.counter}}">{{s.text_ch_more|linebreaksbr}}</span>
                 <a class="btn" data-toggle="collapse" data-target="#viewdetails{{forloop.counter}}">展開</a><br/>
                 {%endif%}
             </td>

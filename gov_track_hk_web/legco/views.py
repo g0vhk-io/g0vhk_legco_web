@@ -53,9 +53,14 @@ def all_questions_view(request):
 
 def hansard_view(request, pk):
     meeting = MeetingHansard.objects.prefetch_related('speeches').prefetch_related('speeches__individual').get(pk=pk)
-    speeches = [s for s in meeting.speeches.all() if s.title_ch != ""]
+    present = [p for p in meeting.members_present.all()]
+    absent =  [p for p in meeting.members_absent.all()]
+    public = [p for p in meeting.public_officers.all()]
+    clerks = [p for p in meeting.clerks.all()]
+    speeches = [s for s in meeting.speeches.all() if s.title_ch != "" or s.bookmark.startswith("EV")]
     for speech in speeches:
         speech.est_min = int(len(speech.text_ch) * 0.012)
         speech.text_ch_short = speech.text_ch[0:100]
         speech.text_ch_more = speech.text_ch[100:]
-    return render(request, 'legco/meeting.html', {'meeting': meeting, 'speeches': speeches})
+
+    return render(request, 'legco/meeting.html', {'meeting': meeting, 'speeches': speeches, 'clerks': clerks, 'public': public, 'absent': absent, 'present': present, 'nbar':'meeting', 'tbar': 'legco'})

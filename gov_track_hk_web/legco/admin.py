@@ -1,6 +1,7 @@
 from django.contrib import admin
 from legco.models import Party, Individual, Council, Constituency,  Meeting, Motion, VoteSummary, IndividualVote, Vote, NewsArticle
 from legco.models import Bill,  BillCommittee, BillThirdReading, BillFirstReading, BillSecondReading
+from legco.models import MeetingSpeech, MeetingHansard
 from legco.models import Question
 admin.site.register(Party)
 admin.site.register(Vote)
@@ -18,3 +19,5 @@ admin.site.register(BillThirdReading)
 admin.site.register(BillFirstReading)
 admin.site.register(BillSecondReading)
 admin.site.register(Question)
+admin.site.register(MeetingSpeech)
+admin.site.register(MeetingHansard)
