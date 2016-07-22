@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.db.models import Count
 from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard
+from datetime import date, datetime
+from django.db.models import Q
 # Create your views here.
 
 
@@ -58,9 +60,11 @@ def hansard_view(request, pk):
     public = [p for p in meeting.public_officers.all()]
     clerks = [p for p in meeting.clerks.all()]
     speeches = [s for s in meeting.speeches.all() if s.title_ch != "" or s.bookmark.startswith("EV")]
+    votes = Vote.objects.prefetch_related('meeting').prefetch_related('motion').filter(Q(date__year = meeting.date.year) & Q(date__month = meeting.date.month) & Q(date__day = meeting.date.day))
+    print len(votes)
     for speech in speeches:
         speech.est_min = int(len(speech.text_ch) * 0.012)
         speech.text_ch_short = speech.text_ch[0:100]
         speech.text_ch_more = speech.text_ch[100:]
 
-    return render(request, 'legco/meeting.html', {'meeting': meeting, 'speeches': speeches, 'clerks': clerks, 'public': public, 'absent': absent, 'present': present, 'nbar':'meeting', 'tbar': 'legco'})
+    return render(request, 'legco/meeting.html', {'meeting': meeting, 'speeches': speeches, 'clerks': clerks, 'public': public, 'absent': absent, 'present': present, 'nbar':'meeting', 'tbar': 'legco', 'votes':votes})

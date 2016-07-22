@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from bill_model import *
+from fc_models import *
 # Create your models here.
 
 class Keyword(models.Model):
@@ -140,3 +141,20 @@ class MeetingHansard(models.Model):
     public_officers = models.ManyToManyField(MeetingPersonel, related_name='officers')
     clerks = models.ManyToManyField(MeetingPersonel, related_name='clerks')
 
+
+class FinanceMeetingItem(models.Model):
+    key = models.CharField(max_length=128, unique=True)
+    description = models.CharField(max_length=2048)
+    source = models.CharField(max_length=2048)
+    keywords = models.ManyToManyField(Keyword)
+
+class FinanceMeetingItemEvent(models.Model):
+    item = models.ForeignKey(FinanceMeetingItem)
+    date = models.DateField(auto_now_add=True)
+    decision = models.CharField(max_length=128)
+    vote = models.ForeignKey(Vote, null=True, blank=True)
+#
+class FinanceMeetingResult(models.Model):
+    meeting = models.ForeignKey(Meeting, null=True, blank=True)
+    key = models.CharField(max_length=128, unique=True)
+    source = models.CharField(max_length=2048)

@@ -25,8 +25,15 @@
     {{p.title_ch}}&nbsp;
     {%endfor%}
    
+    <h1>投票結果</h1>
 
-
+    <ul class="list-group">
+    {% for row in votes%}
+        <li class="list-group-item">
+             <a  href="/legco/vote/{{row.id}}"> {{row.motion.name_ch}}  動議人: {{row.motion.mover_ch}}投票</a>
+        </li>
+    {%endfor%}
+    </ul>
     <div class="page-header">
         <h1 id="timeline">會議過程正式紀錄</h1>
     </div>
