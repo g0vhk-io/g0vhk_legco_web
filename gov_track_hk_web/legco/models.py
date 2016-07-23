@@ -121,6 +121,7 @@ class Question(models.Model):
 
 class MeetingSpeech(models.Model):
     individual = models.ForeignKey(Individual, null=True, blank=True)
+    others_individual = models.ManyToManyField(Individual, related_name='others')
     title_ch = models.CharField(max_length=100)
     text_ch = models.TextField(max_length=33554432, default="")
     bookmark = models.CharField(max_length=100)
@@ -133,6 +134,7 @@ class MeetingPersonel(models.Model):
 
 class MeetingHansard(models.Model):
     date = models.DateField()
+    meeting_type = models.CharField(max_length=128, default="cm")
     key = models.CharField(max_length=128, unique=True)
     source_url = models.CharField(max_length=2048)
     speeches = models.ManyToManyField(MeetingSpeech)

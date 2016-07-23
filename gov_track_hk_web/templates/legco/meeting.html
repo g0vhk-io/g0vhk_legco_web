@@ -3,7 +3,7 @@
 {% block page_content%}
 
 <div class="container">
-    <h1>會議過程正式紀錄 | {{meeting.date|parse_date_chinese}}</h1>
+    <h1>{%if meeting.meeting_type == "fc"%} 財務委員會會議紀要{%else%} 會議過程正式紀錄{%endif%} | {{meeting.date|parse_date_chinese}}</h1>
     <div class="page-header">
         <h1>出席議員</h1>
     </div>
