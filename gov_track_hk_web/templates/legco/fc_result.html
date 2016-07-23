@@ -1,0 +1,20 @@
+{% extends 'legco/base.html'%}
+{% load legco_extras %}
+{% block page_content %}
+<h1>財務委員會 財務建議</h1>
+連結: {{meeting.source}}<br/>
+日期: {{meeting.meeting.date|parse_date_chinese}}<br/>
+<table class="table">
+{%for event in events%}
+<tr>
+    <td>{{event.item.key}}</td>
+    <td>{{event.item.description}}</td>
+    <td>{{event.decision}}
+    {%if event.vote != None%}<br/>
+    <a href="/legco/vote/{{event.vote.id}}">投票結果</a>
+    {%endif%}
+    </td>
+</tr>
+{%endfor%}
+</table>
+{% endblock%}

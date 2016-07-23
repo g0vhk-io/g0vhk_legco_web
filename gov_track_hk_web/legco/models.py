@@ -148,13 +148,16 @@ class FinanceMeetingItem(models.Model):
     source = models.CharField(max_length=2048)
     keywords = models.ManyToManyField(Keyword)
 
-class FinanceMeetingItemEvent(models.Model):
-    item = models.ForeignKey(FinanceMeetingItem)
-    date = models.DateField(auto_now_add=True)
-    decision = models.CharField(max_length=128)
-    vote = models.ForeignKey(Vote, null=True, blank=True)
-#
 class FinanceMeetingResult(models.Model):
     meeting = models.ForeignKey(Meeting, null=True, blank=True)
     key = models.CharField(max_length=128, unique=True)
     source = models.CharField(max_length=2048)
+
+class FinanceMeetingItemEvent(models.Model):
+    item = models.ForeignKey(FinanceMeetingItem)
+    date = models.DateField()
+    decision = models.CharField(max_length=128)
+    vote = models.ForeignKey(Vote, null=True, blank=True)
+    result = models.ForeignKey(FinanceMeetingResult, null=True, blank=True)
+#
+

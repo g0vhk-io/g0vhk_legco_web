@@ -37,7 +37,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
-        yr = 15
+        yr = 12
         url = url_format % (yr, yr + 1)
         r = requests.get(url)
         r.encoding = "utf-8"
@@ -49,15 +49,20 @@ class Command(BaseCommand):
                 print link_abs
                 file_name = link_abs.split('/')[-1]
                 date_m = re.match('fc(\d\d\d\d)(\d\d)(\d\d).htm', file_name)
-                date = datetime(year=int(date_m.group(1)), month=int(date_m.group(2)), day=int(date_m.group(3)))
+                meeting_date = datetime(year=int(date_m.group(1)), month=int(date_m.group(2)), day=int(date_m.group(3)))
 
                 meeting = None
                 try:
-                    meeting = Meeting.objects.get(Q(date__year = date.year) & Q(date__month = date.month) & Q(date__day = date.day) & Q(meeting_type = "Finance Committee"))
+                    meeting = Meeting.objects.get(Q(date__year = meeting_date.year) & Q(date__month = meeting_date.month) & Q(date__day = meeting_date.day) & Q(meeting_type = "Finance Committee"))
                     print "Meeting found"
                 except Meeting.DoesNotExist:
                     print "Meeting not found"
                     #raise Exception("Meeting not found.", date)
+                result = FinanceMeetingResult()
+                result.key = str(md5.new(link_abs).hexdigest())
+                result.source = link_abs
+                result.meeting = meeting
+                result.save()
                 detail_request = requests.get(link_abs)
                 detail_request.encoding = "utf-8"
                 detail_root = etree.HTML(detail_request.text)
@@ -102,13 +107,9 @@ class Command(BaseCommand):
                         item.save()
                     event = FinanceMeetingItemEvent()
                     event.decision = decision
-                    event.date = date
+                    event.date = meeting_date
                     event.vote = vote
                     event.item = item
+                    event.result = result
                     event.save()
 
-                result = FinanceMeetingResult()
-                result.key = str(md5.new(link_abs).hexdigest())
-                result.source = link_abs
-                result.meeting = meeting
-                result.save()

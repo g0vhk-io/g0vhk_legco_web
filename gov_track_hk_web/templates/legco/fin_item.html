@@ -1,0 +1,15 @@
+{% extends 'legco/base.html'%}
+{% block page_content %}
+{{item.key}}<br/>
+{{item.description}}<br/>
+{{item.source}}<br/>
+{%for event in events%}
+<table>
+    <tr>
+        <td>{{event.date}}</td>
+        <td>{{event.decision}}</td>
+        <td>{{event.vote}}</td>
+    </tr>
+</table>
+{%endfor%}
+{% endblock%}
