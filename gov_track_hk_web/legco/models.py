@@ -1,7 +1,6 @@
 from django.db import models
 from datetime import datetime
 from bill_model import *
-from fc_models import *
 # Create your models here.
 
 class Keyword(models.Model):
