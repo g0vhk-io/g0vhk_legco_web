@@ -1,0 +1,86 @@
+{% extends 'legco/base.html'%}
+{% block page_content%}
+<style>
+#meeting_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+    background-image:url('/static/legco/meeting_bg.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#116;
+    color:#FFF;
+
+}
+#meeting_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+    <div class="jumbotron" id="meeting_jumbotron" style="margin-bottom:0px">
+    <h1>會議</h1>
+    <p>
+    </p>
+    </div>
+</div>
+<ol class="breadcrumb">
+  <li><a href="/legco">首頁</a></li>
+  <li class="active">會議</li>
+</ol>
+
+<div class="container-full">
+<div style="float:left; width:10%; margin-left:20px" class="list-group">
+    <h4>年份</h4>
+        <a href="#" class="list-group-item">2015-2016</a>
+        <a href="#" class="list-group-item">2014-2015</a>
+        <a href="#" class="list-group-item">2013-2014</a>
+        <a href="#" class="list-group-item">2012-2013</a>
+    </ul>
+</div>
+<div style="float:left; width:60%; margin-left:20px">
+<table id="meetings-search" style="width:100%">
+ <thead style="display:none">
+  <tr></tr>
+ </thead>
+</table>
+</div>
+<script>
+$(document).ready(function() {
+    $('#meetings-search').DataTable( {
+        "bSort": false,
+        "searching": false,
+        "paging": false,
+        "ajax": { 
+            url:"/api/meetings/",
+            dataSrc:""
+        },
+        "columns": [
+            { "width": "100%","render": 
+                function ( data, type, row ) {
+                    console.log(row);
+                    var s = "";
+                    
+                        
+                    s += "<div class=\"panel panel-default\">";
+                    s += "<div class=\"panel-heading\">" + row.date + "</div>";
+
+                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.type ;
+                    s += "<a class=\"btn-block\" href=\"/legco/meeting/" + row.id  + "/\">"
+                    s += "Go";
+                    s += "</a>";
+                    s += "</div>"
+                    s += "</div>";
+
+                    return s;
+                }
+            },
+        ]
+    } );
+} );
+</script>
+
+
+</div>
+{% endblock%}

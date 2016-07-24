@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.core.cache import cache
 from rest_framework import viewsets
 from django.db.models import Count
-from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill, Question
+from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill, Question, MeetingHansard
 from rest_framework import serializers
 from rest_framework.response import Response
 from gov_track_hk_web.settings import MORPH_IO_API_KEY
@@ -125,4 +125,10 @@ class ConsultationsViewSet(viewsets.ViewSet):
 class LatestQuestionsViewSet(viewsets.ViewSet):
     def list(self, request):
         questions = Question.objects.all().prefetch_related('individual').prefetch_related('keywords').order_by('-date')[0:50]
-        return Response([{'id': q.id, 'date': q.date.strftime('%Y-%m-%d'), 'question_type': q.question_type, 'question': q.question[0:100] + "...", 'answer': q.answer[0:100] + "...", 'title': q.title_ch, 'individual': q.individual.name_ch, 'keywords': [k.keyword for k in q.keywords.all()]} for q in questions])
+        return Response([{'id': q.id, 'date': q.date.strftime('%Y-%m-%d'), 'question_type': q.question_type, 'question': q.question[0:100] + "...", 'answer': q.answer[0:100] + "...", 'title': q.title_ch, 'individual':{'name': q.individual.name_ch, 'id':q.individual.id, 'image': q.individual.image}, 'keywords': [k.keyword for k in q.keywords.all()]} for q in questions])
+
+
+class MeetingsViewSet(viewsets.ViewSet):
+    def list(self, request):
+        meetings = MeetingHansard.objects.all().order_by('-date')[0:50]
+        return Response([{'id': m.id, 'date': m.date.strftime('%Y-%m-%d'), 'type': m.meeting_type} for m in meetings])

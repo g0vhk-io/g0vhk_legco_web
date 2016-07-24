@@ -1,7 +1,36 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras %}
 {% block page_content%}
+<style>
+#meeting_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+    background-image:url('/static/legco/meeting_bg.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#116;
+    color:#FFF;
 
+}
+#meeting_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+    <div class="jumbotron" id="meeting_jumbotron" style="margin-bottom:0px">
+    <h1>會議</h1>
+    <p>
+    </p>
+    </div>
+</div>
+<ol class="breadcrumb">
+  <li><a href="/legco">首頁</a></li>
+  <li><a href="/legco/meeting">會議</a></li>
+  <li class="active">{%if meeting.meeting_type == "fc"%} 財務委員會會議紀要{%else%} 會議過程正式紀錄{%endif%} | {{meeting.date|parse_date_chinese}}</li>
+</ol>
 <div class="container">
     <h1>{%if meeting.meeting_type == "fc"%} 財務委員會會議紀要{%else%} 會議過程正式紀錄{%endif%} | {{meeting.date|parse_date_chinese}}</h1>
     <div class="page-header">

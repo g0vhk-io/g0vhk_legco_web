@@ -8,3 +8,14 @@ body,ul,li,a,td{
     font-family: "cwtexhei", "Arial";
     font-size:12pt;
 }
+
+.footer {
+  min-height:150px;
+  clear:both;
+  right: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+  display:block;
+}

@@ -1,8 +1,31 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
-<center>
-<h2>政黨</h2>
-</center>
+<style>
+#party_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+    background-image:url('/static/legco/party_bg.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#474;
+    color:#FFF;
+
+}
+#party_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+<div class="jumbotron" id="party_jumbotron">
+    <h1>政黨</h1>
+    <p>
+    <em>"香港的政黨一般可粗略分為四大類：泛民主派、本土派、建制派以及中間派。"</em> --- <a href="https://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E6%94%BF%E9%BB%A8">香港政黨- 維基百科，自由的百科全書</a>
+    </p>
+    </div>
+</div>
 <table width="90%" align="center">
 {% for party in parties %}
 {% if forloop.counter == 1 %}

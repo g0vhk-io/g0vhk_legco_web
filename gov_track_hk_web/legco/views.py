@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Count
-from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult
+from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question
 from datetime import date, datetime
 from django.db.models import Q
 # Create your views here.
@@ -53,6 +53,11 @@ def bill_detail_view(request, pk):
 def all_questions_view(request):
     return render(request, 'legco/questions.html', {'nbar': 'question', 'tbar': 'legco'})
 
+def question_detail_view(request, pk):
+    question = Question.objects.prefetch_related('individual').get(pk = pk)
+    return render(request, 'legco/question_detail.html', {'nbar': 'question', 'tbar': 'legco', 'question': question})
+
+
 def hansard_view(request, pk):
     meeting = MeetingHansard.objects.prefetch_related('speeches').prefetch_related('speeches__individual').get(pk=pk)
     present = [p for p in meeting.members_present.all()]
@@ -80,3 +85,12 @@ def fc_result_view(request, pk):
     meeting = FinanceMeetingResult.objects.get(pk=pk)
     events = FinanceMeetingItemEvent.objects.prefetch_related('vote').prefetch_related('item').filter(result__pk = meeting.id).order_by('-date')
     return render(request, 'legco/fc_result.html', {'nbar':'meeting', 'tbar': 'legco', 'events': events, 'meeting': meeting})
+
+def open_data_view(request):
+    return render(request, 'legco/opendata.html', {'nbar': 'opendata', 'tbar': 'legco'})
+
+def meeting_view(request):
+    return render(request, 'legco/meetings.html', {'nbar': 'meeting', 'tbar': 'legco'})
+
+
+

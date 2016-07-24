@@ -1,7 +1,38 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras %}
 {% block page_content%}
-<h1>質詢</h1>
+<style>
+#question_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+    background-image:url('/static/legco/question_bg.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#116;
+    color:#FFF;
+
+}
+#question_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+<div class="jumbotron" id="question_jumbotron" style="margin-bottom:0px">
+    <h1>質詢</h1>
+    <p>
+    由2012年到2016年，一共有約2,600個質詢。
+    </p>
+    </div>
+</div>
+<ol class="breadcrumb">
+  <li><a href="/legco">首頁</a></li>
+  <li class="active">質詢</li>
+</ol>
+
+
 <div style="width:40%">
 <table id="questions-search" style="width:100%">
  <thead style="display:none">
@@ -12,6 +43,8 @@
 $(document).ready(function() {
     $('#questions-search').DataTable( {
         "bSort": false,
+        "searching": false,
+        "paging": false,
         "ajax": { 
             url:"/api/questions",
             dataSrc:""
@@ -25,8 +58,12 @@ $(document).ready(function() {
                         
                     s += "<div class=\"panel panel-default\">";
                     s += "<div class=\"panel-heading\">" + row.title + "</div>";
-
-                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.individual + " " + row.date + "<br/>";
+                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.individual.name + " " + row.date + "<br/>";
+                    s += "<div>";
+                    s += "<div style=\"float:left;width:80px\">";
+                    s += "<img src=\"" + row.individual.image +  "\" width=\"80\"/>";
+                    s += "</div>";
+                    s += "<div style=\"float:left\">"
                     s += "問題: <br/>" + row.question + "<br/><br/>" ;
                     s += "答覆: <br/>" + row.answer;
                     s += "<a class=\"btn-block\" href=\"/legco/question/" + row.id  + "/\">";
@@ -34,10 +71,15 @@ $(document).ready(function() {
                     s += "Go";
                     s += "</a>";
                     s += "關鍵字:&nbsp;";
+                    var labels = ["label-default", "label-primary", "label-success", "label-info" ,"label-warning" ,"label-danger"];
                     for (var i = 0; i < row.keywords.length; i++)
                     {
-                        s += "<span class=\"label label-default\">" + row.keywords[i] + "</span>&nbsp;"
+
+                        var label = labels[Math.floor(Math.random() * labels.length)]
+                        s += "<span class=\"label " + label +"\">" + row.keywords[i] + "</span>&nbsp;"
                     }
+                    s += "</div>";
+                    s += "</div>";
                     s += "</div>"
                     s += "</div>";
 
