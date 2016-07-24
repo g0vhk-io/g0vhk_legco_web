@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.db import IntegrityError
 from django.db.models import Q
 from django.core.cache import cache
 from rest_framework import viewsets
@@ -7,8 +8,17 @@ from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSu
 from rest_framework import serializers
 from rest_framework.response import Response
 from gov_track_hk_web.settings import MORPH_IO_API_KEY
+from rest_framework.decorators import detail_route, list_route
 from datetime import datetime
+from subscriber.models import Subscriber
+import md5
 import requests
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
+
 
 class MotionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -132,3 +142,15 @@ class MeetingsViewSet(viewsets.ViewSet):
     def list(self, request):
         meetings = MeetingHansard.objects.all().order_by('-date')[0:50]
         return Response([{'id': m.id, 'date': m.date.strftime('%Y-%m-%d'), 'type': m.meeting_type} for m in meetings])
+
+class SubscribeViewSet(viewsets.ViewSet):
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+    def create(self, request):
+        subscriber = Subscriber()
+        subscriber.email = request.data['email']
+        subscriber.key = str(md5.new(subscriber.email).hexdigest())
+        try:
+            subscriber.save()
+            return Response({"status": "ok"})
+        except IntegrityError:
+            return Response({"status": "already"})

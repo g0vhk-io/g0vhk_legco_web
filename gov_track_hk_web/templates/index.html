@@ -19,9 +19,13 @@
 }
 </style>
 <div class="container-full">
-<div class="jumbotron" id="gov_jumbotron">
-    <h1>線上民主平台</h1>
+    <div class="jumbotron" id="gov_jumbotron">
+        <h1>線上民主平台</h1>
+        <div class="input-group">
+        <input type="text" class="form-control" style="width:400px" placeholder="電郵"  id="email"/>&nbsp;<a id="subscribe_button" class="btn btn-warning">訂閱</a>
+        </div>
     </div>
+
 </div>
 
 
@@ -55,6 +59,31 @@ $(document).ready(function() {
             { "data": "date" },
         ]
     } );
+
+    $('#subscribe_button').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/api/subscribe/",
+            data: {email: $('#email').val()},
+            dataType: "json",
+            success: function(data){
+                if (data.status == "already")
+                {
+                    alert("已經訂閱");
+                }
+                else
+                {
+                    alert("訂閱成功");
+                }
+            },
+            error: function(errMsg){
+                alert("訂閱失敗");
+                console.log(errMsg);
+            }
+        }); 
+    
+    });
 } );
+
 </script>
 {% endblock %}
