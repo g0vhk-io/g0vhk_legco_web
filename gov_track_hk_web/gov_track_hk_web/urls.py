@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^$', views.index_view),
     url(r'^admin/', admin.site.urls),
     url(r'^legco/', include('legco.urls')),
+    url(r'^district/', include('district.urls')),
     url(r'^api/', include('api.urls'))
 ]

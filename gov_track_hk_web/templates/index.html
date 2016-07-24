@@ -1,5 +1,30 @@
 {% extends 'base.html'%}
 {% block page_content%}
+<style>
+#gov_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+    background-image:url('/static/gov_bg.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#d6d810;
+    color:#FFF;
+
+}
+#gov_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+<div class="jumbotron" id="gov_jumbotron">
+    <h1>線上民主平台</h1>
+    </div>
+</div>
+
+
 <div style="width:30%" class="panel panel-default">
     <div class="panel-heading">現正刊登的諮詢文件</div>
     <div class="panel-body">
@@ -14,6 +39,7 @@
     </div>
 </div>
 <script>
+
 $(document).ready(function() {
     $('#consultations').DataTable( {
         "ajax": { 
