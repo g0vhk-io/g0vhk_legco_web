@@ -74,12 +74,14 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--file', type=str)
+        parser.add_argument('--url', type=str)
 
 
     @transaction.atomic
     def handle(self, *args, **options):
         individuals = Individual.objects.all()
         file_path = options['file']
+        url = options['url']
         m = re.match('cm(\d\d\d\d)(\d\d)(\d\d).*\.pdf', file_path.split('/')[-1])
         date = None
         if m is not None:
@@ -120,8 +122,8 @@ class Command(BaseCommand):
             t_index += 1
         result.append((seq_no, bookmark, delete_extra_space(whole_msg).strip()))
         hansard = MeetingHansard()
-        hansard.key = str(md5.new(file_path.split('/')[-1]).hexdigest())
-        hansard.source_url = file_path.split('/')[-1]
+        hansard.key = str(md5.new(url).hexdigest())
+        hansard.source_url = url
         hansard.date = datetime.min
         hansard.save()
         for r in result:

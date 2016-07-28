@@ -13,6 +13,8 @@ from datetime import datetime
 from subscriber.models import Subscriber
 import md5
 import requests
+from lxml import etree, html
+import re
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -130,6 +132,26 @@ class ConsultationsViewSet(viewsets.ViewSet):
             items = sorted(items, key=lambda item: item['date'], reverse=True)
             cache.set(key, items, 24 * 60 * 60)
             cached_json = items
+        return Response(cached_json)
+
+class WeatherViewSet(viewsets.ViewSet):
+    def list(self, request):
+        key = "weather_json"
+        cached_json = cache.get(key)
+        if cached_json is None:
+            url = "http://rss.weather.gov.hk/rss/CurrentWeather.xml"
+            feed = requests.get(url)
+            root = etree.fromstring(feed.content)
+            summary = root.xpath("//description")[1]
+            html_root =  html.fromstring(summary.text)
+            img = html_root.xpath("//img/@src")[0].strip()
+            print "image url [%s]" % img
+            lines = "\n".join([s.strip() for s in html_root.xpath("//p/text()")]).split("\n")
+            lines = [l.strip() for l in lines]
+            temperature, humidity = [int(re.match('[^\d]*(\d+).*', s).group(1)) for s in lines[3:5]]
+            item = {'temperature': temperature, 'humidity': humidity, 'image': img}
+            cache.set(key, item,  60 * 60)
+            cached_json = item
         return Response(cached_json)
 
 class LatestQuestionsViewSet(viewsets.ViewSet):

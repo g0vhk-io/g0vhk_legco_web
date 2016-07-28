@@ -1,16 +1,65 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
-<h2>政黨/{{party.name_ch}}</h2>
-<img src="{{party.image}}" height="200"/>
-<table>
-{% for individual in individuals %}
-    <tr>
-        <td><a href="/legco/individual/{{individual.id}}">{{individual.name_ch}}</a><img src="{{individual.image}}"/></td>
-    </tr>
-{% endfor %}
-</table>
+<link rel="stylesheet" href="/static/jcarousel.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
+<style>
+#party_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#666;
+    color:#FFF;
+    padding-top:10px;
 
-<h3>相關新聞</h3>
+}
+#party_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+    <div class="jumbotron" id="party_jumbotron" style="margin-bottom:0px">
+        <h2>{{party.name_ch}}</h2>
+        <img src="{{party.image}}" height="200"/>
+    </div>
+</div>
+<ol class="breadcrumb">
+  <li><a href="/legco">首頁</a></li>
+  <li><a href="/legco/party/">政黨</a></li>
+  <li class="active">{{party.name_ch}}</li>
+</ol>
+
+
+<div class="container-full" style="padding-left:20px;min-height:500px;">
+<div style="float:left;width:45%">
+<h3>當選議員</h3>
+<div class="jcarousel-wrapper" style="width:80%;float:left">
+<div class="jcarousel">
+<ul>
+    {% for individual in individuals %}
+<li style="margin-left:20px">
+      <img src="{{individual.image}}" alt="{{individual.name_ch}}">
+      <div class="caption">
+        <h3>{{individual.name_ch}}</h3>
+        <p><a href="/legco/individual/{{individual.id}}" class="btn btn-primary" style="width:100%" role="button">資料</a></p>
+      </div>
+</li>
+    {% endfor %}
+</ul>
+</div>
+                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                
+                <p class="jcarousel-pagination" style="display:none">
+                    
+                </p>
+</div>
+</div>
+<div style="width:45%;float:left;">
+<h3 style="margin-bottom:28px">相關新聞</h3>
 <table>
 {% for n in related_news %}
     <tr>
@@ -18,4 +67,42 @@
     </tr>
 {% endfor %}
 </table>
+
+</div>
+</div>
+<div style="clear:both"></div>
+<script>
+$('.jcarousel').jcarousel({visible:5});
+$('.jcarousel-control-prev')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '-=1'
+            });
+
+        $('.jcarousel-control-next')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '+=1'
+            });
+
+        $('.jcarousel-pagination')
+            .on('jcarouselpagination:active', 'a', function() {
+                $(this).addClass('active');
+            })
+            .on('jcarouselpagination:inactive', 'a', function() {
+                $(this).removeClass('active');
+            })
+            .jcarouselPagination();
+</script>
+
 {% endblock%}
