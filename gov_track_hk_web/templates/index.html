@@ -28,7 +28,7 @@
         <input type="text" class="form-control" style="width:400px" placeholder="電郵"  id="email"/>&nbsp;<a id="subscribe_button" class="btn btn-warning">訂閱</a>
         </div>
         <br/>
-        <span style="font-weight:bold;color:#333">
+        <span style="font-weight:bold;color:#333;display:none">
             今日天氣: 
             溫度:<span id="weather_temperature">--</span>
             濕度:<span id="weather_humidity">--</span>
@@ -37,7 +37,7 @@
         </span>
 
 
-        <div style="font-size:40pt;color:#FFFFFF; height:80px; float:right;position: absolute; right: 30px; bottom: 100px;text-align:right;">
+        <div style="font-size:36pt;color:#FFFFFF; height:80px; float:right;position: absolute; right: 30px; bottom: 80px;text-align:right;width:1200px">
             五十年不變倒數器<br/> 
             &nbsp;
             <div style="float:right">秒</div>
@@ -57,13 +57,13 @@
 </div>
 
 <div class="container-full" style="margin-left:20px;min-height:700px">
-<div style="width:30%;float:left">
+<div style="min-width:200px;float:left">
     <h3>現正刊登的諮詢文件</h3>
         <table id="consultations" class="table table-hover  table-bordered table-striped">
             <thead>
                 <tr>
-                    <th width="50%" style="border:none">諮詢文件</th>
-                    <th width="50%" style="border:none">截止日期</th>
+                    <th width="75%" style="border:none">諮詢文件</th>
+                    <th width="25%" style="border:none">截止日期</th>
                 </tr>
             </thead>
             <tfoot>
@@ -75,6 +75,15 @@
             <tbody style="border:none">
             </tbody>
         </table>
+</div>
+<div style="min-width:400px;float:left; margin-left:30px">
+<h3>最新消息</h3>
+<div>
+<h4>網站測試運作 -  2016年7月31日  </h4>
+<p>
+網站正在測試中，如發現任何問題，請聯絡 <a href="mailto:howa.wong@gmail.com">howa.wong@gmail.com</a>
+</p>
+</div>
 </div>
 </div>
 

@@ -1,5 +1,42 @@
 {% extends 'legco/base.html'%}
+{% load legco_extras%}
 {% block page_content%}
+<style>
+#party_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#666;
+    color:#FFF;
+    padding-top:10px;
+
+}
+#party_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+    <div class="jumbotron" id="party_jumbotron" style="margin-bottom:0px">
+        <div style="float:left">
+            <h2>{{individual.party.name_ch}}</h2>
+            <img src="{{individual.party.image}}" height="200"/>
+        </div>
+        <div style="float:left; margin-left:50px;">
+            <h2>{{individual.name_ch}}議員</h2>
+            <img src="{{individual.image}}" style="border:2px solid #fff"/>
+        </div>
+        <div style="float: left;margin-left:50px">
+            <h2>出席率: {{present_total}} / {{absent_total|add:present_total}}</h2>
+            <h2>質詢次數: {{question_total}} </h2>
+            <h2>發言次數: {{speech_total}} </h2>
+        </div>
+    </div>
+</div>
+
 <ol class="breadcrumb">
   <li><a href="/legco">首頁</a></li>
   <li><a href="/legco/party/">政黨</a></li>
@@ -8,18 +45,9 @@
 </ol>
 
 
-<h2>{{individual.name_ch}}議員</h2>
-<img src="{{individual.image}}"/>
 
-<h3>Stat</h3>
-<table class="table table-bordered">
-{% for f in frequency %}
-    <tr>
-        <td>{{f.result}}</td><td>{{f.dcount}}</td>
-    </tr>
-{% endfor %}
-</table>
-
+<div class="container-full" style="margin-left:20px">
+<div style="float:left">
 <h3>相關新聞</h3>
 <table>
 {% for n in related_news %}
@@ -28,13 +56,20 @@
     </tr>
 {% endfor %}
 </table>
-<h3>相關投票</h3>
-<table class="table table-bordered">
-{% for vr in related_votes %}
+<br/>
+<br/>
+<br/>
+</div>
+<div style="margin-left:50px;float:left;width:400px">
+    <h3>最近發言</h3>
+    <table class="table">
+    {% for s, d in latest_speeches %}
     <tr>
-        <td><a href="/legco/vote/{{vr.vote.id}}/">{{vr.vote.motion.name_ch}}</a></td>
-        <td>{{vr.result}}</td>
+        <td>{{d|parse_date_chinese}}</td><td>{{s|slice:"0:150"}}..</td>
     </tr>
 {% endfor %}
 </table>
+
+</div>
+</div>
 {% endblock%}

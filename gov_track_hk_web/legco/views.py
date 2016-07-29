@@ -3,15 +3,20 @@ from django.db.models import Count
 from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question
 from datetime import date, datetime
 from django.db.models import Q
+from legco.models import MeetingSpeech, MeetingPersonel, MeetingHansard
 # Create your views here.
 
 
 def individual_view(request, pk):
     individual = Individual.objects.prefetch_related('party').get(pk=pk)
+    personel_ids = MeetingPersonel.objects.filter(individual__pk = pk).values('id')
+    absent_total =  MeetingHansard.objects.filter(members_absent__pk__in = personel_ids).count()
+    present_total =  MeetingHansard.objects.filter(members_present__pk__in = personel_ids).count()
+    question_total = Question.objects.filter(individual__pk = pk).count()
     related_news = NewsArticle.objects.filter(individuals__id = pk)[0:20]
-    frequency = IndividualVote.objects.filter(individual__pk = pk).values('result').annotate(dcount=Count('result')).order_by('-dcount')
-    related_votes = IndividualVote.objects.prefetch_related('vote').prefetch_related('vote__motion').filter(individual__pk = pk).order_by('-vote__date')[0:20]
-    return render(request, 'legco/individual.html', {'nbar': 'home', 'tbar':'legco', 'individual': individual, 'related_news': related_news, 'related_votes': related_votes, 'frequency': frequency})
+    speech_total = MeetingHansard.objects.filter(speeches__individual__pk = pk).count()
+    latest_speeches = MeetingHansard.objects.filter(speeches__individual__pk = pk).values_list('speeches__text_ch', 'date').order_by('-date')[0:20]
+    return render(request, 'legco/individual.html', {'nbar': 'home', 'tbar':'legco', 'individual': individual, 'related_news': related_news, 'present_total': present_total, 'absent_total': absent_total, 'question_total': question_total, 'latest_speeches': latest_speeches, 'speech_total': speech_total})
 
 def index_view(request):
     return render(request, 'legco/index.html', {'nbar': 'home', 'tbar':'legco'})

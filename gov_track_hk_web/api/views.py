@@ -162,8 +162,19 @@ class LatestQuestionsViewSet(viewsets.ViewSet):
 
 class MeetingsViewSet(viewsets.ViewSet):
     def list(self, request):
-        meetings = MeetingHansard.objects.all().order_by('-date')[0:50]
-        return Response([{'id': m.id, 'date': m.date.strftime('%Y-%m-%d'), 'type': m.meeting_type} for m in meetings])
+        meetings = MeetingHansard.objects.filter(Q(Q(date__year = 2016) & Q(date__month__lt = 9)) | ( Q(date__year = 2015)& Q(date__month__gte = 9))).order_by('-date')
+        result = []
+        for m in meetings:
+            present = [p for p in m.members_present.all()]
+            absent =  [p for p in m.members_absent.all()]
+            votes = Vote.objects.prefetch_related('meeting').prefetch_related('motion').filter(Q(date__year = m.date.year) & Q(date__month = m.date.month) & Q(date__day = m.date.day))
+
+            result.append({'id': m.id, 'date': m.date.strftime('%Y-%m-%d'), 'type': m.meeting_type,
+                'present_count': len(present),
+                'absent_count': len(absent),
+                'vote_count': len(votes)})
+
+        return Response(result)
 
 class SubscribeViewSet(viewsets.ViewSet):
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)

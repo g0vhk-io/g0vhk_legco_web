@@ -60,16 +60,20 @@ $(document).ready(function() {
             { "width": "100%","render": 
                 function ( data, type, row ) {
                     console.log(row);
-                    var s = "";
-                    
+                    var s = ""
+                    var type = "立法會會議";
+                    if (row.type == "fc")
+                    {
+                        type = "財務委員會會議";
+                    }
                         
                     s += "<div class=\"panel panel-default\">";
-                    s += "<div class=\"panel-heading\">" + row.date + "</div>";
-
-                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.type ;
-                    s += "<a class=\"btn-block\" href=\"/legco/meeting/" + row.id  + "/\">"
-                    s += "Go";
-                    s += "</a>";
+                    s += "<div class=\"panel-heading\">" + type + " "  + row.date +  "</div>";
+                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">";
+                    s += "出席人數: " + row.present_count + "&nbsp;&nbsp;";
+                    s += "缺席人數: " + row.absent_count + "&nbsp;&nbsp;";
+                    s += "投票次數: " + row.vote_count + "&nbsp;&nbsp;";
+                    s += "<a class=\"btn btn-default\" href=\"/legco/meeting/" + row.id +  "\">檢視</div>"
                     s += "</div>"
                     s += "</div>";
 
