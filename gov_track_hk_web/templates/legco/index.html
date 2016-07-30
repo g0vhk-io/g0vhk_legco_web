@@ -19,111 +19,72 @@
 }
 </style>
 <div class="container-full">
-<div class="jumbotron" id="legco_jumbotron">
-    <h1>立法會</h1>
-    <p>
-    觀迎
-    </p>
+    <div class="jumbotron" id="legco_jumbotron">
+        <h1>立法會</h1>
+        <p>觀迎</p>
     </div>
 </div>
 
-
-<div style="width:40%">
-<div style="width:40%;margin-left:10px;float:left">
-<h3>最新投票結果</h3>
-<table id="latest-votes">
- <thead style="display:none">
-  <tr></tr>
- </thead>
-</table>
-</div>
-<div style="width:40%;float:left">
-
-    <h2>最常缺席議員</h2>
-    <div class="panel panel-default">
-    <div class="panel-body">
-        <table id="most-absent" class="cell-border">
-            <thead>
+<div style="margin-left:20px;overflow:hidden" class="container-full">
+    <div style="min-width:200px;float:left">
+        <div>
+            <h2>最常缺席議員</h2>
+            <table id="most-absent" class="table table-striped table-bordered">
+            <thead style="display:none">
             <tr>
                 <th width="50%">議員</th>
                 <th width="50%">缺席會議次數</th>
             </tr>
             </thead>
-        </table>
+            <tfoot style="display:none">
+                <tr>
+                    <th width="50%"></th>
+                    <th width="50%"></th>
+                </tr>
+            </tfoot>
+            </table>
+        </div>
     </div>
+    <div style="width:250px;float:left; margin-left:60px; margin-right:60px">
+        <div>
+        <h2>最常發言議員</h2>
+            <table id="most-speech" class="table table-striped table-bordered"">
+                <thead style="display:none">
+                <tr>
+                    <th width="50%">議員</th>
+                    <th width="50%">發言次數</th>
+                </tr>
+                </thead>
+                <tfoot style="display:none">
+                    <tr></tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
+
+    <div style="float:left;">
+        <div>
+        <h2>最新法案</h2>
+            <table id="latest-bills">
+                <thead style="display:none">
+                <tr>
+                    <th width="50%">法案</th>
+                </tr>
+                </thead>
+                <tfoot style="display:none"><tr></tr></tfoot>
+
+            </table>
+        </div>
     </div>
 </div>
-<div style="width:40%;float:left;margin-left:10px;">
-
-    <h2>最新法案</h2>
-    <div class="panel panel-default">
-    <div class="panel-body">
-        <table id="latest-bills" class="cell-border">
-            <thead>
-            <tr>
-                <th width="50%">法案</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
-    </div>
-    </div>
-</div>
-
-<script>
-$(document).ready(function() {
-    $('#latest-votes').DataTable( {
-        "ajax": { 
-            url:"/api/latest_votes/",
-            dataSrc:""
-        },
-        "searching": false,
-        "paging": false,
-        "ordering": false,
-        "info": false,
-        "columns": [
-            { "render": 
-                function ( data, type, row ) {
-                    console.log(row);
-                    var label_class = "label-primary";
-                    var overall_result = row.summaries.filter(function(s) {return s.     summary_type == "OVER";})[0].result;
-                    if (overall_result == "Passed")
-                    {
-                        label_class = "label-success";
-                    }
-                    else
-                    if (overall_result == "Negatived")
-                    {
-                        label_class = "label-danger"
-                    }
-                    var s = "";
-                    
-                        
-                    s += "<div class=\"panel panel-default\">";
-                    s += "<div class=\"panel-heading\">" + row.date + " "  + row.time + "</div>";
-
-                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.motion.name_ch ;
-                    s += "<br/><div style=\"margin-bottom:7px;margin-top:7px;\">結果: <span class=\"label " + label_class + "\">" + overall_result +  "</span></div>"
-                    s += "動議人: " + row.motion.mover_ch ;
-
-                    s += "<a class=\"btn-block\" href=\"/legco/vote/" + row.id  + "/\">"
-                    s += "Go";
-                    s += "</a>";
-                    s += "</div>"
-                    s += "</div>";
-
-                    return s;
-                }
-            },
-        ]
-    } );
-} );
-</script>
-
+<br/>
+<br/>
+<br/>
+<br/>
 <script>
 $(document).ready(function() {
     $('#most-absent').DataTable( {
+        "pageLength": 10,
         "ajax": { 
             url:"/api/most_absent/",
             dataSrc:""
@@ -133,10 +94,61 @@ $(document).ready(function() {
         "ordering": false,
         "info": false,
         "columns": [
-            { "data": "individual.name" },
-            { "data": "count" },
+            { "render":
+                 function ( data, type, row ) {
+                     var html = "";
+                     var level = "warning";
+                     if (row['total'] > 100)
+                        level = "danger";
+                     html += "<div style=\"width:200px\">"
+                     html += "<div style=\"text-align:center\"><img width=\"80\" src=\"" + row['image'] + "\" /><br/>" + row['name'] + "</div>";
+                     html += "<div class=\"progress\">";
+                     html += "<div class=\"progress-bar progress-bar-" + level +"\" role=\"progressbar\" aria-valuenow=\"" + row['total'] + "\" aria-valuemin=\"0\" aria-valuemax=\"" + row['max']  +"\" style=\"width:" + (row['total'] / row['max'] * 100) + "%\">";
+                     html += row['total'] + "次" ; 
+                     html += "</div>";
+                     html += "</div>";
+                     html += "</div>";
+                     return html;
+                 }
+            },
+            { "visible":false,
+              "data": null
+            }
         ]
-    } );
+    });
+    $('#most-speech').DataTable( {
+        "pageLength": 10,
+        "ajax": { 
+            url:"/api/most_speech/",
+            dataSrc:""
+        },
+        "searching": false,
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "columns": [
+            { "render":
+                 function ( data, type, row ) {
+                     var html = "";
+                     var level = "info";
+                     if (row['total'] > 1000)
+                        level = "success";
+                     html += "<div style=\"width:200px\">"
+                     html += "<div style=\"text-align:center\"><img width=\"80\" src=\"" + row['image'] + "\" /><br/>" + row['name'] + "</div>";
+                     html += "<div class=\"progress\">";
+                     html += "<div class=\"progress-bar progress-bar-" + level +"\" role=\"progressbar\" aria-valuenow=\"" + row['total'] + "\" aria-valuemin=\"0\" aria-valuemax=\"" + row['max']  +"\" style=\"width:" + (row['total'] / row['max'] * 100) + "%\">";
+                     html += row['total'] + "次" ; 
+                     html += "</div>";
+                     html += "</div>";
+                     html += "</div>";
+                     return html;
+                 }
+            },
+            { "visible":false,
+              "data": null
+            }
+        ]
+    });
 } );
 </script>
 

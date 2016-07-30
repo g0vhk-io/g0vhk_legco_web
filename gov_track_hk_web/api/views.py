@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.core.cache import cache
 from rest_framework import viewsets
 from django.db.models import Count
-from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill, Question, MeetingHansard
+from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill, Question, MeetingHansard, MeetingSpeech
 from rest_framework import serializers
 from rest_framework.response import Response
 from gov_track_hk_web.settings import MORPH_IO_API_KEY
@@ -42,6 +42,51 @@ class IndividiualSerializer(serializers.ModelSerializer):
     class Meta:
         model = Individual
         fields =  ('name_en', 'name_ch', 'id')
+
+class MostPresentIndividualsViewSet(viewsets.ViewSet):
+    def  list(self, request):
+        present_total =  MeetingHansard.objects.all().values('members_present__individual__pk', 'members_present__individual__name_ch').annotate(dcount=Count('members_present__individual__pk')).order_by('-dcount')
+        print present_total
+        print len(present_total)
+        result = []
+        for d in present_total:
+            pk = d['members_present__individual__pk']
+            name_ch = d['members_present__individual__name_ch']
+            dcount = d['dcount']
+            result.append({'id': pk, 'name': name_ch, 'total': dcount})
+        return Response(result[0:5])
+
+class MostSpeechIndividualsViewSet(viewsets.ViewSet):
+    def  list(self, request):
+        speech_total =  MeetingSpeech.objects.all().values('individual__pk', 'individual__name_ch', 'individual__image').annotate(dcount=Count('individual__pk')).order_by('-dcount')
+        result = []
+        m = max([d['dcount'] for d in speech_total])
+        for d in speech_total:
+            pk = d['individual__pk']
+            name_ch = d['individual__name_ch']
+            dcount = d['dcount']
+            image = d['individual__image']
+            result.append({'id': pk, 'name': name_ch, 'total': dcount, 'max': m, 'image': image})
+        return Response(result[0:5])
+
+
+class MostAbsentIndividualsViewSet(viewsets.ViewSet):
+    def  list(self, request):
+        meeting_total = MeetingHansard.objects.all().count()
+        absent_total =  MeetingHansard.objects.all() \
+        .values('members_absent__individual__pk', 'members_absent__individual__name_ch', 'members_absent__individual__image') \
+        .annotate(dcount=Count('members_absent__individual__pk')).order_by('-dcount')
+        print absent_total
+        print len(absent_total)
+        result = []
+        for d in absent_total:
+            pk = d['members_absent__individual__pk']
+            name_ch = d['members_absent__individual__name_ch']
+            image = d['members_absent__individual__image']
+            dcount = d['dcount']
+            result.append({'id': pk, 'name': name_ch, 'total': dcount, 'image': image, 'max': meeting_total})
+        return Response(result[0:5])
+
 
 
 class LatestVotesViewSet(viewsets.ViewSet):
@@ -114,12 +159,6 @@ class PartyDetailViewSet(viewsets.ViewSet):
         individuals = Individual.objects.filter(party__id = pk)
         individual_serializers = [ IndividiualSerializer(i) for i in individuals]
         return Response({'party': party_serializer.data, 'individuals': [i.data for i in individual_serializers]})
-
-class MostAbsentViewSet(viewsets.ViewSet):
-    def list(self, request):
-        queryset = IndividualVote.objects.filter(result=IndividualVote.ABSENT).values('individual__name_ch', 'individual__pk').annotate(dcount=Count('individual__name_ch')).order_by('-dcount')[:5]
-        result = [{'count': d['dcount'], 'individual': {'name': d['individual__name_ch'], 'id':d['individual__pk']} } for d in queryset]
-        return Response(result)
 
 class ConsultationsViewSet(viewsets.ViewSet):
     def list(self, request):
