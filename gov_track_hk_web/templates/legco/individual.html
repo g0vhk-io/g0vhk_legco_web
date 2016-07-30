@@ -1,6 +1,8 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras%}
 {% block page_content%}
+<link rel="stylesheet" href="/static/jcarousel.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
 <style>
 #party_jumbotron
 {
@@ -61,15 +63,63 @@
 <br/>
 </div>
 <div style="margin-left:50px;float:left;width:400px">
-    <h3>最近發言</h3>
-    <table class="table">
-    {% for s, d in latest_speeches %}
-    <tr>
-        <td>{{d|parse_date_chinese}}</td><td>{{s|slice:"0:150"}}..</td>
-    </tr>
-{% endfor %}
-</table>
+<h3>最近發言</h3>
+<div class="jcarousel-wrapper">
+<div class="jcarousel">
+<ul>
+    {% for s, d, meeting_id, seq_no in latest_speeches %}
+    <li style="margin-left:20px">
+        <div style="width:350px">
+            <h4>{{d|parse_date_chinese}}&nbsp;<a href="/legco/meeting/{{meeting_id}}/#seq{{seq_no}}" target="_blank">會議</a></h4>
+            <p>{{s|slice:"0:150"|linebreaksbr}}...</p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+</div>
+                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                
+                <p class="jcarousel-pagination" style="display:none">
+                    
+                </p>
+</div>
 
 </div>
 </div>
+<script>
+$('.jcarousel').jcarousel({visible:5});
+$('.jcarousel-control-prev')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '-=1'
+            });
+
+        $('.jcarousel-control-next')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '+=1'
+            });
+
+        $('.jcarousel-pagination')
+            .on('jcarouselpagination:active', 'a', function() {
+                $(this).addClass('active');
+            })
+            .on('jcarouselpagination:inactive', 'a', function() {
+                $(this).removeClass('active');
+            })
+            .jcarouselPagination();
+</script>
+
+
 {% endblock%}

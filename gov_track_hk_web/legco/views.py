@@ -15,8 +15,8 @@ def individual_view(request, pk):
     question_total = Question.objects.filter(individual__pk = pk).count()
     related_news = NewsArticle.objects.filter(individuals__id = pk)[0:20]
     speech_total = MeetingHansard.objects.filter(speeches__individual__pk = pk).count()
-    latest_speeches = MeetingHansard.objects.filter(speeches__individual__pk = pk).values_list('speeches__text_ch', 'date').order_by('-date')[0:20]
-    return render(request, 'legco/individual.html', {'nbar': 'home', 'tbar':'legco', 'individual': individual, 'related_news': related_news, 'present_total': present_total, 'absent_total': absent_total, 'question_total': question_total, 'latest_speeches': latest_speeches, 'speech_total': speech_total})
+    latest_speeches = MeetingHansard.objects.filter(speeches__individual__pk = pk).values_list('speeches__text_ch', 'date', 'pk', 'speeches__sequence_number').order_by('-date')[0:20]
+    return render(request, 'legco/individual.html', {'nbar': 'party', 'tbar':'legco', 'individual': individual, 'related_news': related_news, 'present_total': present_total, 'absent_total': absent_total, 'question_total': question_total, 'latest_speeches': latest_speeches, 'speech_total': speech_total})
 
 def index_view(request):
     return render(request, 'legco/index.html', {'nbar': 'home', 'tbar':'legco'})

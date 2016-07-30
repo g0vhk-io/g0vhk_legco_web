@@ -70,7 +70,7 @@
 <ul class="timeline">
 {% for s in speeches %}
 <li class="{% if forloop.counter|divisibleby:2 %}timeline-inverted{%endif%}">
-      <div class="timeline-badge success"></div>
+    <div class="timeline-badge success"  id="seq{{s.sequence_number}}"></div>
       <div class="timeline-panel">
         <div class="timeline-heading">
             <h4 class="timeline-title">{{s.title_ch}}</h4>
