@@ -1,5 +1,9 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
 <style>
 #meeting_jumbotron
 {
@@ -31,60 +35,113 @@
 </ol>
 
 <div class="container-full">
-<div style="float:left; width:10%; margin-left:20px" class="list-group">
-    <h4>年份</h4>
-        <a href="#" class="list-group-item">2015-2016</a>
-        <a href="#" class="list-group-item">2014-2015</a>
-        <a href="#" class="list-group-item">2013-2014</a>
-        <a href="#" class="list-group-item">2012-2013</a>
-    </ul>
+<div style="float:left; margin-left:60px">
+<h3>年份</h3>
+<button id="btn_2012" href="#" class="btn">2012-2013</button>
+<button id="btn_2013" href="#" class="btn">2013-2014</button>
+<button id="btn_2014" href="#" class="btn">2014-2015</button>
+<button id="btn_2015" href="#" class="btn">2015-2016</button>
+<div id="meetings">
 </div>
-<div style="float:left; width:60%; margin-left:20px">
-<table id="meetings-search" style="width:100%">
- <thead style="display:none">
-  <tr></tr>
- </thead>
-</table>
 </div>
-<script>
-$(document).ready(function() {
-    $('#meetings-search').DataTable( {
-        "bSort": false,
-        "searching": false,
-        "paging": false,
-        "ajax": { 
-            url:"/api/meetings/",
-            dataSrc:""
-        },
-        "columns": [
-            { "width": "100%","render": 
-                function ( data, type, row ) {
-                    console.log(row);
-                    var s = ""
-                    var type = "立法會會議";
-                    if (row.type == "fc")
-                    {
-                        type = "財務委員會會議";
-                    }
-                        
-                    s += "<div class=\"panel panel-default\">";
-                    s += "<div class=\"panel-heading\">" + type + " "  + row.date +  "</div>";
-                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">";
-                    s += "出席人數: " + row.present_count + "&nbsp;&nbsp;";
-                    s += "缺席人數: " + row.absent_count + "&nbsp;&nbsp;";
-                    s += "投票次數: " + row.vote_count + "&nbsp;&nbsp;";
-                    s += "<a class=\"btn btn-default\" href=\"/legco/meeting/" + row.id +  "\">檢視</div>"
-                    s += "</div>"
-                    s += "</div>";
 
-                    return s;
-                }
-            },
-        ]
-    } );
-} );
+</div>
+<div style="clear:both">
+</div>
+</div>
+<br/>
+<br/>
+{% verbatim %}
+<script type="text/babel">
+var Meetings = React.createClass({
+  getInitialState: function() {
+    return {'data':[]};
+  },
+
+  fetchMeetings:function(year)
+  {
+   this.serverRequest = $.get("/api/meetings/" + year, function (result) {
+      this.setState({'data':result});
+    }.bind(this));
+  },
+
+  componentDidMount: function() {
+    this.fetchMeetings(this.props.year);
+  },
+
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  go_to_detail: function(id)
+  {
+    console.log('going to meeting ' + id);
+    window.location = '/legco/meeting/' + id;
+  },
+
+  render: function() {
+    var rows = [];
+    var meetings = this.state.data;
+    for (var i = 0; i < meetings.length; i++)
+    {
+        var meeting = meetings[i]; 
+        var type = "立法會會議";
+        var btn_style = "btn-default";
+        if (meeting.type == "fc")
+        {
+            type = "財務委員會會議";
+            btn_style = "btn-primary"
+        }
+        var shouldAddMonthHeader = i == 0;
+        var this_date = new Date(Date.parse(meeting.date))
+        if (i > 0)
+        {
+            var prev_date = new Date(Date.parse(meetings[i-1].date))
+            if (this_date.getFullYear() != prev_date.getFullYear()
+                || this_date.getMonth() != prev_date.getMonth()
+            )
+            {
+                shouldAddMonthHeader = true;
+            }
+        }
+        if (shouldAddMonthHeader)
+        {
+            rows.push(<div style={{clear:'both','margin-top':'10px'}}>
+                <br/>
+                <h3>{this_date.getFullYear()}年 {this_date.getMonth()+1}月</h3>    
+            </div>)
+        }
+        rows.push(<div style={{float:'left', 'padding':'20px', 'margin-bottom':'20px', 'margin-left':'20px', 'width': '320px', 'border':'1px solid black'}}  className={'btn btn-lg ' + btn_style} onClick={this.go_to_detail.bind(this, meeting.id)}>
+            {type} - {this_date.getFullYear()}年{this_date.getMonth() + 1}月{this_date.getDate()}日<br/>
+            出席人數: {meeting.present_count}<br/>
+            缺席人數: {meeting.absent_count}<br/>
+            投票次數: {meeting.vote_count} <br/>
+        </div>)
+    }
+    return (
+      <div>
+        {rows}
+      </div>
+    );
+  }
+});
+
+var meetings = ReactDOM.render(<Meetings year={2015} />,document.getElementById('meetings'));
+function list(year)
+{
+    meetings.fetchMeetings(year);
+}
+$(document).ready(function()
+{ 
+    $("#btn_2012").click(function(){list(2012);});
+    $("#btn_2013").click(function(){list(2013);});
+    $("#btn_2014").click(function(){list(2014);});
+    $("#btn_2015").click(function(){list(2015);});
+});
+
+list(2015)
 </script>
-
-
-</div>
+<script>
+</script>
+{% endverbatim %}
 {% endblock%}

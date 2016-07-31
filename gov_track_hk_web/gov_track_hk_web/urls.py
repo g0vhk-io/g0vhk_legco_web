@@ -18,6 +18,7 @@ from django.contrib import admin
 from gov_track_hk_web import views
 urlpatterns = [
     url(r'^$', views.index_view),
+    url(r'^projects/', views.other_projects_view),
     url(r'^admin/', admin.site.urls),
     url(r'^legco/', include('legco.urls')),
     url(r'^district/', include('district.urls')),

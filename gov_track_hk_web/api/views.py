@@ -200,8 +200,9 @@ class LatestQuestionsViewSet(viewsets.ViewSet):
 
 
 class MeetingsViewSet(viewsets.ViewSet):
-    def list(self, request):
-        meetings = MeetingHansard.objects.filter(Q(Q(date__year = 2016) & Q(date__month__lt = 9)) | ( Q(date__year = 2015)& Q(date__month__gte = 9))).order_by('-date')
+    def list(self, request, year="2015"):
+        year = int(year)
+        meetings = MeetingHansard.objects.filter(Q(Q(date__year = year + 1) & Q(date__month__lt = 9)) | ( Q(date__year = year)& Q(date__month__gte = 9))).order_by('-date')
         result = []
         for m in meetings:
             present = [p for p in m.members_present.all()]

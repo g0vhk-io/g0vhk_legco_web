@@ -45,15 +45,17 @@
     {%if p.individual != None %}<a href="/legco/individual/{{p.individual.id}}/">{%endif%}
         {{p.title_ch}}{%if p.individual != None %}</a>{%endif%}&nbsp;
     {%endfor%}
+    </div>
    <div><h1>出席政府官員</h1>
     {%for p in public%}
     {{p.title_ch}}&nbsp;
     {%endfor%}
+    </div>
    <div><h1>列席秘書</h1>
     {%for p in clerks%}
     {{p.title_ch}}&nbsp;
     {%endfor%}
-   
+    </div>
     <h1>投票結果</h1>
 
     <ul class="list-group">

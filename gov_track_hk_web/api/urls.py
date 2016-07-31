@@ -7,6 +7,7 @@ router.register(r'latest_votes', views.LatestVotesViewSet, base_name='latest_vot
 router.register(r'votes_search/(?P<keyword>.*)', views.VotesSearchViewSet, base_name='votes_search')
 router.register(r'parties', views.PartiesViewSet)
 router.register(r'meetings', views.MeetingsViewSet, base_name='meetings')
+router.register(r'meetings/(?P<year>[0-9]+)', views.MeetingsViewSet, base_name='meetings')
 router.register(r'questions', views.LatestQuestionsViewSet, base_name='questions')
 router.register(r'most_present', views.MostPresentIndividualsViewSet, base_name='most_present')
 router.register(r'most_absent', views.MostAbsentIndividualsViewSet, base_name='most_absent')
