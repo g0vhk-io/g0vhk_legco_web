@@ -194,9 +194,14 @@ class WeatherViewSet(viewsets.ViewSet):
         return Response(cached_json)
 
 class LatestQuestionsViewSet(viewsets.ViewSet):
-    def list(self, request):
-        questions = Question.objects.all().prefetch_related('individual').prefetch_related('keywords').order_by('-date')[0:50]
-        return Response([{'id': q.id, 'date': q.date.strftime('%Y-%m-%d'), 'question_type': q.question_type, 'question': q.question[0:100] + "...", 'answer': q.answer[0:100] + "...", 'title': q.title_ch, 'individual':{'name': q.individual.name_ch, 'id':q.individual.id, 'image': q.individual.image}, 'keywords': [k.keyword for k in q.keywords.all()]} for q in questions])
+    def list(self, request, keyword="", page="1"):
+        page = int(page) - 1
+        if page < 0:
+            page = 0
+        page_size = 50
+        questions = Question.objects.filter(Q(question__contains = keyword)| Q(answer__contains = keyword)).prefetch_related('individual').prefetch_related('keywords').order_by('-date')
+        total = questions.count()
+        return Response({'data':[{'id': q.id, 'date': q.date.strftime('%Y-%m-%d'), 'question_type': q.question_type, 'question': q.question[0:100] + "...", 'answer': q.answer[0:100] + "...", 'title': q.title_ch, 'individual':{'name': q.individual.name_ch, 'id':q.individual.id, 'image': q.individual.image}, 'keywords': [k.keyword for k in q.keywords.all()]} for q in questions[page_size * page: (page + 1) * page_size]], 'total':total, 'page_size': page_size, 'page': page + 1, 'keyword': keyword})
 
 
 class MeetingsViewSet(viewsets.ViewSet):
