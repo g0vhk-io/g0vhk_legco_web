@@ -49,7 +49,6 @@ def get_toc(pdf_path):
     pages = dict( (page.pageid, pageno) for (pageno, page)
                                in enumerate(PDFPage.create_pages(document)) )
     interpreter = PDFPageInterpreter(rsrcmgr, device)
-    toc = list()
     page_texts = []
     page_no = 0
     for page in PDFPage.create_pages(document):
@@ -60,7 +59,7 @@ def get_toc(pdf_path):
         output = sorted(output, key=lambda x: (int(x[0][1] / 5) * 5, int(10000 -x[0][0])), reverse=True)
         page_texts += [(page_no, int(bbox[1] / 5) * 5, bbox[0], text ) for bbox, text in output if bbox[1] <= 770 and bbox[1] >= 45]
         page_no += 1
-    return toc, page_texts
+    return page_texts
 
 
 class Command(BaseCommand):

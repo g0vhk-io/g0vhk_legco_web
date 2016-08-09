@@ -1,48 +1,189 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras %}
 {% block page_content%}
+<style>
+#bill_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+	margin-bottom:0px;
+    background-image:url('/static/legco/bill_bg.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#737;
+    color:#FFF;
 
-
-<h1>{{bill.bill_title_ch}}<small>{{bill.proposed_by_ch}}</small></h1>
-<div>
-    <div class="panel panel-default" style="width:30%;float:left">
-        <div class="panel-heading">資料</div>
-        <table class="table table-bordered">
-        <tr>
-            <td>刊登憲報日期: </td><td>{{bill.bill_gazette_date|parse_date_chinese}}</td>
-        </tr>
-        <tr>
-            <td>首讀日期: </td><td>{{bill.first_reading.first_reading_date|parse_date_chinese}}</td>
-        </tr>
-        <tr>
-            <td>二讀日期: </td><td>{{bill.second_reading.second_reading_date|parse_date_chinese}}</td>
-        </tr>
-     
-        <tr>
-            <td>三讀日期: </td><td>{{bill.third_reading.third_reading_date|parse_date_chinese}}</td>
-        </tr>
-        
-        <tr>
-            <td colspan="2"><a href="{{bill.ordinance_content_url_ch}}">提出的法案</a></td>
-        </tr>
-        <tr>
-            <td colspan="2"><a href="{{bill.ordinance_gazette_content_url_ch}}">通過的法案</a></td>
-        </tr>
-        </table>
+}
+#bill_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<link rel="stylesheet" href="/static/jcarousel.css">
+<link rel="stylesheet" href="/static/bill_detail_time_line.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
+<div class="container-full">
+<div class="jumbotron" id="bill_jumbotron">
+    <h1>{{bill.bill_title_ch}}<br/><small style="color:#fff">{{bill.proposed_by_ch}}<small style="color:#fff">提出</small></small></h1>
+    <br/>
     </div>
-    <div style="float:left;width:30%; margin-left:20px" class="panel panel-default">
-        <div class="panel-heading">委員會</div>
-        <table class="table table-bordered">
-            <tr>
-                <td>{{bill.committee.bills_committee_title_ch}}</td>
-            </tr>
-        </table>
-    </div>
-    <div style="clear: both;"></div>
 </div>
+<ol class="breadcrumb">
+  <li><a href="/legco">首頁</a></li>
+  <li><a href="/legco/bill">法案</a></li>
+  <li class="active">{{bill.bill_title_ch}}</li>
+</ol>
 
-<h2>首讀</h2><br/>
 
-<h2>二讀</h2><br/>
-<h2>三讀</h2><br/>
+
+<div class="container-full" style="margin-left:20px">
+		<div style="margin-left:40px">
+			<h2>引言</h2>
+			<p>{{bill.description}}</p>
+			<h2>文件</h2>
+        	<a href="{{bill.ordinance_content_url_ch}}">提出的法案</a><br/>
+        	<a href="{{bill.ordinance_gazette_content_url_ch}}">通過的法案</a>
+		</div>
+	
+    <div style="display: inline-block;">
+		<h2 style="margin-left:40px">進度</h2><br/>
+		<ol class="bill_timeline" style="height:100px">
+		<li class="bill_timeline__step done">
+			<input class="bill_timeline__step-radio" id="trigger1{{identifier}}" name="trigger{{identifier}}" type="radio">
+
+			<label class="bill_timeline__step-label" for="trigger1{{identifier}}">
+				<span class="bill_timeline__step-content">{{bill.bill_gazette_date|parse_date_chinese}}</span>
+			</label>
+			
+			<span class="bill_timeline__step-title">
+			刊登憲報<br/>{{bill.bill_gazette_date|parse_date_chinese}}
+			</span>
+			
+			<i class="bill_timeline__step-marker">0</i>
+		</li>
+		<li class="bill_timeline__step done">
+			<input class="bill_timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
+			
+			<label class="bill_timeline__step-label" for="trigger2{{identifier}}">
+			<span class="bill_timeline__step-content">
+				{{bill.first_reading.first_reading_date|parse_date_chinese}}	
+			</span>
+			</label>
+			
+			<span class="bill_timeline__step-title">首讀<br/>{{bill.first_reading.first_reading_date|parse_date_chinese}}</span>
+
+			<i class="bill_timeline__step-marker">1</i>
+		</li>
+
+		{%if not bill.second_reading.second_reading_date|is_date_min %}
+		<li class="bill_timeline__step done">
+			<input class="bill_timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
+			
+			<label class="bill_timeline__step-label" for="trigger2{{identifier}}">
+			<span class="bill_timeline__step-content">
+			{{bill.second_reading.second_reading_date|parse_date_chinese}}
+			</span>
+			</label>
+			
+			<span class="bill_timeline__step-title">二讀<br/> {{bill.second_reading.second_reading_date|parse_date_chinese}}</span>
+
+			<i class="bill_timeline__step-marker">2</i>
+		</li>
+		{%endif%}
+		{%if not bill.third_reading.third_reading_date|is_date_min %}
+		<li class="bill_timeline__step done">
+			<input class="bill_timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
+			
+			<label class="bill_timeline__step-label" for="trigger2{{identifier}}">
+			<span class="bill_timeline__step-content">
+			{{bill.third_reading.third_reading_date|parse_date_chinese}}
+			</span>
+			</label>
+			
+			<span class="bill_timeline__step-title">三讀<br/> {{bill.third_reading.third_reading_date|parse_date_chinese}}</span>
+
+			<i class="bill_timeline__step-marker">3</i>
+		</li>
+		{%endif%}
+
+		</ol>	
+	</div>
+    <div style="width:700px;margin-left:40px">
+		<h2>{{bill.committee.bills_committee_title_ch}}</h2>
+		<div class="jcarousel-wrapper" style="height:270px">
+			<div class="jcarousel">
+				<ul>
+				<li style="margin-left:20px">
+					  <img src="{{bill.committee.chairman.image}}" alt="{{bill.committee.chairman.name_ch}}"/><br/>
+					  <div class="caption">
+					<p><a href="/legco/individual/{{bill.committee.chairman.id}}" class="btn btn-success" style="width:100%;" role="button">主席 {{bill.committee.chairman.name_ch}}</a></p>
+					  </div>
+				</li>
+
+
+				{%if bill.committee.vicechairman != None %}
+				<li style="margin-left:20px">
+					  <img src="{{bill.committee.vicechairman.image}}" alt="{{bill.committee.vicechairman.name_ch}}"/>
+					  <div class="caption">
+					<p><a href="/legco/individual/{{bill.committee.vicechairman.id}}" class="btn btn-info" style="width:100%;" role="button">副主席 {{bill.committee.vicechairman.name_ch}}</a></p>
+					  </div>
+				</li>
+
+
+				{%endif%}
+				{%for individual in bill_committee_individuals%}
+				<li style="margin-left:20px">
+					  <img src="{{individual.image}}" alt="{{individual.name_ch}}"/>
+					  <div style="width:100%;background-color:#CCC"></div>
+					  <div class="caption">
+					<p><a href="/legco/individual/{{individual.id}}" class="btn btn-primary" style="width:100%;" role="button">{{individual.name_ch}}</a></p>
+					  </div>
+				</li>
+
+				{%endfor%}
+				</ul>
+			</div>
+			<a href="#" class="jcarousel-control-prev" style="top:220px">&lsaquo;</a>
+			<a href="#" class="jcarousel-control-next" style="top:220px">&rsaquo;</a>
+				
+			<p class="jcarousel-pagination" style="display:none">
+		</div>
+    </div>
+</div>
+<script>
+$('.jcarousel').jcarousel({visible:3});
+$('.jcarousel-control-prev')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '-=1'
+            });
+
+        $('.jcarousel-control-next')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '+=1'
+            });
+
+        $('.jcarousel-pagination')
+            .on('jcarouselpagination:active', 'a', function() {
+                $(this).addClass('active');
+            })
+            .on('jcarouselpagination:inactive', 'a', function() {
+                $(this).removeClass('active');
+            })
+            .jcarouselPagination();
+</script>
+
+
 {% endblock%}

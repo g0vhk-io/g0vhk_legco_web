@@ -53,7 +53,9 @@ def all_bills_view(request):
 
 def bill_detail_view(request, pk):
     bill = Bill.objects.prefetch_related('committee').prefetch_related('first_reading').prefetch_related('second_reading').prefetch_related('third_reading').get(pk=pk)
-    return render(request, 'legco/bill_detail.html', {'nbar': 'bill', 'tbar': 'legco', 'bill': bill})
+    bill_committee_individuals = [i for i in bill.committee.individuals.all()]
+    print bill_committee_individuals
+    return render(request, 'legco/bill_detail.html', {'nbar': 'bill', 'tbar': 'legco', 'bill': bill, 'bill_committee_individuals': bill_committee_individuals})
 
 def all_questions_view(request, keyword=""):
     return render(request, 'legco/questions.html', {'nbar': 'question', 'tbar': 'legco', 'search_keyword': keyword})

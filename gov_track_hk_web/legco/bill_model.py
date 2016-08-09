@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from dirtyfields import DirtyFieldsMixin
+from common_models import *
 #
 
 class BillThirdReading(DirtyFieldsMixin, models.Model):
@@ -44,9 +45,13 @@ class BillCommittee(DirtyFieldsMixin, models.Model):
     bills_committee_formation_date = models.DateTimeField(auto_now_add=True)
     bills_committee_report_url_en = models.CharField(max_length=512)
     bills_committee_report_url_ch = models.CharField(max_length=512)
+    individuals = models.ManyToManyField(Individual, related_name='individuals')
+    chairman = models.ForeignKey(Individual, null=True, blank=True, related_name='chairman')
+    vicechairman = models.ForeignKey(Individual, null=True, blank=True, related_name='vice_chairman')
 
 class Bill(DirtyFieldsMixin, models.Model):
     committee = models.ForeignKey(BillCommittee, null=True, blank=True)
+    description = models.CharField(max_length=2048)
     first_reading = models.ForeignKey(BillFirstReading, null=True, blank=True)
     second_reading = models.ForeignKey(BillSecondReading, null=True, blank=True)
     third_reading = models.ForeignKey(BillThirdReading, null=True, blank=True)

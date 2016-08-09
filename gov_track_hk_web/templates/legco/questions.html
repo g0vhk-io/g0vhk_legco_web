@@ -143,6 +143,7 @@ var Questions = React.createClass({
           });
           var d = new Date(Date.parse(question.date))
           result.push(
+          <a href={'/legco/question/' + question.id} style={{'display':'block'}}>
           <div style={{'border':'1px solid #ccc', 'width': '600px', 'margin':'40px', 'padding':'20px','float':'left'}}>
           <h4>{question.title}</h4>  
             {question.individual.name} - {d.getFullYear()} 年 {d.getMonth() + 1} 月 {d.getDate()} 日<br/> <br/>
@@ -153,7 +154,7 @@ var Questions = React.createClass({
             </div>
             <div style={{'clear':'both'}}></div><br/>
             關鍵字 : {keywords}
-          </div>);
+          </div></a>);
         };
         return (<div><br/><div style={{'margin-left':'40px'}}>{'\"'}<em>{this.state.keyword}{'\"'}</em> 有 <em>{this.state.total}</em> 項搜尋結果 (第{this.state.page}頁) {first_page_link} {prev_page_link} {next_page_link} {last_page_link}</div>{result}</div>);
     }
