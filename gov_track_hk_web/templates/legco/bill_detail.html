@@ -109,6 +109,30 @@
 
 		</ol>	
 	</div>
+	<div style="margin-left:40px">
+			<h2>相關會議</h2>
+			{%if first_reading_meetings|length > 0 %}
+			<h4>首讀會議</h4>
+			{%for meeting in first_reading_meetings%}
+			<a href="/legco/meeting/{{meeting.id}}" target="_blank">{{meeting.date|parse_date_chinese}}</a><br>
+			{%endfor%}
+			{%endif%}
+			{%if second_reading_meetings|length > 0 %}
+			<h4>二讀會議</h4>
+			{%for meeting in second_reading_meetings%}
+			<a href="/legco/meeting/{{meeting.id}}" target="_blank">{{meeting.date|parse_date_chinese}}</a><br>
+			{%endfor%}
+			{%endif%}
+			{%if third_reading_meetings|length > 0 %}
+			<h4>三讀會議</h4>
+			{%for meeting in third_reading_meetings%}
+			<a href="/legco/meeting/{{meeting.id}}" target="_blank">{{meeting.date|parse_date_chinese}}</a><br>
+			{%endfor%}
+			{%endif%}
+
+
+		</div>
+	
     <div style="width:700px;margin-left:40px">
 		<h2>{{bill.committee.bills_committee_title_ch}}</h2>
 		<div class="jcarousel-wrapper" style="height:270px">

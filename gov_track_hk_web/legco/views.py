@@ -54,8 +54,19 @@ def all_bills_view(request):
 def bill_detail_view(request, pk):
     bill = Bill.objects.prefetch_related('committee').prefetch_related('first_reading').prefetch_related('second_reading').prefetch_related('third_reading').get(pk=pk)
     bill_committee_individuals = [i for i in bill.committee.individuals.all()]
-    print bill_committee_individuals
-    return render(request, 'legco/bill_detail.html', {'nbar': 'bill', 'tbar': 'legco', 'bill': bill, 'bill_committee_individuals': bill_committee_individuals})
+    first_reading_meetings = []	 
+    first_reading_dates = [bill.first_reading.first_reading_date, bill.first_reading.first_reading_date_2]
+    second_reading_dates = [bill.second_reading.second_reading_date, bill.second_reading.second_reading_date_2, bill.second_reading.second_reading_date_3, bill.second_reading.second_reading_date_4, bill.second_reading.second_reading_date_5]
+    third_reading_dates = [bill.third_reading.third_reading_date]
+    related_meetings = MeetingHansard.objects.filter(date__in = first_reading_dates + second_reading_dates + third_reading_dates).order_by('date')
+    first_reading_meetings = [meeting for meeting in related_meetings if meeting.date in [f.date() for f in first_reading_dates]]
+    second_reading_meetings = [meeting for meeting in related_meetings if meeting.date in [f.date() for f in second_reading_dates]]
+    third_reading_meetings = [meeting for meeting in related_meetings if meeting.date in [f.date() for f in third_reading_dates]]
+    return render(request, 'legco/bill_detail.html', {'nbar': 'bill', 'tbar': 'legco', 'bill': bill, 'bill_committee_individuals': bill_committee_individuals, 
+            'first_reading_meetings': first_reading_meetings,
+            'second_reading_meetings': second_reading_meetings,
+            'third_reading_meetings': third_reading_meetings,
+        })
 
 def all_questions_view(request, keyword=""):
     return render(request, 'legco/questions.html', {'nbar': 'question', 'tbar': 'legco', 'search_keyword': keyword})
