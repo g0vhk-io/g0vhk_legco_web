@@ -21,10 +21,11 @@ from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.layout import LAParams, LTTextBox, LTTextLine, LTFigure
+from pdfminer.pdfdocument import PDFDestinationNotFound
 import re
 import sys
 
-sys.setrecursionlimit(2000)
+sys.setrecursionlimit(8000)
 
 def delete_extra_space(s):
     return re.sub('([^\u4e00-\u9fa5]) ([^\u4e00-\u9fa5])', '\\1\\2', s)
@@ -50,10 +51,14 @@ def get_toc(pdf_path):
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     toc = list()
     for (level,title,dest,a,structelem) in document.get_outlines():
-        action = a.resolve()
-        dest = resolve1(document.get_dest(action['D']))
-        t = (pages[dest['D'][0].objid], dest['D'][3], title)
-        toc.append(t)
+        try:
+            action = a.resolve()
+            dest = resolve1(document.get_dest(action['D']))
+            t = (pages[dest['D'][0].objid], dest['D'][3], title)
+            toc.append(t)
+        except PDFDestinationNotFound:
+            print "Destination not found."
+            pass
         #print resolve1(obj['Contents']).get_data()
 
     page_texts = []

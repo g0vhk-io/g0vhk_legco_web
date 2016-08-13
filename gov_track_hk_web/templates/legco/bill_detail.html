@@ -43,7 +43,9 @@
 			<p>{{bill.description}}</p>
 			<h2>文件</h2>
         	<a href="{{bill.ordinance_content_url_ch}}">提出的法案</a><br/>
+		{%if bill.ordinance_gazette_content_url_ch|length > 0%}
         	<a href="{{bill.ordinance_gazette_content_url_ch}}">通過的法案</a>
+		{%endif%}
 		</div>
 	
     <div style="display: inline-block;">

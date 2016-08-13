@@ -1,5 +1,9 @@
 {% extends 'legco/base.html'%}
 {% block page_content %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
 <style>
 #bill_jumbotron
 {
@@ -17,6 +21,12 @@
 {
     color:#FFF
 }
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
 <div class="container-full">
 <div class="jumbotron" id="bill_jumbotron">
@@ -28,49 +38,134 @@
     </p>
     </div>
 </div>
-
-
-<div style="width:40%">
-
-
-<table id="bills-search" style="width:100%">
- <thead style="display:none">
-  <tr></tr>
- </thead>
-</table>
-<script>
-$(document).ready(function() {
-    $('#bills-search').DataTable( {
-        "bSort": false,
-        "ajax": { 
-            url:"/api/bills_search//",
-            dataSrc:""
-        },
-        "columns": [
-            { "width": "100%","render": 
-                function ( data, type, row ) {
-                    console.log(row);
-                    var s = "";
-                    
-                        
-                    s += "<div class=\"panel panel-default\">";
-                    s += "<div class=\"panel-heading\">" + row.title + "</div>";
-
-                    s += "<div class=\"panel-body\" style=\"font-size:10pt\">" + row.title ;
-                    s += "<a class=\"btn-block\" href=\"/legco/bill/" + row.id  + "/\">"
-                    s += "Go";
-                    s += "</a>";
-                    s += "</div>"
-                    s += "</div>";
-
-                    return s;
-                }
-            },
-        ]
-    } );
-} );
-</script>
-
-
+<div class="container-full" style="margin-left:20px">
+<div  class="input-group" style="margin-left:40px;width:300px">
+<input type="text" placeholder="關鍵字" id="search_keyword" class="form-control" value="{{search_keyword}}"/>
+ <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="search_btn">搜尋</button>
+      </span>
 </div>
+<div id="bills">
+</div>
+</div>
+
+{% verbatim %}
+<script type="text/babel">
+var Bills = React.createClass({
+    getInitialState: function(){
+        return {'data':[], 'total': 0, 'page': 1, 'page_size': 0};    
+    },
+    fetchBills:function()
+    {
+        var k = $("#search_keyword").val();
+        var page = 1;
+        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+    },
+    componentDidMount: function() {
+        this.fetchBills();
+    },
+
+    componentWillUnmount: function() {
+        this.serverRequest.abort();
+    },
+   
+    fetchNextPage: function()
+    {
+        if (this.state.data.length < this.state.page_size)
+        {
+            return ;
+        }
+        var k = this.state.keyword;
+        var page = this.state.page + 1;
+        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+    },    
+
+    fetchPrevPage: function()
+    {
+        var k = this.state.keyword;
+        var page = this.state.page - 1;
+        if (page <= 0)
+        {
+            return ;
+        }
+        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+    },    
+
+    fetchLastPage: function()
+    {
+        if (this.state.page_size == 0)
+        {
+            return ;
+        }
+        var k = this.state.keyword;
+        var page = Math.ceil(this.state.total * 1.0/ this.state.page_size);
+        if (page == this.state.page)
+        {
+            return;
+        }
+
+        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+    },    
+
+
+
+ 
+    fetchFirstPage: function()
+    {
+        var k = this.state.keyword;
+        var page = 1;
+        if (page == this.state.page)
+        {
+            return;
+        }
+        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+    },    
+
+    render: function() {
+        var result = []
+        var labels = ["label-default", "label-primary", "label-success", "label-info" ,"label-warning" ,"label-danger"];
+        var first_page_link = <a className={'btn btn-default'} onClick={this.fetchFirstPage}>第一頁</a>;
+        var prev_page_link = <a className={'btn btn-default'} onClick={this.fetchPrevPage}>上一頁</a>;
+        var next_page_link = <a className={'btn btn-default'} onClick={this.fetchNextPage}>下一頁</a>;
+        var last_page_link = <a className={'btn btn-default'} onClick={this.fetchLastPage}>最後一頁</a>;
+
+        for (var i = 0; i < this.state.data.length; i++)
+        {
+          var bill = this.state.data[i];
+          if ( i % 4 == 0)
+          {
+            result.push(<div style={{'clear':'both'}}></div>);
+          }
+          var pass_status = (<div></div>);
+          if (bill.passed)
+          {
+            pass_status = (<div className={'alert alert-success'} style={{'bottom': '10px', 'left':'20px', 'position':'absolute', 'right':'20px'}}  role={alert}><a href={'#'} className={'alert-link'}>已通過</a></div>)
+          }
+          else
+          {
+            pass_status = (<div className={'alert alert-danger'} style={{'bottom': '10px', 'left':'20px', 'position':'absolute', 'right':'20px'}} role={alert}><a href={'#'} className={'alert-link'}>未通過</a></div>)
+          }
+          result.push(
+          <a href={'/legco/bill/' + bill.id} style={{'display':'block'}}>
+          <div style={{'border':'1px solid #ccc', 'position':'relative',  'width': '300px', 'height':'300px', 'margin':'40px', 'padding':'20px','float':'left'}}>
+          <h2>{bill.title_ch}</h2>  
+            條例 : {bill.ordinance_title_ch}<br/>
+            由 {bill.proposer_ch} 提出<br/>
+            <br/>
+            {pass_status}
+            <div>
+            </div>
+          </div></a>);
+        };
+        return (<div><br/><div style={{'margin-left':'40px'}}>{'\"'}<em>{this.state.keyword}{'\"'}</em> 有 <em>{this.state.total}</em> 項搜尋結果 (第{this.state.page}頁) {first_page_link} {prev_page_link} {next_page_link} {last_page_link}</div>{result}</div>);
+    }
+    });
+var bills = ReactDOM.render(<Bills/>, document.getElementById('bills'));
+bills.fetchBills();
+$("#search_btn").click(function()
+{ bills.fetchBills();});
+</script>
+{% endverbatim %}
+
+
 {% endblock%}

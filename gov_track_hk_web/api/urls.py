@@ -18,7 +18,10 @@ router.register(r'subscribe', views.SubscribeViewSet, base_name='subscribe')
 router.register(r'consultations', views.ConsultationsViewSet, base_name='consultations')
 router.register(r'weather', views.WeatherViewSet, base_name='weather')
 router.register(r'party/(?P<pk>.+)', views.PartyDetailViewSet, base_name='party')
-router.register(r'bills_search/(?P<keyword>.*)', views.BillsSearchViewSet, base_name='bills_search')
+router.register(r'bills', views.AllBillsViewSet, base_name='bills')
+router.register(r'bills/(?P<keyword>\w*)', views.AllBillsViewSet, base_name='bills')
+router.register(r'bills/(?P<keyword>\w*)/(?P<page>[0-9]+)', views.AllBillsViewSet, base_name='bills')
+
 urlpatterns = [
     url(r'', include(router.urls))
 ]

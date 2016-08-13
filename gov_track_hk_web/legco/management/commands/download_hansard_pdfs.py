@@ -23,32 +23,38 @@ from pdfminer.converter import PDFPageAggregator
 from pdfminer.layout import LAParams, LTTextBox, LTTextLine, LTFigure
 import re
 
+def get_cm_dates(year):
+    url = "http://www.legco.gov.hk/general/chinese/counmtg/yr12-16/mtg_%d%d.htm" % (year, year + 1)
+    r = requests.get(url)
+    r.encoding = "utf-8"
+    root = etree.HTML(r.text)
+    links = [re.match(r'.*date=([^&]+)', link).group(1) for link in root.xpath("//a/@href") if link.find("date=") != -1]
+    return list(set(links))
+
+
 class Command(BaseCommand):
     help = 'Download the hansards PDFs'
 
     def add_arguments(self, parser):
         parser.add_argument('--file', type=str)
 
-
     @transaction.atomic
     def handle(self, *args, **options):
         for yr in [12, 13, 14, 15]:
-            r = requests.get('http://www.legco.gov.hk/webcast_data/yr%d-%d/counmtg_agenda.js' % (yr, yr + 1))
-            for line in [l[1:-2] for l in r.text.split()[1:-2] if l.find('=') != -1]:
-                pairs = line.split(',')
-                for a,b in [p.split('=') for p in pairs]:
-                    d = "%s-%s-%s" % (a[0:4], a[4:6], a[6:])
-                    rundown_request = requests.get('http://www.legco.gov.hk/php/hansard/chinese/rundown.php?date=%s&lang=2' % (d))
-                    rundown_html = rundown_request.text.split('\n')
-                    for line in rundown_html:
-                        if line.find(".pdf") != -1:
-                            var, url = line.split(" = ")
-                            url = url.strip()
-                            pdf_url = url.replace("\"", "").replace(";", "").replace("#", "").replace("\\", "")
-                            file_name = pdf_url.split('/')[-1]
-                            print "%s,%s" % (pdf_url, file_name)
-                            pdf_request = requests.get(pdf_url)
-                            f = open('pdfs/' + file_name , 'wb')
-                            f.write(pdf_request.content)
-                            f.close()
+            for d in get_cm_dates(yr):
+                rundown_request = requests.get('http://www.legco.gov.hk/php/hansard/chinese/rundown.php?date=%s&lang=2' % (d))
+                rundown_html = rundown_request.text.split('\n')
+                for line in rundown_html:
+                    if line.find(".pdf") != -1:
+                        var, url = line.split(" = ")
+                        url = url.strip()
+                        pdf_url = url.replace("\"", "").replace(";", "").replace("#", "").replace("\\", "")
+                        file_name = pdf_url.split('/')[-1]
+                        year , month, day = d.split("-")
+                        dest = 'pdfs/' + 'cm%s%s%s-confirm-ec.pdf'% (year, month, day)
+                        print "%s,%s" % (pdf_url, dest)
+                        pdf_request = requests.get(pdf_url)
+                        f = open(dest , 'wb')
+                        f.write(pdf_request.content)
+                        f.close()
 
