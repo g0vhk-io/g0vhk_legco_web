@@ -101,7 +101,7 @@ $(document).ready(function() {
                      if (row['total'] > 100)
                         level = "danger";
                      html += "<div style=\"width:200px\">"
-                     html += "<div style=\"text-align:center\"><img width=\"80\" src=\"" + row['image'] + "\" /><br/>" + row['name'] + "</div>";
+                     html += "<div style=\"text-align:center\"><img width=\"80\" src=\"" + row['image'] + "\" /><br/>" + "<a href=\"/legco/individual/" + row['id'] + "\" target=\"_blank\">"  + row['name'] + "</a></div>";
                      html += "<div class=\"progress\">";
                      html += "<div class=\"progress-bar progress-bar-" + level +"\" role=\"progressbar\" aria-valuenow=\"" + row['total'] + "\" aria-valuemin=\"0\" aria-valuemax=\"" + row['max']  +"\" style=\"width:" + (row['total'] / row['max'] * 100) + "%\">";
                      html += row['total'] + "次" ; 
@@ -134,7 +134,7 @@ $(document).ready(function() {
                      if (row['total'] > 1000)
                         level = "success";
                      html += "<div style=\"width:200px\">"
-                     html += "<div style=\"text-align:center\"><img width=\"80\" src=\"" + row['image'] + "\" /><br/>" + row['name'] + "</div>";
+                     html += "<div style=\"text-align:center\"><img width=\"80\" src=\"" + row['image'] + "\" /><br/>" + "<a href=\"/legco/individual/" + row['id'] + "\" target=\"_blank\">"  + row['name'] + "</a></div>";
                      html += "<div class=\"progress\">";
                      html += "<div class=\"progress-bar progress-bar-" + level +"\" role=\"progressbar\" aria-valuenow=\"" + row['total'] + "\" aria-valuemin=\"0\" aria-valuemax=\"" + row['max']  +"\" style=\"width:" + (row['total'] / row['max'] * 100) + "%\">";
                      html += row['total'] + "次" ; 

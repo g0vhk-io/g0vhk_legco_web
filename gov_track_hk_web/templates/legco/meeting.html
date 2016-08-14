@@ -33,6 +33,8 @@
 </ol>
 <div class="container">
     <h1>{%if meeting.meeting_type == "fc"%} 財務委員會會議紀要{%else%} 會議過程正式紀錄{%endif%} | {{meeting.date|parse_date_chinese}}</h1>
+    <br/>
+    <a href="{{meeting.source_url}}">PDF文件</a>
     <div class="page-header">
         <h1>出席議員</h1>
     </div>
@@ -57,12 +59,13 @@
     {%endfor%}
     </div>
     <h1>投票結果</h1>
-
     <ul class="list-group">
     {% for row in votes%}
         <li class="list-group-item">
              <a  href="/legco/vote/{{row.id}}"> {{row.motion.name_ch}}  動議人: {{row.motion.mover_ch}}投票</a>
         </li>
+    {% empty %}
+    沒有投票結果
     {%endfor%}
     </ul>
     <div class="page-header">

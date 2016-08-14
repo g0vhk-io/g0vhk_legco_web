@@ -73,7 +73,8 @@ def all_questions_view(request, keyword=""):
 
 def question_detail_view(request, pk):
     question = Question.objects.prefetch_related('individual').get(pk = pk)
-    return render(request, 'legco/question_detail.html', {'nbar': 'question', 'tbar': 'legco', 'question': question})
+    keywords = [k.keyword for k in question.keywords.all()]
+    return render(request, 'legco/question_detail.html', {'nbar': 'question', 'tbar': 'legco', 'question': question, 'keywords':keywords})
 
 
 def hansard_view(request, pk):

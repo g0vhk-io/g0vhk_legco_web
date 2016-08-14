@@ -131,6 +131,7 @@ class Command(BaseCommand):
         hansard.source_url = url
         hansard.date = datetime.min
         hansard.save()
+        present_count = 0
         for r in result:
             speech = MeetingSpeech()
             speech.individual = None
@@ -148,7 +149,7 @@ class Command(BaseCommand):
                 date_match = re.search(u"(\d+)年(\d+)月(\d+)日", s)
                 date = datetime(int(date_match.group(1)), int(date_match.group(2)), int(date_match.group(3)))
                 print date
-            if r[1] == "mbp" or r[1] == "mba" or r[1] == "poa" or r[1] == "cia":
+            if r[1] == "mbp" or r[1] == "mba" or r[1] == "poa" or r[1] == "cia" or r[1] == "mpb" or r[1] == "mpa": 
                 lines = [l for l in r[2].split("\n") if len(l) > 0][1:]
                 for line in lines:
                     title = re.sub(r'[a-zA-Z\-]', '', line.split(",")[0]).strip()
@@ -160,9 +161,10 @@ class Command(BaseCommand):
                             personel.individual = i
                             break
                     personel.save()
-                    if r[1] == "mbp":
+                    if r[1] == "mbp" or r[1] == "mpb":
                         hansard.members_present.add(personel)
-                    if r[1] == "mba":
+                        present_count += 1
+                    if r[1] == "mba" or r[1] == "mpa":
                         hansard.members_absent.add(personel)
                     if r[1] == "poa":
                         hansard.public_officers.add(personel)
@@ -176,6 +178,8 @@ class Command(BaseCommand):
             #print "%d %s %s %s" % (r[0], r[1], speech.title_ch, speech.individual)
             speech.save()
             hansard.speeches.add(speech)
+        if present_count == 0:
+            raise Exception("No one present")
         if date is None:
             raise Exception("Date cannot be determined.")
         hansard.date = date
