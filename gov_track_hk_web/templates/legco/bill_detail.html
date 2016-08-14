@@ -134,7 +134,7 @@
 
 
 		</div>
-	
+{%if bill.committee.bills_committee_title_ch != ""  %}	
     <div style="width:700px;margin-left:40px">
 		<h2>{{bill.committee.bills_committee_title_ch}}</h2>
 		<div class="jcarousel-wrapper" style="height:270px">
@@ -210,6 +210,12 @@ $('.jcarousel-control-prev')
             })
             .jcarouselPagination();
 </script>
-
+{%else%}
+    <div style="width:700px;margin-left:40px">
+		<h2>委員會:沒有</h2>
+        <br/>
+    </div>	
+</div>
+{%endif%}
 
 {% endblock%}

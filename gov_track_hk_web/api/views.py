@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.core.cache import cache
 from rest_framework import viewsets
 from django.db.models import Count
-from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill, Question, MeetingHansard, MeetingSpeech
+from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill, Question, MeetingHansard, MeetingSpeech, ImportantMotion, ImportantMotion
 from rest_framework import serializers
 from rest_framework.response import Response
 from gov_track_hk_web.settings import MORPH_IO_API_KEY
@@ -217,6 +217,17 @@ class LatestQuestionsViewSet(viewsets.ViewSet):
         total = questions.count()
         return Response({'data':[{'id': q.id, 'date': q.date.strftime('%Y-%m-%d'), 'question_type': q.question_type, 'question': q.question[0:100] + "...", 'answer': q.answer[0:100] + "...", 'title': q.title_ch, 'individual':{'name': q.individual.name_ch, 'id':q.individual.id, 'image': q.individual.image}, 'keywords': [k.keyword for k in q.keywords.all()]} for q in questions[page_size * page: (page + 1) * page_size]], 'total':total, 'page_size': page_size, 'page': page + 1, 'keyword': keyword})
 
+
+class ImportantMotionViewSet(viewsets.ViewSet):
+    def list(self, request):
+        data = []
+        motions = ImportantMotion.objects.select_related('motion').values_list('motion__name_ch', 'motion__vote__date', 'motion__vote__pk').order_by('-motion__vote__date')
+        summaries = VoteSummary.objects.filter(Q(vote__pk__in = [m[2] for m in motions]) & Q(summary_type = VoteSummary.OVERALL))
+        result_dict = {s.vote_id: s.result for s in summaries}
+        for motion in motions:
+            print motion
+            data.append({'title_ch': motion[0], 'date': motion[1], 'id': motion[2], 'result': result_dict[motion[2]]})
+        return Response({'data':data})
 
 class MeetingsViewSet(viewsets.ViewSet):
     def list(self, request, year="2015"):

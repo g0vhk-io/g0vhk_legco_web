@@ -31,12 +31,16 @@ def vote_detail_view(request, pk):
     yes_count = 0
     no_count = 0
     present_count = 0
+    overall_result = ""
     for summary in summaries:
         yes_count += summary.yes_count
         no_count  += summary.no_count
         present_count += summary.yes_count + summary.no_count + summary.abstain_count
+        if summary.summary_type == VoteSummary.OVERALL:
+            overall_result = summary.result
     abstain_count = len(individual_votes) - yes_count - no_count - 1
-    return render(request, 'legco/vote_detail.html', {'nbar': 'vote', 'tbar': 'legco', 'vote': vote, 'individual_votes': individual_votes, 'summaries': summaries, 'yes_count': yes_count, 'no_count': no_count, 'abstain_count': abstain_count})
+    meeting = MeetingHansard.objects.get(Q(date__year = vote.date.year) & Q(date__month = vote.date.month) & Q(date__day = vote.date.day))
+    return render(request, 'legco/vote_detail.html', {'nbar': 'meeting', 'tbar': 'legco', 'vote': vote, 'individual_votes': individual_votes, 'summaries': summaries, 'yes_count': yes_count, 'no_count': no_count, 'abstain_count': abstain_count, 'meeting': meeting, 'overall_result': overall_result})
 
 def party_view(request, pk):
     party = Party.objects.get(pk = pk)

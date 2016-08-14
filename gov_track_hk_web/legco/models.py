@@ -14,6 +14,9 @@ class Motion(models.Model):
     def __unicode__(self):
         return self.name_en + "-" + self.name_ch
 
+class ImportantMotion(models.Model):
+    motion = models.ForeignKey(Motion)
+
 class Constituency(models.Model):
     name_en = models.CharField(max_length=512)
     name_ch = models.CharField(max_length=512)
