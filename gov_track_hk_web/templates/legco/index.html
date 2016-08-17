@@ -1,5 +1,12 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
+<script>(function(d, s, id) { 
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=205317903140183";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <style>
 #legco_jumbotron
 {
@@ -21,7 +28,8 @@
 <div class="container-full">
     <div class="jumbotron" id="legco_jumbotron">
         <h1>立法會</h1>
-        <p>觀迎</p>
+        <p>歡迎</p>
+        <div class="fb-like" data-href="https://www.facebook.com/g0vhk.io/" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
     </div>
 </div>
 
