@@ -57,7 +57,7 @@ var Questions = React.createClass({
     {
         var k = $("#search_keyword").val();
         var page = 1;
-        this.serverRequest = $.get("/api/questions/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/questions/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
     },
     componentDidMount: function() {
         this.fetchQuestions();
@@ -75,7 +75,7 @@ var Questions = React.createClass({
         }
         var k = this.state.keyword;
         var page = this.state.page + 1;
-        this.serverRequest = $.get("/api/questions/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/questions/" + k + "?page=" + page, function(result){ this.setState(result)}.bind(this));
     },    
 
     fetchPrevPage: function()
@@ -86,7 +86,7 @@ var Questions = React.createClass({
         {
             return ;
         }
-        this.serverRequest = $.get("/api/questions/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/questions/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
     },    
 
     fetchLastPage: function()
@@ -102,7 +102,7 @@ var Questions = React.createClass({
             return;
         }
 
-        this.serverRequest = $.get("/api/questions/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/questions/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
     },    
 
 
@@ -116,7 +116,7 @@ var Questions = React.createClass({
         {
             return;
         }
-        this.serverRequest = $.get("/api/questions/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/questions/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
     },    
 
     render: function() {

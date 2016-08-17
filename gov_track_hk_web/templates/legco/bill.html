@@ -59,7 +59,7 @@ var Bills = React.createClass({
     {
         var k = $("#search_keyword").val();
         var page = 1;
-        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/bills/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
     },
     componentDidMount: function() {
         this.fetchBills();
@@ -71,13 +71,14 @@ var Bills = React.createClass({
    
     fetchNextPage: function()
     {
+        console.log(this.state.data.length  + " " + this.state.page_size);
         if (this.state.data.length < this.state.page_size)
         {
             return ;
         }
         var k = this.state.keyword;
         var page = this.state.page + 1;
-        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/bills/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
     },    
 
     fetchPrevPage: function()
@@ -88,7 +89,7 @@ var Bills = React.createClass({
         {
             return ;
         }
-        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/bills/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
     },    
 
     fetchLastPage: function()
@@ -104,7 +105,7 @@ var Bills = React.createClass({
             return;
         }
 
-        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/bills/" + k + "?page=" + page, function(result){ this.setState(result)}.bind(this));
     },    
 
 
@@ -118,7 +119,7 @@ var Bills = React.createClass({
         {
             return;
         }
-        this.serverRequest = $.get("/api/bills/" + k + "/" + page + "/" , function(result){ this.setState(result)}.bind(this));
+        this.serverRequest = $.get("/api/bills/" + k + "?page=" + page, function(result){ this.setState(result)}.bind(this));
     },    
 
     render: function() {

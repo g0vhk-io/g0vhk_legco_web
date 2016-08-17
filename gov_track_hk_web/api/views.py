@@ -148,8 +148,8 @@ class LatestBillsViewSet(viewsets.ViewSet):
         return Response(output)
 
 class AllBillsViewSet(viewsets.ViewSet):
-    def list(self, request, keyword="", page="1"):
-        page = int(page) - 1
+    def list(self, request, keyword=""):
+        page = int(request.query_params.get("page", "1")) - 1
         if page < 0:
             page = 0
         page_size = 50
@@ -158,7 +158,7 @@ class AllBillsViewSet(viewsets.ViewSet):
         total = bills.count()
         for bill in bills[page_size * page: (page + 1) * page_size]:
             output.append({'title_en': bill.bill_title_en, 'title_ch': bill.bill_title_ch, 'id': bill.id, 'passed': len(bill.ordinance_gazette_content_url_ch) > 0, 'content': bill.ordinance_gazette_content_url_ch, 'ordinance_title_ch': bill.ordinance_title_ch, 'proposer_ch': bill.proposed_by_ch})
-        return Response({'data':output, 'keyword': keyword, 'page':page + 1, 'total': total})
+        return Response({'data':output, 'keyword': keyword, 'page':page + 1, 'total': total, 'page_size': page_size})
 
 
 
@@ -208,8 +208,8 @@ class WeatherViewSet(viewsets.ViewSet):
         return Response(cached_json)
 
 class LatestQuestionsViewSet(viewsets.ViewSet):
-    def list(self, request, keyword="", page="1"):
-        page = int(page) - 1
+    def list(self, request, keyword=""):
+        page = int(request.query_params.get("page", "1")) - 1
         if page < 0:
             page = 0
         page_size = 50
