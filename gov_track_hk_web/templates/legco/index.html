@@ -233,6 +233,7 @@ $(document).ready(function() {
             url:"/api/latest_bills/",
             dataSrc:""
         },
+        "pageLength": 10,
         "searching": false,
         "paging": false,
         "ordering": false,
@@ -240,12 +241,13 @@ $(document).ready(function() {
         "columns": [
             { "render":
                 function ( data, type, row ) {
-                    var html = "<a href=\"/legco/bill/" + row['id'] + "\">" + row['title_ch'] + "</a>";
+                    var html = "<div style=\"width:200px\"><a href=\"/legco/bill/" + row['id'] + "\">" + row['title_ch'] + "</a></div>";
                     return html;
                 },
             }
         ]
     } );
+    
 } );
 </script>
 {% endblock %}
