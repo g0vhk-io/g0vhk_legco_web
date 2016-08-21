@@ -21,6 +21,10 @@ def individual_view(request, pk):
 def index_view(request):
     return render(request, 'legco/index.html', {'nbar': 'home', 'tbar':'legco'})
 
+def speak_most_view(request):
+    return render(request, 'legco/who_speaks_most.html', {'nbar': 'home', 'tbar':'legco'})
+
+
 def all_votes_view(request):
     return render(request, 'legco/vote.html', {'nbar': 'vote', 'tbar': 'legco'})
 

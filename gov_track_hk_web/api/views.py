@@ -45,6 +45,7 @@ class IndividiualSerializer(serializers.ModelSerializer):
 
 class MostPresentIndividualsViewSet(viewsets.ViewSet):
     def  list(self, request):
+        size = int(request.query_params.get("size", size))
         present_total =  MeetingHansard.objects.all().values('members_present__individual__pk', 'members_present__individual__name_ch').annotate(dcount=Count('members_present__individual__pk')).order_by('-dcount')
         print present_total
         print len(present_total)
@@ -54,10 +55,11 @@ class MostPresentIndividualsViewSet(viewsets.ViewSet):
             name_ch = d['members_present__individual__name_ch']
             dcount = d['dcount']
             result.append({'id': pk, 'name': name_ch, 'total': dcount})
-        return Response(result[0:5])
+        return Response(result[0:size])
 
 class MostSpeechIndividualsViewSet(viewsets.ViewSet):
     def  list(self, request):
+        size = int(request.query_params.get("size", 5))
         speech_total =  MeetingSpeech.objects.all().values('individual__pk', 'individual__name_ch', 'individual__image').annotate(dcount=Count('individual__pk')).order_by('-dcount')
         result = []
         m = max([d['dcount'] for d in speech_total])
@@ -67,7 +69,7 @@ class MostSpeechIndividualsViewSet(viewsets.ViewSet):
             dcount = d['dcount']
             image = d['individual__image']
             result.append({'id': pk, 'name': name_ch, 'total': dcount, 'max': m, 'image': image})
-        return Response(result[0:5])
+        return Response(result[0:size])
 
 
 class MostAbsentIndividualsViewSet(viewsets.ViewSet):

@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^fin_item/(?P<pk>[0-9]+)/$', finance_item_view),
     url(r'^fc_result/(?P<pk>[0-9]+)/$', fc_result_view),
     url(r'^opendata/$', open_data_view),
+    url(r'^who_speaks_most/$', speak_most_view),
     url(r'^meeting/$', meeting_view)
 ]
 
