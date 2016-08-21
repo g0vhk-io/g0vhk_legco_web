@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from gov_track_hk_web.settings import MORPH_IO_API_KEY
 from rest_framework.decorators import detail_route, list_route
 from datetime import datetime
-from subscriber.models import Subscriber
+from subscriber.models import Subscriber, News
 import md5
 import requests
 from lxml import etree, html
@@ -245,6 +245,14 @@ class MeetingsViewSet(viewsets.ViewSet):
                 'vote_count': len(votes)})
 
         return Response(result)
+
+class NewsViewSet(viewsets.ViewSet):
+    def list(self, request):
+        news = News.objects.all().order_by('-date')[0:10]  
+        result = [{'title_ch': n.title_ch, 'text_ch': n.text_ch, 'date': n.date.strftime('%Y-%m-%d')} for n in news]
+        return Response(result)
+
+
 
 class SubscribeViewSet(viewsets.ViewSet):
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)

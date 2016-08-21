@@ -4,13 +4,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.css"></link>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.js"></script>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=205317903140183";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 <style>
 #gov_jumbotron
 {
@@ -36,7 +29,7 @@
         <input type="text" class="form-control" style="width:400px" placeholder="電郵"  id="email"/>&nbsp;<a id="subscribe_button" class="btn btn-warning">訂閱</a>
         </div>
         <br/>
-        <div class="fb-like" data-href="https://www.facebook.com/g0vhk.io/" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+        {%include 'facebook_share_btn.html'%}
         <span style="font-weight:bold;color:#333;display:none">
             今日天氣: 
             溫度:<span id="weather_temperature">--</span>
@@ -80,25 +73,56 @@
                     <td colspan="2" style="border:none;display:none"></td>
 
                 </tr>
-            <tfoot>
+            </tfoot>
             <tbody style="border:none">
             </tbody>
         </table>
 </div>
 <div style="min-width:400px;float:left; margin-left:30px">
 <h3>最新消息</h3>
-<div>
-<h4>網站測試運作 -  2016年7月31日  </h4>
-<p>
-網站正在測試中，如發現任何問題，請聯絡 <a href="mailto:howa.wong@gmail.com">howa.wong@gmail.com</a>
-</p>
-</div>
+    <table id="news" class="table table-hover  table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width="25%" style="border:none; display: none"></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td style="border:none;display:none"></td>
+                </tr>
+            </tfoot>
+            <tbody style="border:none">
+            </tbody>
+        </table>
 </div>
 </div>
 
 <script>
 
 $(document).ready(function() {
+    $('#news').DataTable( {
+        "ajax": { 
+            url:"/api/news/",
+            dataSrc:""
+        },
+        "searching": false,
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "columns": [
+            { "render": 
+              function ( data, type, row ) {
+                var s = "";
+                var d = new Date(row.date);
+                var date_string = d.getFullYear() + "年" + (d.getMonth() + 1)  + "月" + d.getDate() + "日";
+                s += "<h4>" + row.title_ch +"&nbsp;-&nbsp;" + date_string + "</h4>" 
+                s += "<p>"  + row.text_ch + "</p>";
+                return s;
+              }
+            }
+        ]
+    } );
+
     $('#consultations').DataTable( {
         "ajax": { 
             url:"/api/consultations/",
@@ -125,17 +149,6 @@ $(document).ready(function() {
             },
         ]
     } );
-    $.ajax({
-        type: "GET",
-        url: "/api/weather/",
-        success: function(data)
-        {
-            $('#weather_temperature').text(data.temperature + " °C"); 
-            $('#weather_humidity').text(data.humidity + " %"); 
-            $('#weather_img').attr('src', data.image);
-        }
-    
-    });
     $('#subscribe_button').click(function(){
         $.ajax({
             type: "POST",

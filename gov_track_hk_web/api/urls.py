@@ -19,6 +19,7 @@ router.register(r'consultations', views.ConsultationsViewSet, base_name='consult
 router.register(r'weather', views.WeatherViewSet, base_name='weather')
 router.register(r'party/(?P<pk>.+)', views.PartyDetailViewSet, base_name='party')
 router.register(r'bills', views.AllBillsViewSet, base_name='bills')
+router.register(r'news', views.NewsViewSet, base_name='news')
 router.register(r'bills/(?P<keyword>\w*)', views.AllBillsViewSet, base_name='bills')
 router.register(r'bills/(?P<keyword>\w*)/(?P<page>[0-9]+)', views.AllBillsViewSet, base_name='bills')
 router.register(r'important_motion', views.ImportantMotionViewSet, base_name='important_motion')
