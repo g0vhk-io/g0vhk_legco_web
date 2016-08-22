@@ -23,6 +23,8 @@ router.register(r'news', views.NewsViewSet, base_name='news')
 router.register(r'bills/(?P<keyword>\w*)', views.AllBillsViewSet, base_name='bills')
 router.register(r'bills/(?P<keyword>\w*)/(?P<page>[0-9]+)', views.AllBillsViewSet, base_name='bills')
 router.register(r'important_motion', views.ImportantMotionViewSet, base_name='important_motion')
+router.register(r'speeches/(?P<keyword>\w*)', views.MeetingSpeechSearchViewSet, base_name='speeches')
+router.register(r'speeches', views.MeetingSpeechSearchViewSet, base_name='speeches')
 urlpatterns = [
     url(r'', include(router.urls))
 ]

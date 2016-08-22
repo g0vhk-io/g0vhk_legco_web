@@ -40,15 +40,11 @@
             <table id="most-absent" class="table table-striped table-bordered">
             <thead style="display:none">
             <tr>
-                <th width="50%">議員</th>
                 <th width="50%">缺席會議次數</th>
             </tr>
             </thead>
-            <tfoot style="display:none">
-                <tr>
-                    <th width="50%"></th>
-                    <th width="50%"></th>
-                </tr>
+            <tfoot>
+                    <tr><td style="border:none" align="right"><a href="/legco/who_was_absent_most">更多</a></td></tr>
             </tfoot>
             </table>
         </div>
@@ -63,8 +59,8 @@
                     <th width="50%">發言次數</th>
                 </tr>
                 </thead>
-                <tfoot style="display:none">
-                    <tr></tr>
+                <tfoot>
+                    <tr><td style="border:none" align="right"><a href="/legco/who_speaks_most">更多</a></td></tr>
                 </tfoot>
             </table>
         </div>
@@ -141,9 +137,6 @@ $(document).ready(function() {
                      html += "</div>";
                      return html;
                  }
-            },
-            { "visible":false,
-              "data": null
             }
         ]
     });

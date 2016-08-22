@@ -1,0 +1,162 @@
+{% extends 'legco/base.html'%}
+{% load legco_extras %}
+{% block page_content%}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
+<style>
+#meeting_jumbotron
+{
+    height:300px;
+    padding-left:20px;
+    background-image:url('/static/legco/meeting_bg.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#116;
+    color:#FFF;
+
+}
+#meeting_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+    <div class="jumbotron" id="meeting_jumbotron" style="margin-bottom:0px">
+    <h1>會議</h1>
+    </div>
+</div>
+
+<ol class="breadcrumb">
+  <li><a href="/legco">首頁</a></li>
+  <li><a href="/legco/meeting">會議</a></li>
+  <li class="active">發言</li>
+</ol>
+
+<div class="container-full" style="margin-left:20px">
+<div  class="input-group" style="margin-left:40px;width:300px">
+<input type="text" placeholder="關鍵字" id="search_keyword" class="form-control" value="{{search_keyword}}"/>
+ <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="search_btn">搜尋</button>
+      </span>
+</div>
+<div id="questions">
+</div>
+</div>
+
+{% verbatim %}
+<script type="text/babel">
+var Questions = React.createClass({
+    getInitialState: function(){
+        return {'data':[], 'total': 0, 'page': 1, 'page_size': 0};    
+    },
+    fetchQuestions:function()
+    {
+        var k = $("#search_keyword").val();
+        var page = 1;
+        this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
+    },
+    componentDidMount: function() {
+        this.fetchQuestions();
+    },
+
+    componentWillUnmount: function() {
+        this.serverRequest.abort();
+    },
+   
+    fetchNextPage: function()
+    {
+        if (this.state.data.length < this.state.page_size)
+        {
+            return ;
+        }
+        var k = this.state.keyword;
+        var page = this.state.page + 1;
+        this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page, function(result){ this.setState(result)}.bind(this));
+    },    
+
+    fetchPrevPage: function()
+    {
+        var k = this.state.keyword;
+        var page = this.state.page - 1;
+        if (page <= 0)
+        {
+            return ;
+        }
+        this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
+    },    
+
+    fetchLastPage: function()
+    {
+        if (this.state.page_size == 0)
+        {
+            return ;
+        }
+        var k = this.state.keyword;
+        var page = Math.ceil(this.state.total * 1.0/ this.state.page_size);
+        if (page == this.state.page)
+        {
+            return;
+        }
+
+        this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
+    },    
+
+
+
+ 
+    fetchFirstPage: function()
+    {
+        var k = this.state.keyword;
+        var page = 1;
+        if (page == this.state.page)
+        {
+            return;
+        }
+        this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
+    },    
+
+    render: function() {
+        var result = []
+        var labels = ["label-default", "label-primary", "label-success", "label-info" ,"label-warning" ,"label-danger"];
+        var first_page_link = <a className={'btn btn-default'} onClick={this.fetchFirstPage}>第一頁</a>;
+        var prev_page_link = <a className={'btn btn-default'} onClick={this.fetchPrevPage}>上一頁</a>;
+        var next_page_link = <a className={'btn btn-default'} onClick={this.fetchNextPage}>下一頁</a>;
+        var last_page_link = <a className={'btn btn-default'} onClick={this.fetchLastPage}>最後一頁</a>;
+        
+        for (var i = 0; i < this.state.data.length; i++)
+        {
+          var speech = this.state.data[i];
+          var d = new Date(Date.parse(speech.meeting.date))
+          var profile = (<div></div>)
+          var img = '/static/legco/member/nopic.png';
+          if (speech.individual != null)
+          { 
+            img = speech.individual.image;
+          }
+          profile = (<div style={{'float':'left','margin-right':'5px'}}><img  src={img}/></div>)
+          result.push(<tr style={{'border':'1px solid #ccc'}}><td width={'40px'}>{profile}</td><td>
+          <a href={'/legco/meeting/' + speech.meeting.id + '#seq' + speech.seq_num} target="_blank" style={{'font-size':'24pt'}}>
+                    {d.getFullYear()} 年 {d.getMonth() + 1} 月 {d.getDate()} 日 - {speech.title_ch}<br/>
+                    {speech.text_short_ch}
+          </a>
+          </td></tr>);
+        };
+        var table = (<table style={{'width':'80%','margin-left':'40px', 'margin-top':'20px'}} className={'table table-hover  table-bordered table-striped table table-bordered'}>{result}</table>);
+        return (<div><br/><div style={{'margin-left':'40px'}}>{'\"'}<em>{this.state.keyword}{'\"'}</em> 有 <em>{this.state.total}</em> 項搜尋結果 (第{this.state.page}頁) {first_page_link} {prev_page_link} {next_page_link} {last_page_link}</div>{table}</div>);
+    }
+    });
+var questions = ReactDOM.render(<Questions/>, document.getElementById('questions'));
+questions.fetchQuestions();
+$("#search_btn").click(function()
+{ questions.fetchQuestions();});
+</script>
+<br/>
+<br/>
+<br/>
+{% endverbatim %}
+{% endblock%}
+
+

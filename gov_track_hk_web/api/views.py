@@ -74,20 +74,21 @@ class MostSpeechIndividualsViewSet(viewsets.ViewSet):
 
 class MostAbsentIndividualsViewSet(viewsets.ViewSet):
     def  list(self, request):
+        size = int(request.query_params.get("size", 5))
         meeting_total = MeetingHansard.objects.all().count()
         absent_total =  MeetingHansard.objects.all() \
         .values('members_absent__individual__pk', 'members_absent__individual__name_ch', 'members_absent__individual__image') \
         .annotate(dcount=Count('members_absent__individual__pk')).order_by('-dcount')
-        print absent_total
-        print len(absent_total)
         result = []
         for d in absent_total:
             pk = d['members_absent__individual__pk']
             name_ch = d['members_absent__individual__name_ch']
             image = d['members_absent__individual__image']
             dcount = d['dcount']
+            if pk is None:
+                continue
             result.append({'id': pk, 'name': name_ch, 'total': dcount, 'image': image, 'max': meeting_total})
-        return Response(result[0:5])
+        return Response(result[0:size])
 
 
 
@@ -162,6 +163,40 @@ class AllBillsViewSet(viewsets.ViewSet):
             output.append({'title_en': bill.bill_title_en, 'title_ch': bill.bill_title_ch, 'id': bill.id, 'passed': len(bill.ordinance_gazette_content_url_ch) > 0, 'content': bill.ordinance_gazette_content_url_ch, 'ordinance_title_ch': bill.ordinance_title_ch, 'proposer_ch': bill.proposed_by_ch})
         return Response({'data':output, 'keyword': keyword, 'page':page + 1, 'total': total, 'page_size': page_size})
 
+class MeetingSpeechSearchViewSet(viewsets.ViewSet):
+    def list(self, request, keyword=""):
+        page = int(request.query_params.get("page", "1")) - 1
+        if page < 0:
+            page = 0
+        page_size = 50
+        speeches = MeetingSpeech.objects.prefetch_related('individual').filter(~Q(title_ch = "")&(Q(title_ch__contains = keyword) | Q(text_ch__contains = keyword))).values_list('text_ch', 'title_ch', 'sequence_number', 'individual__id','individual__name_ch','individual__image', 'meetinghansard__id', 'meetinghansard__date').order_by('-meetinghansard__date')
+
+        total = speeches.count()
+        output = []
+        for l in speeches[page_size * page: (page + 1) * page_size]:
+            print l
+            text, title, seq_num, individual_id, individual_name, individual_image, meeting_id, meeting_date = l
+            i_dict = None
+            m_dict = {'date': meeting_date, 'id': meeting_id}
+            if meeting_id is None:
+                continue
+            if individual_id is not None:
+                i_dict = {'id': individual_id, 'name_ch': individual_name, 'image': individual_image}
+            p = text.find(keyword)
+            pre_text_short = ".."
+            post_text_short = ".."
+            start = p - 10
+            if start < 0:
+                start = 0
+                pre_text_short = ""
+            end = start + 50
+            l = len(text)
+            if end > l :
+                end = l - 1
+                post_text_short = ""
+            short_text = pre_text_short + text[start:end] + post_text_short
+            output.append({'text_short_ch': short_text, 'title_ch': title, 'individual': i_dict, 'seq_num': seq_num, 'meeting': m_dict})
+        return Response({'data':output, 'keyword': keyword, 'page':page + 1, 'total': total, 'page_size': page_size})
 
 
 class PartiesViewSet(viewsets.ModelViewSet):

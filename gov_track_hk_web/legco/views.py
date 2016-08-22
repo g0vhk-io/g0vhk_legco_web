@@ -24,6 +24,11 @@ def index_view(request):
 def speak_most_view(request):
     return render(request, 'legco/who_speaks_most.html', {'nbar': 'home', 'tbar':'legco'})
 
+def speeches_view(request, keyword=""):
+    return render(request, 'legco/speeches.html', {'nbar': 'meeting', 'tbar':'legco', 'search_keyword': keyword})
+
+def absent_most_view(request):
+    return render(request, 'legco/who_was_absent_most.html', {'nbar': 'home', 'tbar':'legco'})
 
 def all_votes_view(request):
     return render(request, 'legco/vote.html', {'nbar': 'vote', 'tbar': 'legco'})

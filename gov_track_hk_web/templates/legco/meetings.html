@@ -36,6 +36,14 @@
 
 <div class="container-full">
 <div style="float:left; margin-left:60px">
+<h3> 發言搜尋</h3>
+<div  class="input-group" style="width:300px">
+<input type="text" placeholder="關鍵字" id="search_keyword" class="form-control" value=""/>
+<span class="input-group-btn">
+<button class="btn btn-default" type="button" id="search_btn">搜尋</button>
+</span>
+</div>
+
 <h3>年份</h3>
 <button id="btn_2012" href="#" class="btn">2012-2013</button>
 <button id="btn_2013" href="#" class="btn">2013-2014</button>
@@ -142,6 +150,8 @@ $(document).ready(function()
 list(2015)
 </script>
 <script>
+$("#search_btn").click(function()
+{ window.location = '/legco/speeches/' + $("#search_keyword").val();});
 </script>
 {% endverbatim %}
 {% endblock%}

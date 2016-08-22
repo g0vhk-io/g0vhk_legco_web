@@ -13,11 +13,14 @@ urlpatterns = [
     url(r'^bill/$', all_bills_view),
     url(r'^questions/(?P<keyword>.*)/$', all_questions_view),
     url(r'^questions/$', all_questions_view),
+    url(r'^speeches/(?P<keyword>.*)/$', speeches_view),
+    url(r'^speeches/$', speeches_view),
     url(r'^meeting/(?P<pk>[0-9]+)/$', hansard_view),
     url(r'^fin_item/(?P<pk>[0-9]+)/$', finance_item_view),
     url(r'^fc_result/(?P<pk>[0-9]+)/$', fc_result_view),
     url(r'^opendata/$', open_data_view),
     url(r'^who_speaks_most/$', speak_most_view),
+    url(r'^who_was_absent_most/$', absent_most_view),
     url(r'^meeting/$', meeting_view)
 ]
 
