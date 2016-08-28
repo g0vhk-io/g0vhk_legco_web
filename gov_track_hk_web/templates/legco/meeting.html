@@ -18,6 +18,19 @@
 {
     color:#FFF
 }
+span.collapse {
+    display: none;
+    position: static;
+    height: auto;
+    opacity: 0;
+}
+
+span.collapse.in {
+    display: inline;
+    position: static;
+    opacity: 1;
+    height: auto;
+}
 </style>
 <div class="container-full">
     <div class="jumbotron" id="meeting_jumbotron" style="margin-bottom:0px">
@@ -89,10 +102,13 @@
             {% endif %}
             <td>
             <p>
-            {{s.text_ch_short |linebreaksbr}}
+                <span class="text_short" style="display:inline">
+                {{s.text_ch_short |linebreaksbr}}
                 {% if s.text_ch_more|length > 0 %}
-                <span class="collapse" id="viewdetails{{forloop.counter}}">{{s.text_ch_more|linebreaksbr}}</span>
-                <a class="btn" data-toggle="collapse" data-target="#viewdetails{{forloop.counter}}">展開</a><br/>
+                </span>
+                <span class="collapse" id="viewdetails{{forloop.counter}}" style="">{{s.text_ch_more|linebreaksbr}}</span>
+                <br/>
+                <a class="btn btn-default" data-toggle="collapse" data-target="#viewdetails{{forloop.counter}}">展開</a><br/>
                 {%endif%}
             </td>
             </tr>
@@ -104,4 +120,14 @@
 {% endfor%}
 </ul>
 </div>
+<script>
+$(document).ready(function(){
+  $(".collapse").on("hide.bs.collapse", function(){
+    $(".btn", $(this).parent()).html('展開');
+  });
+  $(".collapse").on("show.bs.collapse", function(){
+    $(".btn", $(this).parent()).html('關閉');
+  });
+});
+</script>
 {% endblock%}
