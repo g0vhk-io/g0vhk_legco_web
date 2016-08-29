@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^projects/', views.other_projects_view),
     url(r'^admin/', admin.site.urls),
     url(r'^legco/', include('legco.urls')),
+    url(r'^rss/', include('rss.urls')),
     url(r'^district/', include('district.urls')),
     url(r'^api/', include('api.urls'))
 ]
