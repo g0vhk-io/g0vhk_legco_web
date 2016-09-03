@@ -43,16 +43,21 @@ def vote_detail_view(request, pk):
     yes_count = 0
     no_count = 0
     present_count = 0
+    abstain_count = 0
+    absent_count = 0
     overall_result = ""
+    total_count = individual_votes.count()
     for summary in summaries:
         yes_count += summary.yes_count
         no_count  += summary.no_count
-        present_count += summary.yes_count + summary.no_count + summary.abstain_count
+        abstain_count += summary.abstain_count
+        present_count += summary.present_count
         if summary.summary_type == VoteSummary.OVERALL:
             overall_result = summary.result
-    abstain_count = len(individual_votes) - yes_count - no_count - 1
+    absent_count = total_count - present_count
+    present_vote_count = present_count - yes_count - no_count - abstain_count
     meeting = MeetingHansard.objects.filter(Q(date__year = vote.date.year) & Q(date__month = vote.date.month) & Q(date__day = vote.date.day)).first()
-    return render(request, 'legco/vote_detail.html', {'nbar': 'meeting', 'tbar': 'legco', 'vote': vote, 'individual_votes': individual_votes, 'summaries': summaries, 'yes_count': yes_count, 'no_count': no_count, 'abstain_count': abstain_count, 'meeting': meeting, 'overall_result': overall_result})
+    return render(request, 'legco/vote_detail.html', {'nbar': 'meeting', 'tbar': 'legco', 'vote': vote, 'individual_votes': individual_votes, 'summaries': summaries, 'yes_count': yes_count, 'no_count': no_count, 'abstain_count': abstain_count, 'absent_count': absent_count, 'meeting': meeting, 'overall_result': overall_result, 'present_vote_count': present_vote_count})
 
 def party_view(request, pk):
     party = Party.objects.get(pk = pk)

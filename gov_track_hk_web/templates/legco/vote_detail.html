@@ -83,13 +83,13 @@
 <div style="float:left; width:30%;">
     <center>
         <div class="alert alert-info" role="alert">
-            <h1>{{ abstain_count}}票棄權</h1>
+            <h1>{{absent_count}}票缺席&nbsp;+&nbsp;{{abstain_count}}票棄權&nbsp;+&nbsp;{{present_vote_count}}票在席</h1>
         </div>
     </center>
 
 {% for iv in individual_votes %}
-{% if iv.result == "ABSENT" or iv.result == "ABSTAIN" %}
-<div class='clickable-row' data-href='/legco/individual/{{iv.individual.id}}/' style="float:left;margin-right:4px;width:80;height:129;{%if iv.result == "ABSENT" %}opacity:0.3;{%endif%};cursor: pointer;">
+{% if iv.result == "ABSENT" or iv.result == "ABSTAIN" or iv.result == "PRESENT" %}
+<div class='clickable-row' data-href='/legco/individual/{{iv.individual.id}}/' style="float:left;margin-right:4px;width:80;height:129;{%if iv.result == "ABSENT" or iv.result == "PRESENT" %}opacity:0.3;{%endif%};cursor: pointer;">
         <img src="{{iv.individual.image}}" width="80"/><br/>{{iv.individual.name_ch}}
     </div>
 {% endif %}
