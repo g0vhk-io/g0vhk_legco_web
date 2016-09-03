@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Count
-from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question
+from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question, BillCommittee
+from legco.models import ImportantMotion
 from datetime import date, datetime
 from django.db.models import Q
 from legco.models import MeetingSpeech, MeetingPersonel, MeetingHansard
@@ -16,7 +17,9 @@ def individual_view(request, pk):
     related_news = NewsArticle.objects.filter(individuals__id = pk)[0:20]
     speech_total = MeetingHansard.objects.filter(speeches__individual__pk = pk).count()
     latest_speeches = MeetingHansard.objects.filter(speeches__individual__pk = pk).values_list('speeches__text_ch', 'date', 'pk', 'speeches__sequence_number').order_by('-date')[0:20]
-    return render(request, 'legco/individual.html', {'nbar': 'party', 'tbar':'legco', 'individual': individual, 'related_news': related_news, 'present_total': present_total, 'absent_total': absent_total, 'question_total': question_total, 'latest_speeches': latest_speeches, 'speech_total': speech_total})
+    bill_committees = [{'title': b[0], 'id': b[1]} for b in BillCommittee.objects.filter(Q(individuals__pk__contains = pk) | Q(chairman__pk = pk) | Q(vicechairman__pk = pk)).values_list('bills_committee_title_ch', 'bill__pk').order_by('-bills_committee_formation_date')[0:10]]
+    important_motions = [{'title': m[0], 'date':m[1], 'id':m[2], 'result':m[3]} for m in ImportantMotion.objects.select_related('motion').filter(motion__vote__individualvote__individual__pk = pk).values_list('motion__name_ch', 'motion__vote__date', 'motion__vote__pk', 'motion__vote__individualvote__result').order_by('-motion__vote__date')]
+    return render(request, 'legco/individual.html', {'nbar': 'party', 'tbar':'legco', 'individual': individual, 'related_news': related_news, 'present_total': present_total, 'absent_total': absent_total, 'question_total': question_total, 'latest_speeches': latest_speeches, 'speech_total': speech_total, 'bill_committees': bill_committees, 'important_motions': important_motions})
 
 def index_view(request):
     return render(request, 'legco/index.html', {'nbar': 'home', 'tbar':'legco'})
@@ -48,7 +51,7 @@ def vote_detail_view(request, pk):
         if summary.summary_type == VoteSummary.OVERALL:
             overall_result = summary.result
     abstain_count = len(individual_votes) - yes_count - no_count - 1
-    meeting = MeetingHansard.objects.get(Q(date__year = vote.date.year) & Q(date__month = vote.date.month) & Q(date__day = vote.date.day))
+    meeting = MeetingHansard.objects.filter(Q(date__year = vote.date.year) & Q(date__month = vote.date.month) & Q(date__day = vote.date.day)).first()
     return render(request, 'legco/vote_detail.html', {'nbar': 'meeting', 'tbar': 'legco', 'vote': vote, 'individual_votes': individual_votes, 'summaries': summaries, 'yes_count': yes_count, 'no_count': no_count, 'abstain_count': abstain_count, 'meeting': meeting, 'overall_result': overall_result})
 
 def party_view(request, pk):

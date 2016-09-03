@@ -46,10 +46,15 @@
   <li class="active">{{individual.name_ch}}</li>
 </ol>
 
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a data-toggle="tab" href="#important_votes">重要議題投票</a></li>
+  <li role="presentation"><a href="#speeches" data-toggle="tab">最近發言</a></li>
+  <li role="presentation"><a href="#bill_committees" data-toggle="tab">法案委員會</a></li>
+  <li role="presentation"><a href="#related_news" data-toggle="tab">相關新聞</a></li>
+</ul>
 
-
-<div class="container-full" style="margin-left:20px">
-<div style="float:left">
+<div class="container-full tab-content" style="margin-left:20px">
+<div id="related_news" class="tab-pane fade">
 <h3>相關新聞</h3>
 <table>
 {% for n in related_news %}
@@ -62,8 +67,9 @@
 <br/>
 <br/>
 </div>
-<div style="margin-left:50px;float:left;width:400px">
+<div class="tab-pane fade" id="speeches">
 <h3>最近發言</h3>
+<div style="width:400px">
 <div class="jcarousel-wrapper">
 <div class="jcarousel">
 <ul>
@@ -84,8 +90,32 @@
                     
                 </p>
 </div>
+</div>
+</div>
+<div id="bill_committees" class="tab-pane fade">
+<h3>法案委員會</h3>
+<table>
+{% for n in bill_committees%}
+    <tr>
+        <td><a href="/legco/bill/{{n.id}}">{{n.title}}</a></td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+<div id="important_votes" class="tab-pane fade in active">
+<h3>重要議題投票</h3>
+<table class="table table-hover table-bordered table-condensed" style="width:60%">
+{% for m in important_motions%}
+<tr>
+    <td width="15%">{{m.date|parse_date_chinese}}</td>
+    <td><a href="/legco/vote/{{m.id}}">{{m.title|truncatechars:40}}</a></td>
+    <td width="10%">{{m.result|vote_chinese}}</td>
+</tr>
+{% endfor %}
+</table>
 
 </div>
+
 </div>
 <script>
 $('.jcarousel').jcarousel({visible:5});
@@ -121,5 +151,5 @@ $('.jcarousel-control-prev')
             .jcarouselPagination();
 </script>
 
-
+<br/></br>
 {% endblock%}

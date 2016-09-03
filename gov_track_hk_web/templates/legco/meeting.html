@@ -40,7 +40,9 @@ span.collapse.in {
 <ol class="breadcrumb">
   <li><a href="/legco">首頁</a></li>
   <li><a href="/legco/meeting">會議</a></li>
+  {%if meeting != None %}
   <li class="active">{%if meeting.meeting_type == "fc"%} 財務委員會會議紀要{%else%} 會議過程正式紀錄{%endif%} | {{meeting.date|parse_date_chinese}}</li>
+  {%endif%}
 </ol>
 <div class="container">
     <h1>{%if meeting.meeting_type == "fc"%} 財務委員會會議紀要{%else%} 會議過程正式紀錄{%endif%} | {{meeting.date|parse_date_chinese}}</h1>

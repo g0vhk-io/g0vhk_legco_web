@@ -28,7 +28,9 @@
 <ol class="breadcrumb">
   <li><a href="/legco">首頁</a></li>
   <li><a href="/legco/meeting">會議</a></li>
+  {%if meeting != None%}
   <li><a href="/legco/meeting/{{meeting.id}}">{%if meeting.meeting_type == "fc"%} 財務委員會會議紀要{%else%} 會議過程正式紀錄{%endif%} | {{meeting.date|parse_date_chinese}}</a></li>
+  {%endif%}
   <li class="active">{{vote.motion.name_ch}}之投票結果</li>
 </ol>
 </div>
