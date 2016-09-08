@@ -1,11 +1,22 @@
 from django.shortcuts import render
 from django.db.models import Count
-from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question, BillCommittee
+from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question, BillCommittee, Council
 from legco.models import ImportantMotion
 from datetime import date, datetime
 from django.db.models import Q
 from legco.models import MeetingSpeech, MeetingPersonel, MeetingHansard
 # Create your views here.
+
+
+def members_view(request, pk):
+    council = Council.objects.select_related('chairman').get(pk = pk)
+    members = [m for m in Individual.objects.filter(council__pk = pk) if council.chairman.pk != m.pk ]
+    return render(request, 'legco/members.html', {'nbar': 'members', 'tbar':'legco', 'members': members, 'council': council})
+
+def councils_view(request):
+    councils = Council.objects.all()
+    return render(request, 'legco/council.html', {'nbar': 'members', 'tbar':'legco', 'councils': councils})
+
 
 
 def individual_view(request, pk):

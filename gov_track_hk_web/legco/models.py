@@ -23,13 +23,6 @@ class Constituency(models.Model):
     def __unicode__(self):
         return self.name_en + "-" + self.name_ch
 
-class Council(models.Model):
-    name_en = models.CharField(max_length=512)
-    name_ch = models.CharField(max_length=512)
-    start_year = models.IntegerField(default=0)
-    def __unicode__(self):
-        return self.name_en + "-" + self.name_ch
-
 class Meeting(models.Model):
     date = models.DateField()
     meeting_type = models.CharField(max_length=1024,default=None)
@@ -144,5 +137,16 @@ class FinanceMeetingItemEvent(models.Model):
     decision = models.CharField(max_length=128)
     vote = models.ForeignKey(Vote, null=True, blank=True)
     result = models.ForeignKey(FinanceMeetingResult, null=True, blank=True)
-#
 
+
+class Council(models.Model):
+    name_en = models.CharField(max_length=512)
+    name_ch = models.CharField(max_length=512)
+    start_year = models.IntegerField(default=0)
+    individuals = models.ManyToManyField(Individual)
+    chairman = models.ForeignKey(Individual, related_name='chair', null=True, blank=True)
+    def __unicode__(self):
+        return self.name_en + "-" + self.name_ch
+
+
+#

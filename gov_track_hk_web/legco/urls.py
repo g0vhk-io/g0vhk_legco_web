@@ -21,7 +21,9 @@ urlpatterns = [
     url(r'^opendata/$', open_data_view),
     url(r'^who_speaks_most/$', speak_most_view),
     url(r'^who_was_absent_most/$', absent_most_view),
-    url(r'^meeting/$', meeting_view)
+    url(r'^meeting/$', meeting_view),
+    url(r'^councils/$', councils_view),
+    url(r'^members/(?P<pk>[0-9]+)/$', members_view),
 ]
 
 

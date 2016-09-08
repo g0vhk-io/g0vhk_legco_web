@@ -1,0 +1,42 @@
+{% extends 'legco/base.html'%}
+{% block page_content%}
+<link rel="stylesheet" href="/static/jcarousel.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
+<style>
+#council_jumbotron
+{
+    height:300px;
+    background-image:url('/static/legco/council_bg.png');
+    padding-left:20px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    background-color:#db9500;
+    color:#FFF;
+
+}
+#council_jumbotron a
+{
+    color:#FFF
+}
+</style>
+<div class="container-full">
+    <div class="jumbotron" id="council_jumbotron" style="margin-bottom:0px">
+        <h1>議員</h1>
+    </div>
+</div>
+<ol class="breadcrumb">
+  <li><a href="/legco">首頁</a></li>
+  <li class="active">議員</li>
+</ol>
+
+
+<div class="container-full" style="padding-left:20px;min-height:500px;">
+<div style="float:left;width:45%">
+<h3>立法會議員名單</h3>
+{%for council in councils%}
+<a href="/legco/members/{{council.pk}}">{{council.name_ch}}</a>
+{%endfor%}
+</div>
+</div>
+{% endblock%}
