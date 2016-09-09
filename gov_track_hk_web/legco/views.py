@@ -10,7 +10,7 @@ from legco.models import MeetingSpeech, MeetingPersonel, MeetingHansard
 
 def members_view(request, pk):
     council = Council.objects.select_related('chairman').get(pk = pk)
-    members = [m for m in Individual.objects.filter(council__pk = pk) if council.chairman.pk != m.pk ]
+    members = [m for m in Individual.objects.filter(council__pk = pk) if council.chairman != None and council.chairman.pk != m.pk ]
     return render(request, 'legco/members.html', {'nbar': 'members', 'tbar':'legco', 'members': members, 'council': council})
 
 def councils_view(request):
