@@ -1,12 +1,20 @@
 from django.contrib import admin
+from django import forms
+from django.db import models
 from legco.models import Party, Individual, Council, Constituency,  Meeting, Motion, VoteSummary, IndividualVote, Vote, NewsArticle
 from legco.models import Bill,  BillCommittee, BillThirdReading, BillFirstReading, BillSecondReading
 from legco.models import MeetingSpeech, MeetingHansard
 from legco.models import Question
+
+class CouncilAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
+    }
+
 admin.site.register(Party)
 admin.site.register(Vote)
 admin.site.register(Individual)
-admin.site.register(Council)
+admin.site.register(Council, CouncilAdmin)
 admin.site.register(Constituency)
 admin.site.register(Motion)
 admin.site.register(Meeting)
