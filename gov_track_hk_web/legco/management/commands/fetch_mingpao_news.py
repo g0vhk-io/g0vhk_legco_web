@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys, traceback
 from django.db import transaction
 from django.db import IntegrityError
 from django.core.management.base import BaseCommand, CommandError
@@ -13,6 +14,7 @@ import multiprocessing
 from lxml import etree
 from io import StringIO
 import functools
+import md5
 
 def fetch(item, d, e):
     url = item['link']
@@ -36,10 +38,12 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--date', type=str)
 
+
     def handle(self, *args, **options):
-        j = json.loads(open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'issuelist.json'), 'rb').read().decode("utf-8"))
+        issue_list = requests.get('http://news.mingpao.com/dat/pns/issuelist.js').json()
+        #j = json.loads(open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'issuelist.json'), 'rb').read().decode("utf-8"))
         d = options["date"]
-        e = j['PNS_WEB_TC']['1 ' + d]['E'].lower()
+        e = issue_list['PNS_WEB_TC']['1 ' + d]['E'].lower()
         url = "http://news.mingpao.com/dat/pns/pns_web_tc/feed1/%s%s/content.js" % (d, e)
         print("Fetching from:" +url)
         js = requests.get(url).text
@@ -79,10 +83,11 @@ class Command(BaseCommand):
             article.title = item['title']
             article.text = item['text']
             article.image = item['image']
+            article.date = datetime.strptime(d, '%Y%m%d').date()
             article.source = 'mingpao'
+            article.key =  str(md5.new(article.link).hexdigest())
             try:
                 article.save()
-                print("Added %s" % (article.title))
                 article.individuals = []
                 for individual in individuals:
                     if article.text.find(individual.name_ch) != -1:
@@ -96,4 +101,5 @@ class Command(BaseCommand):
                 article.save()
             except IntegrityError as e:
                 print("Failed to add %s due to integriy" % (article.title))
+                traceback.print_exc()
                 pass

@@ -56,9 +56,10 @@
 <div class="container-full tab-content" style="margin-left:20px">
 <div id="related_news" class="tab-pane fade">
 <h3>相關新聞</h3>
-<table>
+<table class="table table-hover  table-condensed table-bordered">
 {% for n in related_news %}
     <tr>
+        <td><a href="{{n.link}}">{{n.date|parse_date_chinese}}</a>&nbsp;</td>
         <td><a href="{{n.link}}">{{n.title}}</a></td>
     </tr>
 {% endfor %}

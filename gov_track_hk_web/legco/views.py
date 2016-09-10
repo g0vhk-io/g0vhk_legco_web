@@ -25,7 +25,7 @@ def individual_view(request, pk):
     absent_total =  MeetingHansard.objects.filter(members_absent__pk__in = personel_ids).count()
     present_total =  MeetingHansard.objects.filter(members_present__pk__in = personel_ids).count()
     question_total = Question.objects.filter(individual__pk = pk).count()
-    related_news = NewsArticle.objects.filter(individuals__id = pk)[0:20]
+    related_news = NewsArticle.objects.filter(individuals__id = pk).order_by('-date')[0:20]
     speech_total = MeetingHansard.objects.filter(speeches__individual__pk = pk).count()
     latest_speeches = MeetingHansard.objects.filter(speeches__individual__pk = pk).values_list('speeches__text_ch', 'date', 'pk', 'speeches__sequence_number').order_by('-date')[0:20]
     bill_committees = [{'title': b[0], 'id': b[1]} for b in BillCommittee.objects.filter(Q(individuals__pk__contains = pk) | Q(chairman__pk = pk) | Q(vicechairman__pk = pk)).values_list('bills_committee_title_ch', 'bill__pk').order_by('-bills_committee_formation_date')[0:10]]
@@ -72,7 +72,7 @@ def vote_detail_view(request, pk):
 
 def party_view(request, pk):
     party = Party.objects.get(pk = pk)
-    related_news = NewsArticle.objects.filter(parties__id = pk)[0:20]
+    related_news = NewsArticle.objects.filter(parties__id = pk).order_by('-date')[0:20]
     individuals = Individual.objects.filter(party__id = pk)
     return render(request, 'legco/party.html', {'party': party, 'individuals': individuals, 'nbar':'party', 'tbar': 'legco', 'related_news': related_news})
 

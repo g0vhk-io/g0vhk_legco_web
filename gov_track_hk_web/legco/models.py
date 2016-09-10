@@ -74,6 +74,7 @@ class NewsArticle(models.Model):
     link = models.CharField(max_length=2048)
     key = models.CharField(max_length=255, default="no-key", blank=True, null=True, unique=True)
     title = models.CharField(max_length=2048)
+    date = models.DateField(blank=True, null=True)
     text = models.TextField(max_length=33554432, default="")
     image = models.TextField(max_length=33554432, default=None, blank=True, null=True)
     source = models.CharField(max_length=256)

@@ -1,4 +1,5 @@
 {% extends 'legco/base.html'%}
+{% load legco_extras %}
 {% block page_content%}
 <link rel="stylesheet" href="/static/jcarousel.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
@@ -60,9 +61,10 @@
 </div>
 <div style="width:45%;float:left;">
 <h3 style="margin-bottom:28px">相關新聞</h3>
-<table>
+<table class="table table-hover  table-condensed table-bordered">
 {% for n in related_news %}
     <tr>
+        <td><a href="{{n.link}}">{{n.date|parse_date_chinese}}</a>&nbsp;</td>
         <td><a href="{{n.link}}">{{n.title}}</a></td>
     </tr>
 {% endfor %}
