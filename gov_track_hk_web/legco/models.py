@@ -145,9 +145,36 @@ class Council(models.Model):
     name_ch = models.CharField(max_length=512)
     start_year = models.IntegerField(default=0)
     individuals = models.ManyToManyField(Individual)
+    members = models.ManyToManyField(Individual, through='CouncilMember', related_name='member')
     chairman = models.ForeignKey(Individual, related_name='chair', null=True, blank=True)
     def __unicode__(self):
         return self.name_en + "-" + self.name_ch
+
+
+class CouncilMembershipType(models.Model):
+    GC = 'GC'
+    FC_DC = 'FC_DC'
+    FC = 'FC'
+    CATEGORY_CHOICES = (
+        (GC, 'Geographical Constituencies'),
+        (FC_DC, 'Functional Constituency District Council (Second)'),
+        (FC, 'Functional Constituency')
+    )
+    category = models.CharField(max_length=128, choices=CATEGORY_CHOICES)
+    sub_category = models.CharField(max_length=128)
+    def __unicode__(self):
+        return self.category + "-" + self.sub_category
+
+
+
+
+class CouncilMember(models.Model):
+    member = models.ForeignKey(Individual)
+    council = models.ForeignKey(Council)
+    membership_type = models.ForeignKey(CouncilMembershipType)
+    def __unicode__(self):
+        return self.member.name_ch + "-" + self.council.name_ch + "-" + unicode(self.membership_type) 
+
 
 
 #

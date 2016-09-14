@@ -42,11 +42,51 @@
 <h3>主席</h3>
  <a href="/legco/individual/{{council.chairman.pk}}"><img src="{{council.chairman.image}}"/><br/>{{council.chairman.name_ch}}</a>
 {%endif%}
-<h3> 議員</h3>
-<table><tr>
-{% for member in members %}
+<h3> 議員</h2>
+<h4>地區</h4>
+{%for key, members in gc_members%}
+<em>{{key}}<em></br>
+
+<table>
+{%for member in members %}
    <td>
-        <a href="/legco/individual/{{member.pk}}"><img src="{{member.image}}"/><br/>{{member.name_ch}}</a>
+        <a href="/legco/individual/{{member.member.pk}}"><img src="{{member.member.image}}"/><br/>{{member.member.name_ch}}</a>
+   </td>
+   {% if forloop.last %}
+     </tr>
+   {% else %}
+     {% if forloop.counter|divisibleby:"10" %}
+       </tr><tr>
+     {% endif %}
+   {% endif %}
+
+{%endfor%}
+
+</table>
+{%endfor%}
+<h4>超區</h4>
+<table>
+{%for member in fc_dc_members %}
+   <td>
+        <a href="/legco/individual/{{member.member.pk}}"><img src="{{member.member.image}}"/><br/>{{member.member.name_ch}}</a>
+   </td>
+   {% if forloop.last %}
+     </tr>
+   {% else %}
+     {% if forloop.counter|divisibleby:"10" %}
+       </tr><tr>
+     {% endif %}
+   {% endif %}
+
+{%endfor%}
+
+</table>
+
+<h4>功能界別</h4>
+<table><tr>
+{% for member in fc_members %}
+   <td>
+        <a href="/legco/individual/{{member.member.pk}}"><img src="{{member.member.image}}"/><br/><center>{{member.member.name_ch}}<br/>{{member.membership_type.sub_category}}</center></a>
    </td>
    {% if forloop.last %}
      </tr>

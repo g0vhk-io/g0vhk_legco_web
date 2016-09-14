@@ -1,17 +1,22 @@
 from django.shortcuts import render
 from django.db.models import Count
-from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question, BillCommittee, Council
+from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question, BillCommittee, Council, CouncilMember, CouncilMembershipType
 from legco.models import ImportantMotion
 from datetime import date, datetime
 from django.db.models import Q
 from legco.models import MeetingSpeech, MeetingPersonel, MeetingHansard
+from collections import defaultdict
 # Create your views here.
 
 
 def members_view(request, pk):
     council = Council.objects.select_related('chairman').get(pk = pk)
-    members = [m for m in Individual.objects.filter(council__pk = pk) if council.chairman == None or  (council.chairman != None and council.chairman.pk != m.pk) ]
-    return render(request, 'legco/members.html', {'nbar': 'members', 'tbar':'legco', 'members': members, 'council': council})
+    members = [m for m in CouncilMember.objects.select_related('membership_type').filter(council__pk = pk) if council.chairman == None or  (council.chairman != None and council.chairman.pk != m.pk) ]
+    gc_members = defaultdict(list)
+    fc_dc_members = [m for m in members if m.membership_type.category == CouncilMembershipType.FC_DC]
+    fc_members = [m for m in members if m.membership_type.category == CouncilMembershipType.FC]
+    for m in [m for m in members if m.membership_type.category == CouncilMembershipType.GC]: gc_members[m.membership_type.sub_category].append(m)
+    return render(request, 'legco/members.html', {'nbar': 'members', 'tbar':'legco', 'members': members, 'council': council, 'gc_members': gc_members.items(), 'fc_dc_members': fc_dc_members, 'fc_members':fc_members})
 
 def councils_view(request):
     councils = Council.objects.all()
