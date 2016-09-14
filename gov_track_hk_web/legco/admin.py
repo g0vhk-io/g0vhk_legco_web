@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms
 from django.db import models
+from django.utils.html import mark_safe
 from legco.models import Party, Individual, Council, Constituency,  Meeting, Motion, VoteSummary, IndividualVote, Vote, NewsArticle, CouncilMember, CouncilMembershipType
 from legco.models import Bill,  BillCommittee, BillThirdReading, BillFirstReading, BillSecondReading
 from legco.models import MeetingSpeech, MeetingHansard
@@ -10,6 +11,21 @@ class CouncilAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
     }
+
+class HorizontialRadioRenderer(forms.RadioSelect.renderer):
+    def render(self):
+            return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
+
+class CouncilMemberForm(forms.ModelForm):
+    class Meta:
+        model = CouncilMember
+        fields = ('member', 'council', 'membership_type')
+        widgets = {
+            'member': forms.widgets.RadioSelect(renderer=HorizontialRadioRenderer),
+        }
+
+class CouncilMemberAdmin(admin.ModelAdmin):
+    form = CouncilMemberForm 
 
 admin.site.register(Party)
 admin.site.register(Vote)
@@ -29,6 +45,6 @@ admin.site.register(BillSecondReading)
 admin.site.register(Question)
 admin.site.register(MeetingSpeech)
 admin.site.register(MeetingHansard)
-admin.site.register(CouncilMember)
+admin.site.register(CouncilMember, CouncilMemberAdmin)
 admin.site.register(CouncilMembershipType)
 
