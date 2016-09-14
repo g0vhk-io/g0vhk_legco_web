@@ -20,6 +20,14 @@ def random_label():
     labels = ["label-default", "label-primary", "label-success", "label-info" ,"label-warning" ,"label-danger"]
     return labels[random.randint(0,len(labels) - 1)]
 
+@register.simple_tag
+def random_panel(i=-1):
+    labels = ["default", "primary", "success", "info" ,"warning" ,"danger"]
+    if i == -1:
+        i = random.randint(0,len(labels) - 1)
+    return "panel-" + labels[i]
+
+
 @register.filter
 def vote_result_chinese(result):
     return "通過" if result.lower() == "passed" else "否決"

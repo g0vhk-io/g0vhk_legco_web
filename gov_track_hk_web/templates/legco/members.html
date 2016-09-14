@@ -1,4 +1,5 @@
 {% extends 'legco/base.html'%}
+{% load legco_extras %}
 {% block page_content%}
 <link rel="stylesheet" href="/static/jcarousel.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
@@ -42,11 +43,13 @@
 <h3>主席</h3>
  <a href="/legco/individual/{{council.chairman.pk}}"><img src="{{council.chairman.image}}"/><br/>{{council.chairman.name_ch}}</a>
 {%endif%}
-<h3> 議員</h2>
+<h3>議員</h2>
 <h4>地區</h4>
-{%for key, members in gc_members%}
-<em>{{key}}<em></br>
 
+{%for key, members in gc_members%}
+{%random_panel forloop.counter  as panel_class%}
+<div class="panel {{panel_class}}">
+<div class="panel-heading">{{key}}</div>
 <table>
 {%for member in members %}
    <td>
@@ -63,8 +66,10 @@
 {%endfor%}
 
 </table>
+</div>
 {%endfor%}
-<h4>超區</h4>
+<div class="panel panel-default">
+<div class="panel-heading">超區</div>
 <table>
 {%for member in fc_dc_members %}
    <td>
@@ -81,8 +86,11 @@
 {%endfor%}
 
 </table>
+</div>
+</div>
 
-<h4>功能界別</h4>
+<div class="panel panel-primary">
+<div class="panel-heading">功能界別</div>
 <table><tr>
 {% for member in fc_members %}
    <td>
@@ -97,6 +105,8 @@
    {% endif %}
 {% endfor %}
 </table>
+</div>
+</div>
 <br/>
 <br/>
 <br/>
