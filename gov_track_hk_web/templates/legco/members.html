@@ -36,16 +36,14 @@
 <div class="container-full" style="padding-left:20px;min-height:500px;">
 <div style="">
 <h2>立法會議員名單</h2>
+<h3>主席</h3>
 {%if council.chairman == None %}
 <img src="/static/legco/member/nopic.png"/><br/>
 未定
 {%else%}
-<h3>主席</h3>
  <a href="/legco/individual/{{council.chairman.pk}}"><img src="{{council.chairman.image}}"/><br/>{{council.chairman.name_ch}}</a>
 {%endif%}
 <h3>議員</h2>
-<h4>地區</h4>
-
 {%for key, members in gc_members%}
 {%random_panel forloop.counter  as panel_class%}
 <div class="panel {{panel_class}}">
@@ -94,7 +92,7 @@
 <table><tr>
 {% for member in fc_members %}
    <td>
-        <a href="/legco/individual/{{member.member.pk}}"><img src="{{member.member.image}}"/><br/><center>{{member.member.name_ch}}<br/>{{member.membership_type.sub_category}}</center></a>
+        <a href="/legco/individual/{{member.member.pk}}"><img src="{{member.member.image}}"/><br/><center>{{member.member.name_ch}}<br/>{{member.membership_type.sub_category|truncatechars:10}}</center></a>
    </td>
    {% if forloop.last %}
      </tr>
