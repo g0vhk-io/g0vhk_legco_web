@@ -165,7 +165,7 @@ def vote_detail_image_view(request, pk):
             result_text = legco_extras.vote_result_chinese(overall_result)
             metrics = draw.get_font_metrics(img, result_text,multiline=False)  
             draw.fill_color = Color(result_color)
-            draw.text(int(1600 - metrics.text_width-50), 150, result_text)
+            draw.text(int(1600 - metrics.text_width-50),  110 if len(title_lines) == 1 else 150, result_text)
             draw.stroke_width = 240
             draw.stroke_color = Color("#fff")
             draw.fill_color = Color("#fff0")
