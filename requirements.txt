@@ -32,3 +32,4 @@ simplejson==3.8.2
 six==1.10.0
 wordcloud==1.2.1
 wsgiref==0.1.2
+Wand==0.4.3

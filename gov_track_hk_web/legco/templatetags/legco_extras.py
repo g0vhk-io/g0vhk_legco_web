@@ -33,6 +33,11 @@ def vote_result_chinese(result):
     return "通過" if result.lower() == "passed" else "否決"
 
 @register.filter
+def vote_result_color(result):
+    return "#00ff00" if result.lower() == "passed" else "#ff0000"
+
+
+@register.filter
 def vote_chinese(v):
     d = {'YES': '贊成', 'NO': '反對' , 'ABSTAIN': '棄權', 'PRESENT': '出席', 'ABSENT': '缺席'}
     return d[v]

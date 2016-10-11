@@ -1,6 +1,21 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras %}
+{%block og_title%}g0vhk.io - {{vote.motion.name_ch}}{%endblock og_title%}
+{%block og_desc%}{{vote.motion.name_ch}}
+日期: {{vote.date|parse_date_chinese}} {{vote.time}}<br/>
+動議人: {%if vote.motion.mover_ch|length > 0 %}{{vote.motion.mover_ch}}{%else%}沒有{%endif%}<br/>
+結果: {{overall_result|vote_result_chinese}}<br/>
+{%endblock%}
+{%block og_image%}{{og_image_url}}{%endblock%}
 {% block page_content%}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=205317903140183";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <style>
 #meeting_jumbotron
 {
@@ -31,12 +46,16 @@
   {%if meeting != None%}
   <li><a href="/legco/meeting/{{meeting.id}}">{%if meeting.meeting_type == "fc"%} 財務委員會會議紀要{%else%} 會議過程正式紀錄{%endif%} | {{meeting.date|parse_date_chinese}}</a></li>
   {%endif%}
-  <li class="active">{{vote.motion.name_ch}}之投票結果</li>
+  <li class="active">{{vote.motion.name_ch}}之投票結果
+
+</li>
 </ol>
 </div>
 
 <div class="container-full" style="margin-left:40px">
-<div class="page-header"><h1>{{vote.motion.name_ch}}<small>之投票結果</small></h1>
+<div class="page-header"><h1>{{vote.motion.name_ch}}<small>之投票結果</small>
+<div class="fb-share-button" data-href="{{url}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url|urlencode}}&amp;src=sdkpreparse">Share</a></div>
+</h1>
 <br/>
 <table class="table table-bordered" style="width:400px">
 <tr>
