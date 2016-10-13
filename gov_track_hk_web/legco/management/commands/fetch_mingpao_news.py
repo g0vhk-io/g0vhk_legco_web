@@ -91,15 +91,15 @@ class Command(BaseCommand):
                 article.individuals = []
                 for individual in individuals:
                     if article.text.find(individual.name_ch) != -1:
-                        print("article %s relates to %s" % (individual.name_ch, article.title))
+                        print("article %s relates to %s" % (individual.name_ch.encode("utf-8"), article.title.encode("utf-8")))
                         article.individuals.add(individual)
                 article.parties = []
                 for party in parties:
                     if article.text.find(party.name_ch) != -1:
-                        print("article %s relates to %s" % (party.name_ch, article.title))
+                        print("article %s relates to %s" % (party.name_ch.encode("utf-8"), article.title.encode("utf-8")))
                         article.parties.add(party)
                 article.save()
             except IntegrityError as e:
-                print("Failed to add %s due to integriy" % (article.title))
+                print("Failed to add %s due to integriy" % (article.title.encode("utf-8")))
                 traceback.print_exc()
                 pass
