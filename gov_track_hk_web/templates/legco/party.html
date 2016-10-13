@@ -65,7 +65,7 @@
 {% for n in related_news %}
     <tr>
         <td><a href="{{n.link}}">{{n.date|parse_date_chinese}}</a>&nbsp;</td>
-        <td><a href="{{n.link}}">{{n.title}}</a></td>
+        <td><a href="{{n.link}}">{{n.source|article_source_chinese}} - {{n.title}}</a></td>
     </tr>
 {% endfor %}
 </table>

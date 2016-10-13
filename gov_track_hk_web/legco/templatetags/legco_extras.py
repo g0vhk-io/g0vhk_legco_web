@@ -12,6 +12,14 @@ def parse_date_chinese(d):
     return "%d年%d月%d日" % (d.year, d.month, d.day)
 
 @register.filter
+def article_source_chinese(s):
+    if s == "mingpao":
+        return "明報"
+    if s == "applehk":
+        return "蘋果日報"
+    return ""
+
+@register.filter
 def is_date_min(d):
 	return  d.replace(tzinfo=None) == datetime.min
 
