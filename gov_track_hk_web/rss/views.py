@@ -4,11 +4,12 @@ from django.core.cache import cache
 import requests
 import dateutil.parser
 from django.contrib.syndication.views import Feed
-from gov_track_hk_web.settings import MORPH_IO_API_KEY
 from subscriber.models import News
 from django.utils import feedgenerator
 import md5
-import datetime
+from datetime import datetime, timedelta, time
+from api.models import Consultation
+from django.db.models import Q
 # Create your views here.
 
 class ConsultationsFeed(Feed):
@@ -16,16 +17,12 @@ class ConsultationsFeed(Feed):
     link = "/consultations.xml"
     feed_type = feedgenerator.Rss201rev2Feed
     def items(self):
-        key = "consultations_json"
-        cached_items = cache.get(key)
-        if cached_items is None:
-            url = "https://api.morph.io/howawong/hong_kong_current_consultation_pages/data.json?key=%s&query=select%%20*%%20from%%20'data'%%20limit%%20100" % (MORPH_IO_API_KEY)
-            r = requests.get(url)
-            items = [r for r in  r.json() if r['lang'] == 'tc']
-            items = sorted(items, key=lambda item: item['date'], reverse=True)
-            cache.set(key, items, 24 * 60 * 60)
-            cached_items = items
-        return cached_items
+        now = datetime.now()
+        earlier = now - timedelta(days=30)
+        consultations = Consultation.objects.filter(Q(lang = "tc") & Q(date__gte=earlier))
+        items = [{'date': c.date, 'link': c.link, 'title': c.title, 'lang': c.lang} for c in consultations]
+        items = sorted(items, key=lambda item: item['date'], reverse=True)
+        return items
 
     def item_title(self, item):
         return item['title']
@@ -37,7 +34,7 @@ class ConsultationsFeed(Feed):
         return item['link']
 
     def item_pubdate(self, item):
-        return dateutil.parser.parse(item['date'])
+        return item['date']
 
 class NewsFeed(Feed):
     title = u"g0vhk.io 最新消息"
@@ -60,4 +57,4 @@ class NewsFeed(Feed):
         return str(md5.new(item.date.strftime('%Y-%m-%d') + item.title_ch.encode("utf-8")).hexdigest())
 
     def item_pubdate(self, item):
-        return datetime.datetime.combine(item.date, datetime.time(0,0,0))
+        return datetime.combine(item.date, time(0,0,0))

@@ -7,15 +7,17 @@ from django.db.models import Count
 from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill, Question, MeetingHansard, MeetingSpeech, ImportantMotion, ImportantMotion
 from rest_framework import serializers
 from rest_framework.response import Response
-from gov_track_hk_web.settings import MORPH_IO_API_KEY
 from rest_framework.decorators import detail_route, list_route
-from datetime import datetime
+from datetime import datetime, timedelta
 from subscriber.models import Subscriber, News
 import md5
 import requests
 from lxml import etree, html
 import re
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from api.models import Consultation
+
+
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
@@ -213,16 +215,12 @@ class PartyDetailViewSet(viewsets.ViewSet):
 
 class ConsultationsViewSet(viewsets.ViewSet):
     def list(self, request):
-        key = "consultations_json"
-        cached_json = cache.get(key)
-        if cached_json is None:
-            url = "https://api.morph.io/howawong/hong_kong_current_consultation_pages/data.json?key=%s&query=select%%20*%%20from%%20'data'%%20limit%%20100" % (MORPH_IO_API_KEY)
-            r = requests.get(url)
-            items = [r for r in  r.json() if r['lang'] == 'tc']
-            items = sorted(items, key=lambda item: item['date'], reverse=True)
-            cache.set(key, items, 24 * 60 * 60)
-            cached_json = items
-        return Response(cached_json)
+        now = datetime.now()
+        earlier = now - timedelta(days=30)
+        consultations = Consultation.objects.filter(Q(lang = "tc") & Q(date__gte=earlier))
+        items = [{'date': c.date, 'link': c.link, 'title': c.title, 'lang': c.lang} for c in consultations]
+        items = sorted(items, key=lambda item: item['date'], reverse=True)
+        return Response(items)
 
 class WeatherViewSet(viewsets.ViewSet):
     def list(self, request):

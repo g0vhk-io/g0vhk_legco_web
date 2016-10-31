@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'legco',
     'district',
     'subscriber',
-    'rest_framework'
+    'rest_framework',
+    'api'
 ]
 
 
@@ -134,8 +135,6 @@ STATIC_ROOT = "/srv/web/assets"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
-
-MORPH_IO_API_KEY = os.environ['MORPH_API_KEY']
 
 STATIC_URL = '/static/'
 
