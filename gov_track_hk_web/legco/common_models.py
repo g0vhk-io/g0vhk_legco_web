@@ -10,6 +10,7 @@ class Party(models.Model):
     name_en = models.CharField(max_length=512)
     name_ch = models.CharField(max_length=512)
     image = models.CharField(max_length=512, blank=True, null=True, default=None)
+    keywords = models.CharField(max_length=512, blank=True, null=True, default=None)
     def __unicode__(self):
         return self.name_en + "-" + self.name_ch
 

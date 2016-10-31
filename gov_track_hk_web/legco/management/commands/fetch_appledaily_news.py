@@ -86,6 +86,12 @@ class Command(BaseCommand):
                     if article.text.find(party.name_ch) != -1:
                         print("article %s relates to %s" % (party.name_ch.encode("utf-8"), article.title.encode("utf-8")))
                         article.parties.add(party)
+                    if party.keywords is not  None:
+                        keywords = [s for s in [s.strip() for s in party.keywords.split(',')] if len(s) > 0]
+                        for keyword in keywords:
+                            if article.text.find(keyword) != -1:
+                                print("article %s relates to %s" % (keyword.encode("utf-8"), article.title.encode("utf-8")))
+                                article.parties.add(party)
                 article.save()
             except IntegrityError as e:
                 print("Failed to add %s due to integriy" % (article.title.encode("utf-8")))
