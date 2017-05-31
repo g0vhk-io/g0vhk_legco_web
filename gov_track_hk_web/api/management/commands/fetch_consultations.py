@@ -22,8 +22,10 @@ class Command(BaseCommand):
         for lang in ['en', 'tc', 'sc']:
             url = 'http://www.gov.hk/%s/residents/government/publication/consultation/current.htm' % (lang)
             r = requests.get(url) 
-            root = lxml.html.fromstring(r.content)
-            table = root.xpath("//div[@class='content']/table")[0]
+	    print r.apparent_encoding
+            root = lxml.html.fromstring(r.text)
+	    print r.text
+            table = root.xpath("//div[@class='innerPageHolder articleHolder']/section/table/tbody")[0]
             rows = table.xpath("tr")
             for row in rows[1:]:
                 title_cell, date_cell = row.xpath("td")
@@ -36,6 +38,8 @@ class Command(BaseCommand):
                 c = Consultation()
                 c.lang = lang
                 c.title = title.encode("utf-8")
+		print title
+		print c.title
                 c.link = link
                 c.key = str(md5.new(link).hexdigest())
                 c.date = date 
@@ -43,4 +47,3 @@ class Command(BaseCommand):
                     c.save()
                 except IntegrityError:
                     print "Already inserted"
-                print d
