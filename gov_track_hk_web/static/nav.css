@@ -1,0 +1,43 @@
+.nav-tabs {
+  border-bottom: none;
+}
+
+#home-home-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/gov_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #d6d810;
+  color: #FFF;
+}
+
+#home-home-jumbotron a {
+  color: #FFF
+}
+
+.nav-tabs>li.subnav-item-home-home.active>a {
+  border: 1px solid #d6d810;
+  border-bottom: none;
+}
+
+#home-other-projects-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/projects_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #034e55;
+  color: #FFF;
+}
+
+#home-other-projects-jumbotron a {
+  color: #FFF
+}
+
+.nav-tabs>li.subnav-item-home-other-projects.active>a {
+  border: 1px solid #034e55;
+  border-bottom: none;
+}

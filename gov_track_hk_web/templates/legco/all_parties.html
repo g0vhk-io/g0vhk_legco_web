@@ -1,25 +1,7 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
-<style>
-#party_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/party_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#474;
-    color:#FFF;
-
-}
-#party_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-<div class="jumbotron" id="party_jumbotron" style="margin-bottom:0px">
+<div class="jumbotron" id="legco-party-jumbotron" style="margin-bottom:0px">
     <h1>政黨</h1>
     <p>
     <em>"香港的政黨一般可粗略分為四大類：泛民主派、本土派、建制派以及中間派。"</em> --- <a href="https://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E6%94%BF%E9%BB%A8">香港政黨- 維基百科，自由的百科全書</a>
@@ -35,11 +17,11 @@
 {% if forloop.counter == 1 %}
     <tr>
     {% endif %}
- 
+
        <td width="30%">
            <a href="/legco/party/{{party.id}}">{{party.name_ch}}</a><br/>
            <img src="{{party.image}}" height="50"/>
-       
+
            <br/>
            <br/>
            <br/>
@@ -52,7 +34,7 @@
  {% if forloop.counter|divisibleby:"3" or forloop.counter == forloop.last %}
     <tr>
     {% endif %}
- 
+
 {% endfor %}
 </table>
 {% endblock%}

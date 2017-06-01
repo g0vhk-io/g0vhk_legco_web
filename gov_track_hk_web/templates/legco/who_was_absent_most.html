@@ -2,29 +2,12 @@
 {% block og_desc%}線上民主平台 - 立法會最常缺席議員{%endblock%}
 {% block page_content%}
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<style>
-#legco_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/legco_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#733;
-    color:#FFF;
 
-}
-#legco_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-    <div class="jumbotron" id="legco_jumbotron" style="margin-bottom:0px">
+    <div class="jumbotron" id="legco-absent-most-jumbotron" style="margin-bottom:0px">
         <h1>立法會</h1>
         <div class="fb-like" data-href="https://www.facebook.com/g0vhk.io/" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
-    
+
     </div>
     <ol class="breadcrumb">
          <li><a href="/legco">首頁</a></li>
@@ -47,7 +30,7 @@
                 Plotly.newPlot('myDiv', [{type:'bar', x: values, marker:{color:colors}, y:labels, orientation:'h'}], {yaxis:{autotick:false}, title:'最常缺席議員 (2012-2016)',titlefont:{size:40, family:'cwtexhei,Arial'}});
             });
         });
-        
+
     </script>
 </div>
 <br/>

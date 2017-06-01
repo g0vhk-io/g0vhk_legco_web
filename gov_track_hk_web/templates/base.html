@@ -1,91 +1,92 @@
 <html>
-<head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"></link>
-<link rel="stylesheet" href="/static/default.css"></link>
-<link rel="stylesheet" href="/static/timeline.css"></link>
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/static/bootstrap-social.css"></link>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"></link>
-<link rel="shortcut icon" href="/static/favicon.ico"></link>
-<meta property="og:url" content="{{request.build_absolute_uri}}" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="{%block og_title%}g0vhk.io (Pre-Alpha){%endblock%}" />
-<meta property="og:description" content="{%block og_desc%}線上民主平台{%endblock%}" />
-<meta property="og:image" content="{%block og_image%}/static/gov_bg.png{%endblock%}"/>
-<meta property="og:image:width" content="1600"/>
-<meta property="og:image:height" content="800"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-<title>g0vhk.io (Pre-Alpha)</title>
-</head>
-<body>
-<nav class="navbar navbar-default" style="margin-bottom:0px">
-    <div class="container-fluid">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"></link>
+    <link rel="stylesheet" href="/static/default.css"></link>
+    <link rel="stylesheet" href="/static/timeline.css"></link>
+    <link rel="stylesheet" href="/static/bootstrap-social.css"></link>
+    <link rel="stylesheet" href="/static/nav.css"></link>
+    <link rel="stylesheet" href="/static/legco/nav.css"></link>
+    <link rel="stylesheet" href="/static/district/nav.css"></link>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"></link>
+    <link rel="shortcut icon" href="/static/favicon.ico"></link>
+
+    <meta property="og:url" content="{{request.build_absolute_uri}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{%block og_title%}g0vhk.io (Pre-Alpha){%endblock%}" />
+    <meta property="og:description" content="{%block og_desc%}線上民主平台{%endblock%}" />
+    <meta property="og:image" content="{%block og_image%}/static/gov_bg.png{%endblock%}"/>
+    <meta property="og:image:width" content="1600"/>
+    <meta property="og:image:height" content="800"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <title>g0vhk.io (Pre-Alpha)</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-default" style="margin-bottom:0px">
+      <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">g0vhk.io (Pre-Alpha)</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">g0vhk.io (Pre-Alpha)</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="{% if tbar == 'home' %}active{% endif %}" ><a href="/">首頁<span class="sr-only">(current)</span></a></li>
-                <li class="{% if tbar == 'legco' %}active{% endif %}"><a href="/legco">立法會</a></li>
-                <li class="{% if tbar == 'dc' %}active{% endif %}"><a href="/district">區議會</a></li>
-                <li class="{% if tbar == 'sub' %}active{% endif %}"><a href="#">登入 / 訂閱</a></li>
-            </ul>
+          <ul class="nav navbar-nav">
+            <li class="{% if tbar == 'home' %}active{% endif %} nav-item-home" ><a href="/">首頁<span class="sr-only">(current)</span></a></li>
+            <li class="{% if tbar == 'legco' %}active{% endif %} nav-item-legco"><a href="/legco">立法會</a></li>
+            <li class="{% if tbar == 'dc' %}active{% endif %} nav-item-dc"><a href="/district">區議會</a></li>
+            <li class="{% if tbar == 'sub' %}active{% endif %} nav-item-sub"><a href="#">登入 / 訂閱</a></li>
+          </ul>
         </div>
         {% block sub_nav %}
         <div>
-            <ul class="nav nav-tabs">
-                
-                <li class="{% if nbar == 'home' %}active{% endif %}"><a href="/">首頁</a></li>
-                <li class="{% if nbar == 'projects' %}active{% endif %}"><a href="/projects">其他項目</a></li>
-            </ul>
+          <ul class="nav nav-tabs">
+            <li class="{% if nbar == 'home' %}active{% endif %} subnav-item-home-home"><a href="/">首頁</a></li>
+            <li class="{% if nbar == 'projects' %}active{% endif %} subnav-item-home-other-projects"><a href="/projects">其他項目</a></li>
+          </ul>
         </div>
         {% endblock %}
+      </div>
+    </nav>
+    <div class="container-full" style="min-height:750px">
+      {% block page_content%}
+      {% endblock%}
     </div>
-</nav>
-<div class="container-full" style="min-height:750px">
-{% block page_content%}
-{% endblock%}
-</div>
-<div class="footer">
-<br/>
-<div class="container" style="width:20%;text-align:left">
-<a href="#">關於</a><br/>
-<a href="#">Terms and Conditions</a><br/>
-<a href="#">Q & A</a><br/>
-<br/>
- <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/g0vhk_io" target="_blank">
-    <span class="fa fa-twitter"></span>
-  </a>
-  <a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/g0vhk.io" target="_blank">
-    <span class="fa fa-facebook"></span>
-  </a>
-  <a class="btn btn-social-icon btn-github" href="https://github.com/g0vhk-io" target="_blank">
-    <span class="fa fa-github"></span>
-  </a>
-</div>
-<br/>
+    <div class="footer">
+      <br/>
+      <div class="container" style="width:20%;text-align:left">
+        <a href="#">關於</a><br/>
+        <a href="#">Terms and Conditions</a><br/>
+        <a href="#">Q &amp; A</a><br/>
+        <br/>
+        <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/g0vhk_io" target="_blank">
+          <span class="fa fa-twitter"></span>
+        </a>
+        <a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/g0vhk.io" target="_blank">
+          <span class="fa fa-facebook"></span>
+        </a>
+        <a class="btn btn-social-icon btn-github" href="https://github.com/g0vhk-io" target="_blank">
+          <span class="fa fa-github"></span>
+        </a>
+      </div>
+      <br/>
+    </div>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-
-</div>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-82689420-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-</body>
+      ga('create', 'UA-82689420-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
 
 </html>
