@@ -1,0 +1,19 @@
+#district-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/under_construction.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #8f2c00;
+  color: #FFF;
+}
+
+#district-jumbotron a {
+  color: #FFF
+}
+
+.nav-tabs>li.subnav-item-district-home.active>a {
+  border: 1px solid #8f2c00;
+  border-bottom: none;
+}

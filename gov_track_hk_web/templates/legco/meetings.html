@@ -4,26 +4,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
-<style>
-#meeting_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/meeting_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#116;
-    color:#FFF;
-
-}
-#meeting_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-    <div class="jumbotron" id="meeting_jumbotron" style="margin-bottom:0px">
+    <div class="jumbotron" id="legco-meeting-jumbotron" style="margin-bottom:0px">
     <h1>會議</h1>
     <br/>
     <br/>
@@ -92,7 +74,7 @@ var Meetings = React.createClass({
     var meetings = this.state.data;
     for (var i = 0; i < meetings.length; i++)
     {
-        var meeting = meetings[i]; 
+        var meeting = meetings[i];
         var type = "立法會會議";
         var btn_style = "btn-default";
         if (meeting.type == "fc")
@@ -116,7 +98,7 @@ var Meetings = React.createClass({
         {
             rows.push(<div style={{clear:'both','margin-top':'10px'}}>
                 <br/>
-                <h3>{this_date.getFullYear()}年 {this_date.getMonth()+1}月</h3>    
+                <h3>{this_date.getFullYear()}年 {this_date.getMonth()+1}月</h3>
             </div>)
         }
         rows.push(<div style={{float:'left', 'padding':'20px', 'margin-bottom':'20px', 'margin-left':'20px', 'width': '320px', 'border':'1px solid black'}}  className={'btn btn-lg ' + btn_style} onClick={this.go_to_detail.bind(this, meeting.id)}>
@@ -140,7 +122,7 @@ function list(year)
     meetings.fetchMeetings(year);
 }
 $(document).ready(function()
-{ 
+{
     $("#btn_2012").click(function(){list(2012);});
     $("#btn_2013").click(function(){list(2013);});
     $("#btn_2014").click(function(){list(2014);});

@@ -3,26 +3,8 @@
 {% block page_content%}
 <link rel="stylesheet" href="/static/jcarousel.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
-<style>
-#party_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#666;
-    color:#FFF;
-    padding-top:10px;
-
-}
-#party_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-    <div class="jumbotron" id="party_jumbotron" style="margin-bottom:0px">
+    <div class="jumbotron" id="legco-party-individual-jumbotron" style="margin-bottom:0px">
         <div style="float:left">
             <h2>{{individual.party.name_ch}}</h2>
             <img src="{{individual.party.image}}" height="200"/>
@@ -86,9 +68,9 @@
 </div>
                 <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
                 <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-                
+
                 <p class="jcarousel-pagination" style="display:none">
-                    
+
                 </p>
 </div>
 </div>
