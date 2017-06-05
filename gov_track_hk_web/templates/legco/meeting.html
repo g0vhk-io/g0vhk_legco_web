@@ -1,39 +1,8 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras %}
 {% block page_content%}
-<style>
-#meeting_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/meeting_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#116;
-    color:#FFF;
-
-}
-#meeting_jumbotron a
-{
-    color:#FFF
-}
-span.collapse {
-    display: none;
-    position: static;
-    height: auto;
-    opacity: 0;
-}
-
-span.collapse.in {
-    display: inline;
-    position: static;
-    opacity: 1;
-    height: auto;
-}
-</style>
 <div class="container-full">
-    <div class="jumbotron" id="meeting_jumbotron" style="margin-bottom:0px">
+    <div class="jumbotron" id="legco-meeting-jumbotron" style="margin-bottom:0px">
     <h1>會議</h1>
     </div>
 </div>
@@ -84,7 +53,7 @@ span.collapse.in {
     <div class="page-header">
         <h1 id="timeline">會議過程正式紀錄</h1>
     </div>
-    
+
 <ul class="timeline">
 {% for s in speeches %}
 <li class="{% if forloop.counter|divisibleby:2 %}timeline-inverted{%endif%}">
@@ -97,7 +66,7 @@ span.collapse.in {
         <div class="timeline-body">
             <table>
             <tr>
-            {% if s.individual != None %}    
+            {% if s.individual != None %}
             <td valign="top">
             <img src="{{s.individual.image}}" width="30" style="padding-right:5px"/>
             </td>

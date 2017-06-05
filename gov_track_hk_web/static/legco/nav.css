@@ -1,0 +1,223 @@
+#legco-home-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/legco/legco_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #733;
+  color: #FFF;
+}
+
+#legco-home-jumbotron a {
+  color: #FFF
+}
+
+.nav-tabs>li.subnav-item-legco-home.active>a {
+  border: 1px solid #733;
+  border-bottom: none;
+}
+
+#legco-meeting-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/legco/meeting_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #116;
+  color: #FFF;
+}
+
+#legco-meeting-jumbotron a {
+  color: #FFF
+}
+
+span.collapse {
+  display: none;
+  position: static;
+  height: auto;
+  opacity: 0;
+}
+
+span.collapse.in {
+  display: inline;
+  position: static;
+  opacity: 1;
+  height: auto;
+}
+
+.nav-tabs>li.subnav-item-legco-meeting.active>a {
+  border: 1px solid #116;
+  border-bottom: none;
+}
+
+#legco-bill-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  margin-bottom: 0px;
+  background-image: url('/static/legco/bill_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #737;
+  color: #FFF;
+}
+
+#legco-bill-jumbotron a {
+  color: #FFF
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-tabs>li.subnav-item-legco-bill.active>a {
+  border: 1px solid #737;
+  border-bottom: none;
+}
+
+#legco-party-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/legco/party_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #474;
+  color: #FFF;
+}
+
+#legco-party-jumbotron a {
+  color: #FFF
+}
+
+#legco-party-individual-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #666;
+  color: #FFF;
+  padding-top: 10px;
+}
+
+#legco-party-individual-jumbotron a {
+  color: #FFF
+}
+
+.nav-tabs>li.subnav-item-legco-party.active>a {
+  border: 1px solid #474;
+  border-bottom: none;
+}
+
+#legco-question-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/legco/question_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #116;
+  color: #FFF;
+}
+
+#legco-question-jumbotron a {
+  color: #FFF
+}
+
+.bubble_no_arrow, .bubble {
+  background-color: #FFF;
+  border-radius: 5px;
+  box-shadow: 0px 0px 6px #B2B2B2;
+  margin: 20px;
+  width: 350px;
+  padding: 10px;
+  padding-left: 15px;
+}
+
+.bubble_no_arrow {
+  background-color: #FFF;
+  padding-top: 10px;
+}
+
+.bubble::before {
+  background-color: #FFFFFF;
+  box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4);
+  content: "\00a0";
+  display: block;
+  height: 20px;
+  left: -25px;
+  position: relative;
+  top: 40px;
+  transform: rotate( 45deg);
+  -moz-transform: rotate( 45deg);
+  -ms-transform: rotate( 45deg);
+  -o-transform: rotate( 45deg);
+  -webkit-transform: rotate( 45deg);
+  width: 20px;
+}
+
+.nav-tabs>li.subnav-item-legco-question.active>a {
+  border: 1px solid #116;
+  border-bottom: none;
+}
+
+#legco-opendata-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/legco/open_data_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #666;
+  color: #FFF;
+}
+
+#legco-opendata-jumbotron a {
+  color: #22F;
+}
+
+.nav-tabs>li.subnav-item-legco-opendata.active>a {
+  border: 1px solid #666;
+  border-bottom: none;
+}
+
+#legco-absent-most-jumbotron {
+  height: 300px;
+  padding-left: 20px;
+  background-image: url('/static/legco/legco_bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #733;
+  color: #FFF;
+}
+
+#legco-absent-most-jumbotron a {
+  color: #FFF
+}
+
+#legco-councils-jumbotron {
+  height: 300px;
+  background-image: url('/static/legco/council_bg.png');
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  background-color: #db9500;
+  color: #FFF;
+}
+
+#legco-councils-jumbotron a {
+  color: #FFF
+}
+
+.nav-tabs>li.subnav-item-legco-councils.active>a {
+  border: 1px solid #db9500;
+  border-bottom: none;
+}

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import requests
-year_range = ["12-13", "13-14", "14-15", "15-16"]
+year_range = ["12-13", "13-14", "14-15", "15-16", "16-17"]
 meeting_types = ["cm", "esc", "pwsc", "hc", "fc"]
 url_format = {"cm": "http://www.legco.gov.hk/yr%s/chinese/counmtg/voting/cm_vote_", "esc": "http://www.legco.gov.hk/yr%s/chinese/fc/esc/results/esc_vote_", "pwsc": "http://www.legco.gov.hk/yr%s/chinese/fc/pwsc/results/pwsc_vote_", "hc": "http://www.legco.gov.hk/yr%s/chinese/hc/voting/hc_vote_", "fc": "http://www.legco.gov.hk/yr%s/chinese/fc/fc/results/fc_vote_"}
 detect_url_format = "http://www.legco.gov.hk/php/detect-votes.php?term=yr%s&meeting=%s"
@@ -18,4 +18,3 @@ for yr in year_range:
             f = open(mc + "_" + xml_file, "wb")
             f.write(xml_r.text.encode("utf-8"))
             f.close()
-

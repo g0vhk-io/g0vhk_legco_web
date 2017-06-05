@@ -1,26 +1,8 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras %}
 {% block page_content%}
-<style>
-#open_data_jumbotron
-{
-    height: 300px;
-    padding-left:20px;
-    background-image:url('/static/legco/open_data_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#666;
-    color:#FFF;
-}
-#open_data_jumbotron a
-{
-    color:#22F;
-}
-</style>
-  <div class="jumbotron" id="open_data_jumbotron">
-    <h1>開放數據</h1> 
-    網頁上的公開下載數據的版權歸香港特區政府所有。<br/>如發現資料有錯誤，請發電郵至&nbsp;<a href="mailto:info@g0vhk.io">info@g0vhk.io</a> 。
-  </div>
-
+<div class="jumbotron" id="legco-opendata-jumbotron">
+  <h1>開放數據</h1>
+  網頁上的公開下載數據的版權歸香港特區政府所有。<br/>如發現資料有錯誤，請發電郵至&nbsp;<a href="mailto:info@g0vhk.io">info@g0vhk.io</a> 。
+</div>
 {% endblock%}

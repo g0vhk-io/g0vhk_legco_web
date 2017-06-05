@@ -4,26 +4,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.css"></link>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.js"></script>
 <div id="fb-root"></div>
-<style>
-#gov_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/gov_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#d6d810;
-    color:#FFF;
-
-}
-#gov_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-    <div class="jumbotron" id="gov_jumbotron" style="position: relative">
+    <div class="jumbotron" id="home-home-jumbotron" style="position: relative">
         <h1>線上民主平台</h1>
         <div class="input-group">
         <input type="text" class="form-control" style="width:400px" placeholder="電郵"  id="email"/>&nbsp;<a id="subscribe_button" class="btn btn-warning">訂閱</a>
@@ -31,7 +13,7 @@
         <br/>
         {%include 'facebook_share_btn.html'%}
         <span style="font-weight:bold;color:#333;display:none">
-            今日天氣: 
+            今日天氣:
             溫度:<span id="weather_temperature">--</span>
             濕度:<span id="weather_humidity">--</span>
             <br/>
@@ -40,22 +22,22 @@
 
 
         <div style="font-size:36pt;color:#FFFFFF; height:80px; float:right;position: absolute; right: 30px; bottom: 80px;text-align:right;width:1200px">
-            五十年不變倒數器<br/> 
+            五十年不變倒數器<br/>
             &nbsp;
             <div style="float:right">秒</div>
-            <div id="count_down_second" style="float:right"></div> 
+            <div id="count_down_second" style="float:right"></div>
             <div style="float:right">分鐘</div>
-            <div id="count_down_min" style="float:right"></div> 
+            <div id="count_down_min" style="float:right"></div>
             <div style="float:right">小時</div>
-            <div id="count_down_hour" style="float:right"></div> 
+            <div id="count_down_hour" style="float:right"></div>
             <div style="float:right">日</div>
             <div id="count_down_day" style="float:right"></div>
             <div style="float:right">年</div>
-            <div id="count_down_year" style="float:right"></div> 
+            <div id="count_down_year" style="float:right"></div>
         </div>
 
     </div>
-    
+
 </div>
 
 <div class="container-full" style="margin-left:20px;min-height:700px">
@@ -101,7 +83,7 @@
 
 $(document).ready(function() {
     $('#news').DataTable( {
-        "ajax": { 
+        "ajax": {
             url:"/api/news/",
             dataSrc:""
         },
@@ -110,12 +92,12 @@ $(document).ready(function() {
         "ordering": false,
         "info": false,
         "columns": [
-            { "render": 
+            { "render":
               function ( data, type, row ) {
                 var s = "";
                 var d = new Date(row.date);
                 var date_string = d.getFullYear() + "年" + (d.getMonth() + 1)  + "月" + d.getDate() + "日";
-                s += "<h4>" + row.title_ch +"&nbsp;-&nbsp;" + date_string + "</h4>" 
+                s += "<h4>" + row.title_ch +"&nbsp;-&nbsp;" + date_string + "</h4>"
                 s += "<p>"  + row.text_ch + "</p>";
                 return s;
               }
@@ -124,7 +106,7 @@ $(document).ready(function() {
     } );
 
     $('#consultations').DataTable( {
-        "ajax": { 
+        "ajax": {
             url:"/api/consultations/",
             dataSrc:""
         },
@@ -133,7 +115,7 @@ $(document).ready(function() {
         "ordering": false,
         "info": false,
         "columns": [
-            { "render": 
+            { "render":
               function ( data, type, row ) {
                 var s = "";
                 s += "<a href=\"" + row.link+ "\" target=\"_blank\">" + row.title + "</a>";
@@ -169,8 +151,8 @@ $(document).ready(function() {
                 alert("訂閱失敗");
                 console.log(errMsg);
             }
-        }); 
-    
+        });
+
     });
 } );
 
@@ -191,7 +173,7 @@ var days, hours, minutes, seconds;
 }
 // update the tag with id "countdown" every 1 second
 setInterval(function () {
- 
+
     // find the amount of "seconds" between now and target
     var current_date = new Date().getTime();
     var seconds_left = (target_date - current_date) / 1000;
@@ -200,16 +182,16 @@ setInterval(function () {
     // do some time calculations
     days = parseInt(seconds_left / 86400);
     seconds_left = seconds_left % 86400;
-     
+
     hours = parseInt(seconds_left / 3600);
     seconds_left = seconds_left % 3600;
-     
+
     minutes = parseInt(seconds_left / 60);
     seconds = parseInt(seconds_left % 60);
-     
+
     // format countdown string + set tag value
     //countdown.innerHTML = '<span class="years">' + years +  ' <b>年</b></span> ' + '<span class="days">' + days +  ' <b>日</b></span> <span class="hours">' + hours + ' <b>小時</b></span> <span class="minutes">'
-    //+ minutes + ' <b>分鐘</b></span> <span class="seconds">' + seconds + ' <b>秒</b></span>';  
+    //+ minutes + ' <b>分鐘</b></span> <span class="seconds">' + seconds + ' <b>秒</b></span>';
     jQuery('#count_down_second').flipcountdown({size:'lg',tick:nol(seconds)});
     jQuery('#count_down_min').flipcountdown({size:'lg',tick:nol(minutes)});
     jQuery('#count_down_hour').flipcountdown({size:'lg',tick:nol(hours)});

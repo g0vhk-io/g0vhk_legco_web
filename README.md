@@ -1,7 +1,25 @@
 # g0vhk Legco website
 香港人的線上民主平台 (<http://govhk.io>)
 
-## Prerequisite requirements
+
+## Quick Start with Docker
+1. Install docker and docker-compose
+2. Build docker image and start DB container
+    ```
+    docker-compose build
+    docker-compose up -d db
+    ```
+3. Run db migrate on django container
+    ```
+    docker-compose run --rm web python manage.py migrate
+    docker-compose up -d web
+    ```
+4. Open <http://localhost:8000> on browser
+
+
+## Running on Mac without Docker
+
+### Prerequisite requirements
 Python 2.7, Django 1.9.7, ImageMagick 6.x, MySQL (optional)
 
 Below is the steps to install these requirements on MacOS with [Homebrew](https://brew.sh/):
@@ -18,8 +36,6 @@ brew unlink imagemagick
 brew link imagemagick@6 --force
 ```
 
-## Getting started
-
 ### Install project dependencies
 ```
 git clone https://github.com/g0vhk-io/g0vhk_legco_web.git
@@ -34,14 +50,20 @@ Example config (MySQL)
 ```
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gov_track_hk_web',
-        'USER': 'gov_track_hk_web',
-        'PASSWORD': 'P@ssw0rd',
-        'HOST': 'localhost',
-        'PORT': 3306,
+        'OPTIONS': {
+            'read_default_file': '/etc/mysql/gov_track_hk.cnf',
+        },
     }
 }
+```
+Example gov_track_hk.cnf
+```
+[client]
+host = HOST
+database = govlabhk
+user = USER
+password = PASSWORD
+default-character-set = utf8
 ```
 
 ### Start mysql database (if you use MySQL)

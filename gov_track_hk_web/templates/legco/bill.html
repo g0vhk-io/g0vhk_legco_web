@@ -4,32 +4,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
-<style>
-#bill_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/bill_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#737;
-    color:#FFF;
 
-}
-#bill_jumbotron a
-{
-    color:#FFF
-}
-.truncate {
-  width: 250px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>
 <div class="container-full">
-<div class="jumbotron" id="bill_jumbotron">
+<div class="jumbotron" id="legco-bill-jumbotron">
     <h1>法案</h1>
     <p>
     <em>
@@ -53,7 +30,7 @@
 <script type="text/babel">
 var Bills = React.createClass({
     getInitialState: function(){
-        return {'data':[], 'total': 0, 'page': 1, 'page_size': 0};    
+        return {'data':[], 'total': 0, 'page': 1, 'page_size': 0};
     },
     fetchBills:function()
     {
@@ -68,7 +45,7 @@ var Bills = React.createClass({
     componentWillUnmount: function() {
         this.serverRequest.abort();
     },
-   
+
     fetchNextPage: function()
     {
         console.log(this.state.data.length  + " " + this.state.page_size);
@@ -79,7 +56,7 @@ var Bills = React.createClass({
         var k = this.state.keyword;
         var page = this.state.page + 1;
         this.serverRequest = $.get("/api/bills/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     fetchPrevPage: function()
     {
@@ -90,7 +67,7 @@ var Bills = React.createClass({
             return ;
         }
         this.serverRequest = $.get("/api/bills/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     fetchLastPage: function()
     {
@@ -106,11 +83,11 @@ var Bills = React.createClass({
         }
 
         this.serverRequest = $.get("/api/bills/" + k + "?page=" + page, function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
 
 
- 
+
     fetchFirstPage: function()
     {
         var k = this.state.keyword;
@@ -120,7 +97,7 @@ var Bills = React.createClass({
             return;
         }
         this.serverRequest = $.get("/api/bills/" + k + "?page=" + page, function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     render: function() {
         var result = []
@@ -149,7 +126,7 @@ var Bills = React.createClass({
           result.push(
           <a href={'/legco/bill/' + bill.id} style={{'display':'block'}}>
           <div style={{'border':'1px solid #ccc', 'position':'relative',  'width': '300px', 'height':'300px', 'margin':'40px', 'padding':'20px','float':'left'}}>
-          <h2>{bill.title_ch}</h2>  
+          <h2>{bill.title_ch}</h2>
             條例 : {bill.ordinance_title_ch}<br/>
             由 {bill.proposer_ch} 提出<br/>
             <br/>

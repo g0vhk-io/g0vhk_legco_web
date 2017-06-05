@@ -24,7 +24,7 @@ class Command(BaseCommand):
             r = requests.get(url) 
 	    print r.apparent_encoding
             root = lxml.html.fromstring(r.text)
-	    print r.text
+	    print r.text.encode("utf-8")
             table = root.xpath("//div[@class='innerPageHolder articleHolder']/section/table/tbody")[0]
             rows = table.xpath("tr")
             for row in rows[1:]:
@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 c = Consultation()
                 c.lang = lang
                 c.title = title.encode("utf-8")
-		print title
+		print title.encode("utf-8")
 		print c.title
                 c.link = link
                 c.key = str(md5.new(link).hexdigest())

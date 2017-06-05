@@ -5,26 +5,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
-<style>
-#question_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/question_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#116;
-    color:#FFF;
 
-}
-#question_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-<div class="jumbotron" id="question_jumbotron" style="margin-bottom:0px">
+<div class="jumbotron" id="legco-question-jumbotron" style="margin-bottom:0px">
     <h1>質詢</h1>
     <p>
     由2012年到2016年，一共有約2,600個質詢。
@@ -51,7 +34,7 @@
 <script type="text/babel">
 var Questions = React.createClass({
     getInitialState: function(){
-        return {'data':[], 'total': 0, 'page': 1, 'page_size': 0};    
+        return {'data':[], 'total': 0, 'page': 1, 'page_size': 0};
     },
     fetchQuestions:function()
     {
@@ -66,7 +49,7 @@ var Questions = React.createClass({
     componentWillUnmount: function() {
         this.serverRequest.abort();
     },
-   
+
     fetchNextPage: function()
     {
         if (this.state.data.length < this.state.page_size)
@@ -76,7 +59,7 @@ var Questions = React.createClass({
         var k = this.state.keyword;
         var page = this.state.page + 1;
         this.serverRequest = $.get("/api/questions/" + k + "?page=" + page, function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     fetchPrevPage: function()
     {
@@ -87,7 +70,7 @@ var Questions = React.createClass({
             return ;
         }
         this.serverRequest = $.get("/api/questions/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     fetchLastPage: function()
     {
@@ -103,11 +86,11 @@ var Questions = React.createClass({
         }
 
         this.serverRequest = $.get("/api/questions/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
 
 
- 
+
     fetchFirstPage: function()
     {
         var k = this.state.keyword;
@@ -117,7 +100,7 @@ var Questions = React.createClass({
             return;
         }
         this.serverRequest = $.get("/api/questions/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     render: function() {
         var result = []
@@ -139,13 +122,13 @@ var Questions = React.createClass({
              var label = labels[Math.floor(Math.random() * labels.length)]
              keywords.push(<a href={'/legco/questions/' + k} className={'label ' + label} style={{'margin-right':'10px'}}>
              {k}
-             </a>)  
+             </a>)
           });
           var d = new Date(Date.parse(question.date))
           result.push(
           <a href={'/legco/question/' + question.id} style={{'display':'block'}}>
           <div style={{'border':'1px solid #ccc', 'width': '600px', 'margin':'40px', 'padding':'20px','float':'left'}}>
-          <h4>{question.title}</h4>  
+          <h4>{question.title}</h4>
             {question.individual.name} - {d.getFullYear()} 年 {d.getMonth() + 1} 月 {d.getDate()} 日<br/> <br/>
             <div>
                 <div style={{'float':'left'}}>
@@ -166,5 +149,3 @@ $("#search_btn").click(function()
 </script>
 {% endverbatim %}
 {% endblock%}
-
-

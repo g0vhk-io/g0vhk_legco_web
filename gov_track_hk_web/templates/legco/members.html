@@ -3,26 +3,8 @@
 {% block page_content%}
 <link rel="stylesheet" href="/static/jcarousel.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
-<style>
-#members_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/council_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#db9500;
-    color:#FFF;
-
-}
-#members_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-    <div class="jumbotron" id="members_jumbotron" style="margin-bottom:0px">
+    <div class="jumbotron" id="legco-councils-jumbotron" style="margin-bottom:0px">
         <h1>{{council.name_ch}}</h1>
     </div>
 </div>
