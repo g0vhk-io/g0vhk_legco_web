@@ -49,6 +49,7 @@
 <button id="btn_2013" href="#" class="btn">2013-2014</button>
 <button id="btn_2014" href="#" class="btn">2014-2015</button>
 <button id="btn_2015" href="#" class="btn">2015-2016</button>
+<button id="btn_2016" href="#" class="btn">2016-2017</button>
 <div id="meetings">
 </div>
 </div>
@@ -134,7 +135,7 @@ var Meetings = React.createClass({
   }
 });
 
-var meetings = ReactDOM.render(<Meetings year={2015} />,document.getElementById('meetings'));
+var meetings = ReactDOM.render(<Meetings year={2017} />,document.getElementById('meetings'));
 function list(year)
 {
     meetings.fetchMeetings(year);
@@ -145,6 +146,8 @@ $(document).ready(function()
     $("#btn_2013").click(function(){list(2013);});
     $("#btn_2014").click(function(){list(2014);});
     $("#btn_2015").click(function(){list(2015);});
+    $("#btn_2016").click(function(){list(2016);});
+    $("#btn_2017").click(function(){list(2017);});
 });
 
 list(2015)

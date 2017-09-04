@@ -24,7 +24,7 @@ from pdfminer.layout import LAParams, LTTextBox, LTTextLine, LTFigure
 import re
 
 def get_cm_dates(year):
-    url = "http://www.legco.gov.hk/general/chinese/counmtg/yr12-16/mtg_%d%d.htm" % (year, year + 1)
+    url = "http://www.legco.gov.hk/general/chinese/counmtg/yr16-20/mtg_%d%d.htm" % (year, year + 1)
     r = requests.get(url)
     r.encoding = "utf-8"
     root = etree.HTML(r.text)
@@ -40,7 +40,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
-        for yr in [12, 13, 14, 15]:
+        for yr in [16, 17]:
             for d in get_cm_dates(yr):
                 rundown_request = requests.get('http://www.legco.gov.hk/php/hansard/chinese/rundown.php?date=%s&lang=2' % (d))
                 rundown_html = rundown_request.text.split('\n')

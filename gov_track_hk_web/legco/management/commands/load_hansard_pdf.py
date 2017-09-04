@@ -154,6 +154,8 @@ class Command(BaseCommand):
                 for line in lines:
                     title = re.sub(r'[a-zA-Z\-]', '', line.split(",")[0]).strip()
                     title = title.replace(u"郭偉强" ,u"郭偉強")
+                    if title.startswith(u"#"):
+                        continue
                     personel = MeetingPersonel()
                     personel.title_ch = title
                     for i in individuals:

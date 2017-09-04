@@ -87,11 +87,6 @@ DATABASES = {
     #},
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gov_track_hk_web_dev',
-        'USER': 'admin',
-        'PASSWORD': 'password',
-        'HOST': 'db',
-        'PORT': '3306',
         'OPTIONS': {
             'read_default_file': '/etc/mysql/gov_track_hk.cnf',
         },

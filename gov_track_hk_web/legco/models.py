@@ -8,8 +8,8 @@ class Motion(models.Model):
     name_en = models.CharField(max_length=512)
     name_ch = models.CharField(max_length=512)
     mover_type = models.CharField(max_length=512)
-    mover_ch = models.CharField(max_length=512, default=None)
-    mover_en = models.CharField(max_length=512, default=None)
+    mover_ch = models.CharField(max_length=512, default=None, null=True)
+    mover_en = models.CharField(max_length=512, default=None, null=True)
     mover_individual = models.ForeignKey(Individual, null=True, blank=True)
     def __unicode__(self):
         return self.name_en + "-" + self.name_ch

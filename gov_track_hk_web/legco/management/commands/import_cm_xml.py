@@ -7,7 +7,12 @@ from dateutil.parser import *
 import md5
 
 def parse_date(s):
-    return datetime.strptime(s, "%d/%m/%Y")
+    for fmt in ["%d/%m/%Y","%d-%m-%Y"]:
+        try:
+            return datetime.strptime(s, fmt)
+        except:
+            pass
+    raise Exception("failed to parse %s." % (s))
 
 def parse_time(s):
     return datetime.strptime(s or "00:00:00", "%H:%M:%S")
