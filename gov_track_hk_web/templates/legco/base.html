@@ -5,13 +5,13 @@
 {% block sub_nav %}
         <div>
             <ul class="nav nav-tabs">
-                <li class="{% if nbar == 'home' %}active{% endif %}"><a href="/legco">首頁</a></li>
-                <li class="{% if nbar == 'meeting' %}active{% endif %}"><a href="/legco/meeting">會議</a></li>
-                <li class="{% if nbar == 'bill' %}active{% endif %}"><a href="/legco/bill">法案</a></li>
-                <li class="{% if nbar == 'party' %}active{% endif %}"><a href="/legco/party">政黨</a></li>
-                <li class="{% if nbar == 'members' %}active{% endif %}"><a href="/legco/councils">議員</a></li>
-                <li class="{% if nbar == 'question' %}active{% endif %}"><a href="/legco/questions">質詢</a></li>
-                <li class="{% if nbar == 'opendata' %}active{% endif %}"><a href="/legco/opendata">開放數據</a></li>
+                <li class="{% if nbar == 'home' %}active{% endif %} subnav-item-legco-home"><a href="/legco">首頁</a></li>
+                <li class="{% if nbar == 'meeting' %}active{% endif %} subnav-item-legco-meeting"><a href="/legco/meeting">會議</a></li>
+                <li class="{% if nbar == 'bill' %}active{% endif %} subnav-item-legco-bill"><a href="/legco/bill">法案</a></li>
+                <li class="{% if nbar == 'party' %}active{% endif %} subnav-item-legco-party"><a href="/legco/party">政黨</a></li>
+                <li class="{% if nbar == 'members' %}active{% endif %} subnav-item-legco-councils"><a href="/legco/councils">議員</a></li>
+                <li class="{% if nbar == 'question' %}active{% endif %} subnav-item-legco-question"><a href="/legco/questions">質詢</a></li>
+                <li class="{% if nbar == 'opendata' %}active{% endif %} subnav-item-legco-opendata"><a href="/legco/opendata">開放數據</a></li>
             </ul>
         </div>
 {% endblock %}

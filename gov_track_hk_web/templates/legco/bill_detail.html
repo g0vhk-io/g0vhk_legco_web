@@ -1,30 +1,11 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras %}
 {% block page_content%}
-<style>
-#bill_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-	margin-bottom:0px;
-    background-image:url('/static/legco/bill_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#737;
-    color:#FFF;
-
-}
-#bill_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <link rel="stylesheet" href="/static/jcarousel.css">
 <link rel="stylesheet" href="/static/bill_detail_time_line.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
 <div class="container-full">
-<div class="jumbotron" id="bill_jumbotron">
+<div class="jumbotron" id="legco-bill-jumbotron">
     <h1>{{bill.bill_title_ch}}<br/><small style="color:#fff">{{bill.proposed_by_ch}}<small style="color:#fff">提出</small></small></h1>
     <br/>
     </div>
@@ -47,7 +28,7 @@
         	<a href="{{bill.ordinance_gazette_content_url_ch}}">通過的法案</a>
 		{%endif%}
 		</div>
-	
+
     <div style="display: inline-block;">
 		<h2 style="margin-left:40px">進度</h2><br/>
 		<ol class="bill_timeline" style="height:100px">
@@ -57,22 +38,22 @@
 			<label class="bill_timeline__step-label" for="trigger1{{identifier}}">
 				<span class="bill_timeline__step-content">{{bill.bill_gazette_date|parse_date_chinese}}</span>
 			</label>
-			
+
 			<span class="bill_timeline__step-title">
 			刊登憲報<br/>{{bill.bill_gazette_date|parse_date_chinese}}
 			</span>
-			
+
 			<i class="bill_timeline__step-marker">0</i>
 		</li>
 		<li class="bill_timeline__step done">
 			<input class="bill_timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
-			
+
 			<label class="bill_timeline__step-label" for="trigger2{{identifier}}">
 			<span class="bill_timeline__step-content">
-				{{bill.first_reading.first_reading_date|parse_date_chinese}}	
+				{{bill.first_reading.first_reading_date|parse_date_chinese}}
 			</span>
 			</label>
-			
+
 			<span class="bill_timeline__step-title">首讀<br/>{{bill.first_reading.first_reading_date|parse_date_chinese}}</span>
 
 			<i class="bill_timeline__step-marker">1</i>
@@ -81,13 +62,13 @@
 		{%if not bill.second_reading.second_reading_date|is_date_min %}
 		<li class="bill_timeline__step done">
 			<input class="bill_timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
-			
+
 			<label class="bill_timeline__step-label" for="trigger2{{identifier}}">
 			<span class="bill_timeline__step-content">
 			{{bill.second_reading.second_reading_date|parse_date_chinese}}
 			</span>
 			</label>
-			
+
 			<span class="bill_timeline__step-title">二讀<br/> {{bill.second_reading.second_reading_date|parse_date_chinese}}</span>
 
 			<i class="bill_timeline__step-marker">2</i>
@@ -96,20 +77,20 @@
 		{%if not bill.third_reading.third_reading_date|is_date_min %}
 		<li class="bill_timeline__step done">
 			<input class="bill_timeline__step-radio" id="trigger2{{identifier}}" name="trigger{{identifier}}" type="radio">
-			
+
 			<label class="bill_timeline__step-label" for="trigger2{{identifier}}">
 			<span class="bill_timeline__step-content">
 			{{bill.third_reading.third_reading_date|parse_date_chinese}}
 			</span>
 			</label>
-			
+
 			<span class="bill_timeline__step-title">三讀<br/> {{bill.third_reading.third_reading_date|parse_date_chinese}}</span>
 
 			<i class="bill_timeline__step-marker">3</i>
 		</li>
 		{%endif%}
 
-		</ol>	
+		</ol>
 	</div>
 	<div style="margin-left:40px">
 			<h2>相關會議</h2>
@@ -134,7 +115,7 @@
 
 
 		</div>
-{%if bill.committee.bills_committee_title_ch != ""  %}	
+{%if bill.committee.bills_committee_title_ch != ""  %}
     <div style="width:700px;margin-left:40px">
 		<h2>{{bill.committee.bills_committee_title_ch}}</h2>
 		<div class="jcarousel-wrapper" style="height:270px">
@@ -172,7 +153,7 @@
 			</div>
 			<a href="#" class="jcarousel-control-prev" style="top:220px">&lsaquo;</a>
 			<a href="#" class="jcarousel-control-next" style="top:220px">&rsaquo;</a>
-				
+
 			<p class="jcarousel-pagination" style="display:none">
 		</div>
     </div>
@@ -214,7 +195,7 @@ $('.jcarousel-control-prev')
     <div style="width:700px;margin-left:40px">
 		<h2>委員會:沒有</h2>
         <br/>
-    </div>	
+    </div>
 </div>
 {%endif%}
 

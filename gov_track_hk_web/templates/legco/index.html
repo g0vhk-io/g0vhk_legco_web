@@ -1,32 +1,15 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
-<script>(function(d, s, id) { 
+<script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=205317903140183";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<style>
-#legco_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/legco_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#733;
-    color:#FFF;
 
-}
-#legco_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-    <div class="jumbotron" id="legco_jumbotron">
+    <div class="jumbotron" id="legco-home-jumbotron">
         <h1>立法會</h1>
         <p>歡迎</p>
         <div class="fb-like" data-href="https://www.facebook.com/g0vhk.io/" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
@@ -112,7 +95,7 @@
 $(document).ready(function() {
     $('#most-absent').DataTable( {
         "pageLength": 10,
-        "ajax": { 
+        "ajax": {
             url:"/api/most_absent/",
             dataSrc:""
         },
@@ -131,7 +114,7 @@ $(document).ready(function() {
                      html += "<div style=\"text-align:center\"><img width=\"80\" src=\"" + row['image'] + "\" /><br/>" + "<a href=\"/legco/individual/" + row['id'] + "\" target=\"_blank\">"  + row['name'] + "</a></div>";
                      html += "<div class=\"progress\">";
                      html += "<div class=\"progress-bar progress-bar-" + level +"\" role=\"progressbar\" aria-valuenow=\"" + row['total'] + "\" aria-valuemin=\"0\" aria-valuemax=\"" + row['max']  +"\" style=\"width:" + (row['total'] / row['max'] * 100) + "%\">";
-                     html += row['total'] + "次" ; 
+                     html += row['total'] + "次" ;
                      html += "</div>";
                      html += "</div>";
                      html += "</div>";
@@ -142,7 +125,7 @@ $(document).ready(function() {
     });
     $('#most-speech').DataTable( {
         "pageLength": 10,
-        "ajax": { 
+        "ajax": {
             url:"/api/most_speech/",
             dataSrc:""
         },
@@ -161,7 +144,7 @@ $(document).ready(function() {
                      html += "<div style=\"text-align:center\"><img width=\"80\" src=\"" + row['image'] + "\" /><br/>" + "<a href=\"/legco/individual/" + row['id'] + "\" target=\"_blank\">"  + row['name'] + "</a></div>";
                      html += "<div class=\"progress\">";
                      html += "<div class=\"progress-bar progress-bar-" + level +"\" role=\"progressbar\" aria-valuenow=\"" + row['total'] + "\" aria-valuemin=\"0\" aria-valuemax=\"" + row['max']  +"\" style=\"width:" + (row['total'] / row['max'] * 100) + "%\">";
-                     html += row['total'] + "次" ; 
+                     html += row['total'] + "次" ;
                      html += "</div>";
                      html += "</div>";
                      html += "</div>";
@@ -175,7 +158,7 @@ $(document).ready(function() {
     });
     $('#important-motion').DataTable({
         "pageLength": 10,
-        "ajax": { 
+        "ajax": {
             url:"/api/important_motion/",
             dataSrc:"data"
         },
@@ -185,7 +168,7 @@ $(document).ready(function() {
         "info": false,
         "columns": [
             {
-             "render": function(data, type, row) {return row['date'];}   
+             "render": function(data, type, row) {return row['date'];}
 
             },
             { "render":
@@ -222,7 +205,7 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
     $('#latest-bills').DataTable( {
-        "ajax": { 
+        "ajax": {
             url:"/api/latest_bills/",
             dataSrc:""
         },
@@ -240,7 +223,7 @@ $(document).ready(function() {
             }
         ]
     } );
-    
+
 } );
 </script>
 {% endblock %}

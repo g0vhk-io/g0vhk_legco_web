@@ -5,26 +5,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
-<style>
-#meeting_jumbotron
-{
-    height:300px;
-    padding-left:20px;
-    background-image:url('/static/legco/meeting_bg.png');
-    background-repeat: no-repeat;
-    background-position: center; 
-    background-size: auto 100%;
-    background-color:#116;
-    color:#FFF;
-
-}
-#meeting_jumbotron a
-{
-    color:#FFF
-}
-</style>
 <div class="container-full">
-    <div class="jumbotron" id="meeting_jumbotron" style="margin-bottom:0px">
+    <div class="jumbotron" id="legco-meeting-jumbotron" style="margin-bottom:0px">
     <h1>會議</h1>
     </div>
 </div>
@@ -50,7 +32,7 @@
 <script type="text/babel">
 var Questions = React.createClass({
     getInitialState: function(){
-        return {'data':[], 'total': 0, 'page': 1, 'page_size': 0};    
+        return {'data':[], 'total': 0, 'page': 1, 'page_size': 0};
     },
     fetchQuestions:function()
     {
@@ -65,7 +47,7 @@ var Questions = React.createClass({
     componentWillUnmount: function() {
         this.serverRequest.abort();
     },
-   
+
     fetchNextPage: function()
     {
         if (this.state.data.length < this.state.page_size)
@@ -75,7 +57,7 @@ var Questions = React.createClass({
         var k = this.state.keyword;
         var page = this.state.page + 1;
         this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page, function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     fetchPrevPage: function()
     {
@@ -86,7 +68,7 @@ var Questions = React.createClass({
             return ;
         }
         this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     fetchLastPage: function()
     {
@@ -102,11 +84,11 @@ var Questions = React.createClass({
         }
 
         this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
 
 
- 
+
     fetchFirstPage: function()
     {
         var k = this.state.keyword;
@@ -116,7 +98,7 @@ var Questions = React.createClass({
             return;
         }
         this.serverRequest = $.get("/api/speeches/" + k + "?page=" + page , function(result){ this.setState(result)}.bind(this));
-    },    
+    },
 
     render: function() {
         var result = []
@@ -125,7 +107,7 @@ var Questions = React.createClass({
         var prev_page_link = <a className={'btn btn-default'} onClick={this.fetchPrevPage}>上一頁</a>;
         var next_page_link = <a className={'btn btn-default'} onClick={this.fetchNextPage}>下一頁</a>;
         var last_page_link = <a className={'btn btn-default'} onClick={this.fetchLastPage}>最後一頁</a>;
-        
+
         for (var i = 0; i < this.state.data.length; i++)
         {
           var speech = this.state.data[i];
@@ -133,7 +115,7 @@ var Questions = React.createClass({
           var profile = (<div></div>)
           var img = '/static/legco/member/nopic.png';
           if (speech.individual != null)
-          { 
+          {
             img = speech.individual.image;
           }
           profile = (<div style={{'float':'left','margin-right':'5px'}}><img  src={img}/></div>)
@@ -158,5 +140,3 @@ $("#search_btn").click(function()
 <br/>
 {% endverbatim %}
 {% endblock%}
-
-
