@@ -1,3 +1,3 @@
-python3 manage.py migrate
-python3 manage.py collectstatic --noinput 
-python3 manage.py runserver 0.0.0.0:8080
+python2 manage.py migrate
+python2 manage.py collectstatic --noinput 
+python2 manage.py runserver 0.0.0.0:8080
