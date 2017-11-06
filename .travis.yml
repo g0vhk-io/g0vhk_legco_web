@@ -1,0 +1,18 @@
+sudo: required
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::8}
+    - REPO=g0vhk_legco_web
+    - ORG=g0vhk
+
+services:
+  - docker
+
+script:
+    - docker build -t $ORG/$REPO:$COMMIT g0vhk_legco_web
+
+after_success:
+    - export TAG='latest'
+    - docker tag $ORG/$REPO:$COMMIT $ORG/$REPO:$TAG
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker push $ORG/$REPO
