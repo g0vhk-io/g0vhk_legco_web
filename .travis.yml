@@ -9,7 +9,7 @@ services:
   - docker
 
 script:
-    - docker build -t $ORG/$REPO:$COMMIT g0vhk_legco_web
+    - docker build -t $ORG/$REPO:$COMMIT gov_track_hk_web
 
 after_success:
     - export TAG='latest'
