@@ -1,25 +1,30 @@
 version: '3'
 services:
   web:
+    links:
+      - db
     build:
       context: ./gov_track_hk_web
+      args:
+        - MYSQL_DATABASE=docker
+        - MYSQL_USER=docker
+        - MYSQL_PASSWORD=docker
+        - MYSQL_HOST=db
+        - MYSQL_PORT=3306
     volumes:
       - ./gov_track_hk_web:/usr/src/app
-    environment:
-      TZ: 'Hongkong'
     ports:
-      - 8000:8000
+      - 8500:8000
     command: python manage.py runserver 0.0.0.0:8000
 
   db:
-    image: mysql:5.7
-    volumes:
-      - ./db:/var/lib/mysql
+    image: mariadb:10.2.12
     environment:
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_DATABASE: 'gov_track_hk_web_dev'
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: 'password'
+      - MYSQL_ROOT_PASSWORD=docker
+      - MYSQL_DATABASE=docker
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=docker
+      - MYSQL_PORT=3306
     ports:
-      - 3306:3306
+      - 33306:3306
     command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
