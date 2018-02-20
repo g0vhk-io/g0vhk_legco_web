@@ -8,7 +8,7 @@ from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSu
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route, list_route
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from subscriber.models import Subscriber, News
 import md5
 import requests
@@ -48,7 +48,8 @@ class IndividiualSerializer(serializers.ModelSerializer):
 class MostPresentIndividualsViewSet(viewsets.ViewSet):
     def  list(self, request):
         size = int(request.query_params.get("size", size))
-        present_total =  MeetingHansard.objects.all().values('members_present__individual__pk', 'members_present__individual__name_ch').annotate(dcount=Count('members_present__individual__pk')).order_by('-dcount')
+        query = MeetingHansard.objects.filter(date__gt=date(2016, 9, 10))
+        present_total =  query.values('members_present__individual__pk', 'members_present__individual__name_ch').annotate(dcount=Count('members_present__individual__pk')).order_by('-dcount')
         print present_total
         print len(present_total)
         result = []
@@ -62,7 +63,8 @@ class MostPresentIndividualsViewSet(viewsets.ViewSet):
 class MostSpeechIndividualsViewSet(viewsets.ViewSet):
     def  list(self, request):
         size = int(request.query_params.get("size", 5))
-        speech_total =  MeetingSpeech.objects.all().values('individual__pk', 'individual__name_ch', 'individual__image').annotate(dcount=Count('individual__pk')).order_by('-dcount')
+        query = MeetingSpeech.objects.filter(meetinghansard__date__gt=date(2016, 9, 10))
+        speech_total =  query.values('individual__pk', 'individual__name_ch', 'individual__image').annotate(dcount=Count('individual__pk')).order_by('-dcount')
         result = []
         m = max([d['dcount'] for d in speech_total])
         for d in speech_total:
@@ -77,8 +79,9 @@ class MostSpeechIndividualsViewSet(viewsets.ViewSet):
 class MostAbsentIndividualsViewSet(viewsets.ViewSet):
     def  list(self, request):
         size = int(request.query_params.get("size", 5))
-        meeting_total = MeetingHansard.objects.all().count()
-        absent_total =  MeetingHansard.objects.all() \
+        query = MeetingHansard.objects.filter(date__gt=date(2016, 9, 10))
+        meeting_total = query.count()
+        absent_total =  query.all() \
         .values('members_absent__individual__pk', 'members_absent__individual__name_ch', 'members_absent__individual__image') \
         .annotate(dcount=Count('members_absent__individual__pk')).order_by('-dcount')
         result = []
