@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.db.models import Count
-from legco.models import Individual, Party, NewsArticle, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question, BillCommittee, Council, CouncilMember, CouncilMembershipType
+from legco.models import Individual, Party, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question, BillCommittee, Council, CouncilMember, CouncilMembershipType
 from legco.models import ImportantMotion
 from datetime import date, datetime
 from django.db.models import Q

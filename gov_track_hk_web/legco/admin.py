@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 from django.db import models
 from django.utils.html import mark_safe
-from legco.models import Party, Individual, Council, Constituency,  Meeting, Motion, VoteSummary, IndividualVote, Vote, NewsArticle, CouncilMember, CouncilMembershipType
+from legco.models import Party, Individual, Council, Constituency,  Meeting, Motion, VoteSummary, IndividualVote, Vote, CouncilMember, CouncilMembershipType
 from legco.models import Bill,  BillCommittee, BillThirdReading, BillFirstReading, BillSecondReading
 from legco.models import MeetingSpeech, MeetingHansard
 from legco.models import Question
@@ -36,7 +36,6 @@ admin.site.register(Motion)
 admin.site.register(Meeting)
 admin.site.register(VoteSummary)
 admin.site.register(IndividualVote)
-admin.site.register(NewsArticle)
 admin.site.register(Bill)
 admin.site.register(BillCommittee)
 admin.site.register(BillThirdReading)

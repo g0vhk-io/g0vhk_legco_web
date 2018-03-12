@@ -1,2 +1,6 @@
 *.pyc
 xmls/*.xml
+
+# vim
+*.swo
+*.swp

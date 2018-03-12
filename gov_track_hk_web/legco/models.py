@@ -68,19 +68,6 @@ class IndividualVote(models.Model):
     def __unicode__(self):
         return self.vote.motion.name_en + " " + self.individual.name_en + " " + self.result
 
-class NewsArticle(models.Model):
-    individuals = models.ManyToManyField(Individual)
-    parties = models.ManyToManyField(Party)
-    link = models.CharField(max_length=2048)
-    key = models.CharField(max_length=255, default="no-key", blank=True, null=True, unique=True)
-    title = models.CharField(max_length=2048)
-    date = models.DateField(blank=True, null=True)
-    text = models.TextField(max_length=33554432, default="")
-    image = models.TextField(max_length=33554432, default=None, blank=True, null=True)
-    source = models.CharField(max_length=256)
-    def __unicode__(self):
-        return self.source + " " + self.title
-
 class Question(models.Model):
     individual = models.ForeignKey(Individual)
     key = models.CharField(max_length=100, unique=True)
