@@ -31,4 +31,4 @@ RUN mkdir -p /usr/src/node_app
 WORKDIR /usr/src/node_app
 COPY . /usr/src/node_app
 RUN npm install
-CMD ["npm run build-dev"]
+RUN npm run build-dev
