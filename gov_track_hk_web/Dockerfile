@@ -22,6 +22,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /usr/src/app
 COPY --from=js-env /usr/src/node_app/static/* /usr/src/app/static
+COPY --from=js-env /usr/src/node_app/webpack*.json /usr/src/app/
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD
 ARG MYSQL_HOST
