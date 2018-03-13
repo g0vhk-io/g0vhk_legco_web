@@ -1,204 +1,35 @@
-{% extends 'base.html'%}
-{% block page_content%}
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.1.0/jquery.countdown.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.css"></link>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.js"></script>
-<div id="fb-root"></div>
-<div id="home-root"></div>
-<div class="container-full">
-    <div class="jumbotron" id="home-home-jumbotron" style="position: relative">
-        <h1>線上民主平台</h1>
-        <div class="input-group">
-        <input type="text" class="form-control" style="width:400px" placeholder="電郵"  id="email"/>&nbsp;<a id="subscribe_button" class="btn btn-warning">訂閱</a>
-        </div>
-        <br/>
-        {%include 'facebook_share_btn.html'%}
-        <span style="font-weight:bold;color:#333;display:none">
-            今日天氣:
-            溫度:<span id="weather_temperature">--</span>
-            濕度:<span id="weather_humidity">--</span>
-            <br/>
-            <img id="weather_img" height="60"/><br/>
-        </span>
-
-
-        <div style="font-size:36pt;color:#FFFFFF; height:80px; float:right;position: absolute; right: 30px; bottom: 80px;text-align:right;width:1200px">
-            五十年不變倒數器<br/>
-            &nbsp;
-            <div style="float:right">秒</div>
-            <div id="count_down_second" style="float:right"></div>
-            <div style="float:right">分鐘</div>
-            <div id="count_down_min" style="float:right"></div>
-            <div style="float:right">小時</div>
-            <div id="count_down_hour" style="float:right"></div>
-            <div style="float:right">日</div>
-            <div id="count_down_day" style="float:right"></div>
-            <div style="float:right">年</div>
-            <div id="count_down_year" style="float:right"></div>
-        </div>
-
+{% load render_bundle from webpack_loader %}
+<html>
+  <head>
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link href="/static/index.css" rel="stylesheet" />
+    <link href="/static/hansard.css" rel="stylesheet" />
+    <meta charSet="utf-8" />
+    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+    <title></title>
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.1.0/jquery.countdown.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.css"
+    ></link>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.js"
+    ></script>
+    <script src="/static/clock.js"></script>
+  </head>
+  <body>
+    <div id="home-root">
     </div>
-
-</div>
-
-<div class="container-full" style="margin-left:20px;min-height:700px">
-<div style="min-width:200px;float:left">
-    <h3>現正刊登的諮詢文件&nbsp;<a class="btn fa fa-rss" aria-hidden="true" target="_blank" href="/rss/consultations.xml"></a></h3>
-        <table id="consultations" class="table table-hover  table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th width="75%" style="border:none">諮詢文件</th>
-                    <th width="25%" style="border:none">截止日期</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <td colspan="2" style="border:none;display:none"></td>
-
-                </tr>
-            </tfoot>
-            <tbody style="border:none">
-            </tbody>
-        </table>
-</div>
-<div style="min-width:400px;float:left; margin-left:30px">
-    <h3>最新消息&nbsp;<a class="btn fa fa-rss" aria-hidden="true" target="_blank" href="/rss/news.xml"></a></h3>
-    <table id="news" class="table table-hover  table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th width="25%" style="border:none; display: none"></th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <td style="border:none;display:none"></td>
-                </tr>
-            </tfoot>
-            <tbody style="border:none">
-            </tbody>
-        </table>
-</div>
-</div>
-
-<script>
-
-$(document).ready(function() {
-    $('#news').DataTable( {
-        "ajax": {
-            url:"/api/news/",
-            dataSrc:""
-        },
-        "searching": false,
-        "paging": false,
-        "ordering": false,
-        "info": false,
-        "columns": [
-            { "render":
-              function ( data, type, row ) {
-                var s = "";
-                var d = new Date(row.date);
-                var date_string = d.getFullYear() + "年" + (d.getMonth() + 1)  + "月" + d.getDate() + "日";
-                s += "<h4>" + row.title_ch +"&nbsp;-&nbsp;" + date_string + "</h4>"
-                s += "<p>"  + row.text_ch + "</p>";
-                return s;
-              }
-            }
-        ]
-    } );
-
-    $('#consultations').DataTable( {
-        "ajax": {
-            url:"/api/consultations/",
-            dataSrc:""
-        },
-        "searching": false,
-        "paging": false,
-        "ordering": false,
-        "info": false,
-        "columns": [
-            { "render":
-              function ( data, type, row ) {
-                var s = "";
-                s += "<a href=\"" + row.link+ "\" target=\"_blank\">" + row.title + "</a>";
-                return s;
-              }
-            },
-            { "render":
-                function ( data, type, row ) {
-                var d = new Date(row.date);
-                var date_string = d.getFullYear() + "年" + (d.getMonth() + 1)  + "月" + d.getDate() + "日";
-                return date_string;
-              }
-            },
-        ]
-    } );
-    $('#subscribe_button').click(function(){
-        $.ajax({
-            type: "POST",
-            url: "/api/subscribe/",
-            data: {email: $('#email').val()},
-            dataType: "json",
-            success: function(data){
-                if (data.status == "already")
-                {
-                    alert("已經訂閱");
-                }
-                else
-                {
-                    alert("訂閱成功");
-                }
-            },
-            error: function(errMsg){
-                alert("訂閱失敗");
-                console.log(errMsg);
-            }
-        });
-
-    });
-} );
-
-</script>
-<script>
-// set the date we're counting down to
-var target_date = new Date('July, 1, 2047').getTime();
-function padDigits(number, digits) {
-    return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
-}
-// variables for time units
-var days, hours, minutes, seconds;
- var nol = function(h){
-                        return h>9?h:'0'+h;
-                    }
- var nol3 = function(h){
-    return padDigits(h, 3);
-}
-// update the tag with id "countdown" every 1 second
-setInterval(function () {
-
-    // find the amount of "seconds" between now and target
-    var current_date = new Date().getTime();
-    var seconds_left = (target_date - current_date) / 1000;
-    years = parseInt(seconds_left / 31536000)
-    seconds_left = seconds_left % 31536000;
-    // do some time calculations
-    days = parseInt(seconds_left / 86400);
-    seconds_left = seconds_left % 86400;
-
-    hours = parseInt(seconds_left / 3600);
-    seconds_left = seconds_left % 3600;
-
-    minutes = parseInt(seconds_left / 60);
-    seconds = parseInt(seconds_left % 60);
-
-    // format countdown string + set tag value
-    //countdown.innerHTML = '<span class="years">' + years +  ' <b>年</b></span> ' + '<span class="days">' + days +  ' <b>日</b></span> <span class="hours">' + hours + ' <b>小時</b></span> <span class="minutes">'
-    //+ minutes + ' <b>分鐘</b></span> <span class="seconds">' + seconds + ' <b>秒</b></span>';
-    jQuery('#count_down_second').flipcountdown({size:'lg',tick:nol(seconds)});
-    jQuery('#count_down_min').flipcountdown({size:'lg',tick:nol(minutes)});
-    jQuery('#count_down_hour').flipcountdown({size:'lg',tick:nol(hours)});
-    jQuery('#count_down_day').flipcountdown({size:'lg',tick:nol3(days)});
-    jQuery('#count_down_year').flipcountdown({size:'lg',tick:nol(years)});
-}, 1000);
-
-</script>
-{% endblock %}
+    {% render_bundle 'main' %}
+  </body>
+</html>

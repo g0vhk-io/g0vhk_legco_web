@@ -20,7 +20,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader?presets[]=es2015&presets[]=react'],
+        loaders: ['babel-loader?presets[]=es2015&presets[]=react&presets[]=stage-2'],
       }
     ] // add all common loaders here
   },
