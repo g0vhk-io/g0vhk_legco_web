@@ -24,7 +24,6 @@ COPY . /usr/src/app
 RUN mkdir -p /usr/src/app/static/bundles
 RUN mkdir -p /usr/src/app/static/dist
 COPY --from=js-env /usr/src/node_app/static/bundles/* /usr/src/app/static/bundles/
-COPY --from=js-env /usr/src/node_app/static/dist/* /usr/src/app/static/dist/
 COPY --from=js-env /usr/src/node_app/webpack*.json /usr/src/app/
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD
