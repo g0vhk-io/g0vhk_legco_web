@@ -1,5 +1,6 @@
+{% load render_bundle from webpack_loader %}
 <html>
-  <head>
+<head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"></link>
     <link rel="stylesheet" href="/static/default.css"></link>
@@ -87,6 +88,7 @@
       ga('create', 'UA-82689420-1', 'auto');
       ga('send', 'pageview');
     </script>
+    {% render_bundle 'main' %}
   </body>
 
 </html>

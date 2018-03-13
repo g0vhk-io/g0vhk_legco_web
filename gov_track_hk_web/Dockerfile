@@ -25,3 +25,10 @@ ENV MYSQL_HOST="$MYSQL_HOST"
 ENV MYSQL_DATABASE="$MYSQL_DATABASE"
 ENV MYSQL_PORT="$MYSQL_PORT"
 CMD ./run.sh
+
+FROM node:9.8.0-slim
+RUN mkdir -p /usr/src/node_app
+WORKDIR /usr/src/node_app
+COPY . /usr/src/node_app
+RUN npm install
+CMD ["npm run build-dev"]

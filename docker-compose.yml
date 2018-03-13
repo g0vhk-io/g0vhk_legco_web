@@ -15,6 +15,7 @@ services:
       - ./gov_track_hk_web:/usr/src/app
     ports:
       - 8500:8000
+      - 3000:3000
     command: python manage.py runserver 0.0.0.0:8000
 
   db:

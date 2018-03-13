@@ -25,7 +25,7 @@ SECRET_KEY = '8w!qcc@9(zt2h7w4o)f*o1w-0(!-u($vy!d6lcn$7@%atk+ba+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'district',
     'subscriber',
     'rest_framework',
-    'api'
+    'api',
+    'webpack_loader'
 ]
 
 
@@ -146,3 +147,17 @@ CACHES = {
         'LOCATION': '/tmp/django_cache',
     }
 }
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
+
+if not DEBUG:
+    WEBPACK_LOADER['DEFAULT'].update({
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
+    })
