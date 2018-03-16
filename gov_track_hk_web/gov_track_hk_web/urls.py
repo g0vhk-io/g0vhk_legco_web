@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^legco/', include('legco.urls')),
     url(r'^rss/', include('rss.urls')),
     url(r'^district/', include('district.urls')),
-    url(r'^api/', include('api.urls'))
+    url(r'^api/', include('api.urls')),
+    url(r'^\.well-known/', include('letsencrypt.urls'))
 ]

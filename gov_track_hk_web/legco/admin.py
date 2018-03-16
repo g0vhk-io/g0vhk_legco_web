@@ -12,16 +12,13 @@ class CouncilAdmin(admin.ModelAdmin):
         models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
     }
 
-class HorizontialRadioRenderer(forms.RadioSelect.renderer):
-    def render(self):
-            return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
 
 class CouncilMemberForm(forms.ModelForm):
     class Meta:
         model = CouncilMember
         fields = ('member', 'council', 'membership_type')
         widgets = {
-            'member': forms.widgets.RadioSelect(renderer=HorizontialRadioRenderer),
+            'member': forms.widgets.RadioSelect(attrs={'class': 'inline'}),
         }
 
 class CouncilMemberAdmin(admin.ModelAdmin):
