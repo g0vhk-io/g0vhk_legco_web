@@ -9,7 +9,7 @@ from legco.models import MeetingSpeech, MeetingPersonel, MeetingHansard
 from collections import defaultdict
 from django.http import HttpResponse
 from legco.templatetags import legco_extras
-from urlparse import urljoin
+from urllib.parse import urljoin
 from math import cos, sin, pi
 import textwrap
 from wand.image import Image
@@ -42,12 +42,11 @@ def individual_view(request, pk):
     absent_total =  MeetingHansard.objects.filter(members_absent__pk__in = personel_ids).count()
     present_total =  MeetingHansard.objects.filter(members_present__pk__in = personel_ids).count()
     question_total = Question.objects.filter(individual__pk = pk).count()
-    related_news = NewsArticle.objects.filter(individuals__id = pk).order_by('-date')[0:20]
     speech_total = MeetingHansard.objects.filter(speeches__individual__pk = pk).count()
     latest_speeches = MeetingHansard.objects.filter(speeches__individual__pk = pk).values_list('speeches__text_ch', 'date', 'pk', 'speeches__sequence_number').order_by('-date')[0:20]
     bill_committees = [{'title': b[0], 'id': b[1]} for b in BillCommittee.objects.filter(Q(individuals__pk__contains = pk) | Q(chairman__pk = pk) | Q(vicechairman__pk = pk)).values_list('bills_committee_title_ch', 'bill__pk').order_by('-bills_committee_formation_date')[0:10]]
     important_motions = [{'title': m[0], 'date':m[1], 'id':m[2], 'result':m[3]} for m in ImportantMotion.objects.select_related('motion').filter(motion__vote__individualvote__individual__pk = pk).values_list('motion__name_ch', 'motion__vote__date', 'motion__vote__pk', 'motion__vote__individualvote__result').order_by('-motion__vote__date')]
-    return render(request, 'legco/individual.html', {'nbar': 'party', 'tbar':'legco', 'individual': individual, 'related_news': related_news, 'present_total': present_total, 'absent_total': absent_total, 'question_total': question_total, 'latest_speeches': latest_speeches, 'speech_total': speech_total, 'bill_committees': bill_committees, 'important_motions': important_motions})
+    return render(request, 'legco/individual.html', {'nbar': 'party', 'tbar':'legco', 'individual': individual, 'present_total': present_total, 'absent_total': absent_total, 'question_total': question_total, 'latest_speeches': latest_speeches, 'speech_total': speech_total, 'bill_committees': bill_committees, 'important_motions': important_motions})
 
 def index_view(request):
     return render(request, 'legco/index.html', {'nbar': 'home', 'tbar':'legco'})
@@ -274,7 +273,6 @@ def hansard_view(request, pk):
     clerks = [p for p in meeting.clerks.all()]
     speeches = [s for s in meeting.speeches.all() if s.title_ch != "" or s.bookmark.startswith("EV")]
     votes = Vote.objects.prefetch_related('meeting').prefetch_related('motion').filter(Q(date__year = meeting.date.year) & Q(date__month = meeting.date.month) & Q(date__day = meeting.date.day))
-    print len(votes)
     for speech in speeches:
         speech.est_min = int(len(speech.text_ch) * 0.012)
         speech.text_ch_short = speech.text_ch[0:100]

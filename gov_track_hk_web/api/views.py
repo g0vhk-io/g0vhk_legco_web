@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import detail_route, list_route
 from datetime import datetime, timedelta, date
 from subscriber.models import Subscriber, News
-import md5
+from hashlib import md5
 import requests
 from lxml import etree, html
 import re
@@ -50,8 +50,6 @@ class MostPresentIndividualsViewSet(viewsets.ViewSet):
         size = int(request.query_params.get("size", size))
         query = MeetingHansard.objects.filter(date__gt=date(2016, 9, 10))
         present_total =  query.values('members_present__individual__pk', 'members_present__individual__name_ch').annotate(dcount=Count('members_present__individual__pk')).order_by('-dcount')
-        print present_total
-        print len(present_total)
         result = []
         for d in present_total:
             pk = d['members_present__individual__pk']
@@ -179,7 +177,6 @@ class MeetingSpeechSearchViewSet(viewsets.ViewSet):
         total = speeches.count()
         output = []
         for l in speeches[page_size * page: (page + 1) * page_size]:
-            print l
             text, title, seq_num, individual_id, individual_name, individual_image, meeting_id, meeting_date = l
             i_dict = None
             m_dict = {'date': meeting_date, 'id': meeting_id}
@@ -236,7 +233,6 @@ class WeatherViewSet(viewsets.ViewSet):
             summary = root.xpath("//description")[1]
             html_root =  html.fromstring(summary.text)
             img = html_root.xpath("//img/@src")[0].strip()
-            print "image url [%s]" % img
             lines = "\n".join([s.strip() for s in html_root.xpath("//p/text()")]).split("\n")
             lines = [l.strip() for l in lines]
             temperature, humidity = [int(re.match('[^\d]*(\d+).*', s).group(1)) for s in lines[3:5]]
@@ -263,7 +259,6 @@ class ImportantMotionViewSet(viewsets.ViewSet):
         summaries = VoteSummary.objects.filter(Q(vote__pk__in = [m[2] for m in motions]) & Q(summary_type = VoteSummary.OVERALL))
         result_dict = {s.vote_id: s.result for s in summaries}
         for motion in motions:
-            print motion
             data.append({'title_ch': motion[0], 'date': motion[1], 'id': motion[2], 'result': result_dict[motion[2]]})
         return Response({'data':data})
 
@@ -297,7 +292,9 @@ class SubscribeViewSet(viewsets.ViewSet):
     def create(self, request):
         subscriber = Subscriber()
         subscriber.email = request.data['email']
-        subscriber.key = str(md5.new(subscriber.email).hexdigest())
+        m = md5()
+        m.update(subscriber.email)
+        subscriber.key = str(m.hexdigest())
         try:
             subscriber.save()
             return Response({"status": "ok"})

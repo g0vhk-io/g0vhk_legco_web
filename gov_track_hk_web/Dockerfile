@@ -7,7 +7,7 @@ COPY *.js ./
 COPY js /usr/src/node_app/js
 RUN npm run build-dev
 
-FROM python:2.7.13
+FROM python:3.5.2 as py-env
 RUN apt-get update \
     && apt-get install -y \
         libfreetype6-dev \

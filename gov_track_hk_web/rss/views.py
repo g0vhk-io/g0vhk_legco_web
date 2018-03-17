@@ -6,7 +6,7 @@ import dateutil.parser
 from django.contrib.syndication.views import Feed
 from subscriber.models import News
 from django.utils import feedgenerator
-import md5
+from hashlib import md5
 from datetime import datetime, timedelta, time
 from api.models import Consultation
 from django.db.models import Q
@@ -54,7 +54,9 @@ class NewsFeed(Feed):
         return "http://g0vhk.io"
 
     def item_guid(self, item):
-        return str(md5.new(item.date.strftime('%Y-%m-%d') + item.title_ch.encode("utf-8")).hexdigest())
+        m = md5()
+        m.update(item.date.strftime('%Y-%m-%d') + item.title_ch.encode("utf-8"))
+        return str(m.hexdigest())
 
     def item_pubdate(self, item):
         return datetime.combine(item.date, time(0,0,0))

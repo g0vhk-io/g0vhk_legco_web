@@ -1,10 +1,11 @@
-version: '3'
+version: '3.4'
 services:
   web:
     links:
       - db
     build:
       context: ./gov_track_hk_web
+      target: py-env
       args:
         - MYSQL_DATABASE=docker
         - MYSQL_USER=docker
