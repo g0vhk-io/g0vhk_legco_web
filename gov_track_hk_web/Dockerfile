@@ -5,7 +5,7 @@ COPY *.json ./
 RUN npm install
 COPY *.js ./
 COPY js /usr/src/node_app/js
-RUN npm run build-dev
+RUN npm run build-production
 
 FROM python:3.5.2 as py-env
 RUN apt-get update \
@@ -23,7 +23,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /usr/src/app
 RUN mkdir -p /usr/src/app/static/bundles
 RUN mkdir -p /usr/src/app/static/dist
-COPY --from=js-env /usr/src/node_app/static/bundles/* /usr/src/app/static/bundles/
+COPY --from=js-env /usr/src/node_app/static/dist/* /usr/src/app/static/dist/
 COPY --from=js-env /usr/src/node_app/webpack*.json /usr/src/app/
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD

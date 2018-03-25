@@ -23,7 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8w!qcc@9(zt2h7w4o)f*o1w-0(!-u($vy!d6lcn$7@%atk+ba+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+## TO-DO add nginx in Docker
 DEBUG = True
+DJANGO_DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ['*']
 
@@ -157,7 +159,7 @@ WEBPACK_LOADER = {
 }
 
 
-if not DEBUG:
+if not DJANGO_DEBUG:
     WEBPACK_LOADER['DEFAULT'].update({
         'BUNDLE_DIR_NAME': 'dist/',
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')

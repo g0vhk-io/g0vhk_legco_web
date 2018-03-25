@@ -4,15 +4,13 @@ var BundleTracker = require('webpack-bundle-tracker')
 
 var config = require('./webpack.base.config.js')
 
-// Use webpack dev server
-config.entry = [
-  'webpack-dev-server/client?http://localhost:3000',
-  'webpack/hot/only-dev-server',
-  './js/index'
-]
-
 // override django's STATIC_URL for webpack bundles
 config.output.path = require('path').resolve('./static/bundles')
+
+config.entry = config.entry.concat([
+  'webpack-dev-server/client?http://localhost:3000',
+  'webpack/hot/only-dev-server',
+])
 
 // Add HotModuleReplacementPlugin and BundleTracker plugins
 config.plugins = config.plugins.concat([

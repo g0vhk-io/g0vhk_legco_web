@@ -5,7 +5,8 @@
   "scripts": {
     "build-dev": "webpack --config webpack.local.config.js --progress --colors",
     "build-production": "webpack --config webpack.prod.config.js --progress --colors",
-    "watch": "node server.js"
+    "watch": "node server.js",
+    "watch2": "webpack --watch --config webpack.local.config.js "
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "material-ui": "^1.0.0-beta.23",
     "material-ui-icons": "^1.0.0-beta.17",
+    "rc-progress": "^2.2.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-icons": "^2.2.7",

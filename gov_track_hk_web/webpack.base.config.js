@@ -5,7 +5,10 @@ var BundleTracker = require('webpack-bundle-tracker')
 module.exports = {
   context: __dirname,
 
-  entry: './js/index',
+  entry: [
+    './js/index',
+    './js/legco/index',
+  ],
 
   output: {
       path: path.resolve('./assets/bundles/'),
