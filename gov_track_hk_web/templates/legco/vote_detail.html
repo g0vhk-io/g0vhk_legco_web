@@ -7,6 +7,8 @@
 結果: {{overall_result|vote_result_chinese}}<br/>
 {%endblock%}
 {%block og_image%}{{og_image_url}}{%endblock%}
+{%block og_image_width%}1200{%endblock%}
+{%block og_image_height%}630{%endblock%}
 {% block page_content%}
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -36,7 +38,6 @@
 
 <div class="container-full" style="margin-left:40px">
 <div class="page-header"><h1>{{vote.motion.name_ch}}<small>之投票結果</small>
-<div class="fb-share-button" data-href="{{url}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url|urlencode}}&amp;src=sdkpreparse">Share</a></div>
 </h1>
 <br/>
 <table class="table table-bordered" style="width:400px">
@@ -49,6 +50,9 @@
 </tr>
 </table>
 <br/>
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5aba4d1e09fe045f"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox"></div>
 <br/>
 <div>
 <div style="width:30%;float:left;">
@@ -84,7 +88,7 @@
 <div style="float:left; width:30%;">
     <center>
         <div class="alert alert-info" role="alert">
-            <h1>{{absent_count}}票缺席&nbsp;+&nbsp;{{abstain_count}}票棄權&nbsp;+&nbsp;{{present_vote_count}}票在席</h1>
+            <h1>{{other_count}}票缺席<small>(包括棄權及在席)</small></h1>
         </div>
     </center>
 
