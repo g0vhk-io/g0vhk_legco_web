@@ -12,11 +12,6 @@ from legco.templatetags import legco_extras
 from urllib.parse import urljoin
 from math import cos, sin, pi
 import textwrap
-from wand.image import Image
-from wand.color import Color
-from wand.font import Font
-from wand.drawing import Drawing
-from wand.display import display
 import time
 # Create your views here.
 
