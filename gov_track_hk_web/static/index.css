@@ -1,10 +1,18 @@
-@import url(//fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+/* @import url(//fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
 @import url(//fonts.googleapis.com/earlyaccess/cwtexhei.css);
 @import url(//fonts.googleapis.com/earlyaccess/cwtexkai.css);
 @import url(//fonts.googleapis.com/earlyaccess/cwtexming.css);
-@import url(//fonts.googleapis.com/earlyaccess/cwtexyen.css);
+@import url(//fonts.googleapis.com/earlyaccess/cwtexyen.css); */
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+
+body,ul,li,a,td,p,span{
+  font-family: 'Arial', 'Noto Sans TC', "微軟正黑體", "Microsoft JhengHei", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-size:16px;
+}
 
 body {
-  font-family: "cwtexhei", "Arial";
   margin: 0;
 }
