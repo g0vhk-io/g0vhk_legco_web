@@ -7,13 +7,7 @@ COPY *.js ./
 COPY js /usr/src/node_app/js
 RUN npm run build-production
 
-FROM python:3.5.2 as py-env
-RUN apt-get update \
-    && apt-get install -y \
-        libfreetype6-dev \
-        imagemagick \
-    && rm -rf /var/lib/apt/lists/*
-
+FROM python:3.5.5 as py-env
 
 WORKDIR /usr/src/app
 COPY ./requirements.txt /usr/src/app/

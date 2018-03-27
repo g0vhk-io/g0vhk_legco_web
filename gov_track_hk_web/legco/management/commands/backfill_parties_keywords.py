@@ -8,7 +8,6 @@ from dateutil.parser import *
 import os
 import json
 import requests
-import execjs
 import multiprocessing
 from lxml import etree
 from io import StringIO
