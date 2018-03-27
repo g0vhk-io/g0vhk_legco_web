@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.db.models import Count
-from legco.models import Individual, Party, IndividualVote, Vote, VoteSummary, Bill,  MeetingSpeech, MeetingHansard, FinanceMeetingItem, FinanceMeetingItemEvent, FinanceMeetingResult, Question, BillCommittee, Council, CouncilMember, CouncilMembershipType
-from legco.models import ImportantMotion
-from datetime import date, datetime
-from django.db.models import Q
-from legco.models import MeetingSpeech, MeetingPersonel, MeetingHansard
-from collections import defaultdict
-from django.http import HttpResponse
-from legco.templatetags import legco_extras
-from urllib.parse import urljoin
-from math import cos, sin, pi
 import textwrap
 import time
+from collections import defaultdict
+from datetime import date, datetime
+from math import cos, pi, sin
+from urllib.parse import urljoin
+
+from django.db.models import Count, Q
+from django.http import HttpResponse
+from django.shortcuts import render
+
+from legco.models import (Bill, BillCommittee, Council, CouncilMember,
+                          CouncilMembershipType, FinanceMeetingItem,
+                          FinanceMeetingItemEvent, FinanceMeetingResult,
+                          ImportantMotion, Individual, IndividualVote,
+                          MeetingHansard, MeetingPersonel, MeetingSpeech,
+                          Party, Question, Vote, VoteSummary)
+from legco.templatetags import legco_extras
+
 # Create your views here.
 
 
@@ -184,6 +189,3 @@ def open_data_view(request):
 
 def meeting_view(request):
     return render(request, 'legco/meetings.html', {'nbar': 'meeting', 'tbar': 'legco'})
-
-
-

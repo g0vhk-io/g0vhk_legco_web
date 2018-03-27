@@ -1,7 +1,10 @@
-from django.db import models
 from datetime import datetime
+
+from django.db import models
+
 from .bill_model import *
 from .common_models import *
+
 # Create your models here.
 
 class Motion(models.Model):

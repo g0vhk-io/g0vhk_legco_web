@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from .views import ConsultationsFeed, NewsFeed
 
 urlpatterns = [
@@ -7,4 +8,3 @@ urlpatterns = [
     url(r'^news.xml$', NewsFeed()),
     # ...
 ]
-

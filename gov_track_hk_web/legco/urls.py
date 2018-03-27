@@ -1,6 +1,8 @@
 
-from django.conf.urls import url, include
+from django.conf.urls import include, url
+
 from legco.views import *
+
 urlpatterns = [
     url(r'^$', index_view),
     url(r'^vote/$', all_votes_view),
@@ -25,5 +27,3 @@ urlpatterns = [
     url(r'^councils/$', councils_view),
     url(r'^members/(?P<pk>[0-9]+)/$', members_view),
 ]
-
-

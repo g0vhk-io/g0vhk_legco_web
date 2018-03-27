@@ -30,3 +30,5 @@ wordcloud==1.2.1
 PyExecJS==1.4.0
 django-webpack-loader==0.6.0
 django-letsencrypt==3.0.0
+pylama==7.4.3
+isort==4.3.4

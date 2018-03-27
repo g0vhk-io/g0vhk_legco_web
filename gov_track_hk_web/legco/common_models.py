@@ -1,5 +1,7 @@
-from django.db import models
 from datetime import datetime
+
+from django.db import models
+
 
 class Keyword(models.Model):
     keyword = models.CharField(max_length=128, unique=True)
@@ -21,5 +23,3 @@ class Individual(models.Model):
     image = models.CharField(max_length=512, blank=True, null=True, default=None)
     def __unicode__(self):
         return self.name_en + "-" + self.name_ch
-
-

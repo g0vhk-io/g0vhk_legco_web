@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
-from django.db import IntegrityError
-from django.db.models import Q
-from django.core.cache import cache
-from rest_framework import viewsets
-from django.db.models import Count
-from legco.models import Vote, Motion, Party, Individual, IndividualVote, VoteSummary, Bill, Question, MeetingHansard, MeetingSpeech, ImportantMotion, ImportantMotion
-from rest_framework import serializers
-from rest_framework.response import Response
-from rest_framework.decorators import detail_route, list_route
-from datetime import datetime, timedelta, date
-from subscriber.models import Subscriber, News
-from hashlib import md5
-import requests
-from lxml import etree, html
 import re
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from api.models import Consultation
+from datetime import date, datetime, timedelta
+from hashlib import md5
 
+import requests
+from django.core.cache import cache
+from django.db import IntegrityError
+from django.db.models import Count, Q
+from lxml import etree, html
+from rest_framework import serializers, viewsets
+from rest_framework.authentication import (BasicAuthentication,
+                                           SessionAuthentication)
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
+
+from api.models import Consultation
+from legco.models import (Bill, ImportantMotion, Individual, IndividualVote,
+                          MeetingHansard, MeetingSpeech, Motion, Party,
+                          Question, Vote, VoteSummary)
+from subscriber.models import News, Subscriber
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):

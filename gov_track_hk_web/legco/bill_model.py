@@ -1,7 +1,10 @@
-from django.db import models
 from datetime import datetime
+
 from dirtyfields import DirtyFieldsMixin
+from django.db import models
+
 from .common_models import *
+
 #
 
 class BillThirdReading(DirtyFieldsMixin, models.Model):

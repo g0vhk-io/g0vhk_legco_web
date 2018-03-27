@@ -1,11 +1,15 @@
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
 from django.db import models
 from django.utils.html import mark_safe
-from legco.models import Party, Individual, Council, Constituency,  Meeting, Motion, VoteSummary, IndividualVote, Vote, CouncilMember, CouncilMembershipType
-from legco.models import Bill,  BillCommittee, BillThirdReading, BillFirstReading, BillSecondReading
-from legco.models import MeetingSpeech, MeetingHansard
-from legco.models import Question
+
+from legco.models import (Bill, BillCommittee, BillFirstReading,
+                          BillSecondReading, BillThirdReading, Constituency,
+                          Council, CouncilMember, CouncilMembershipType,
+                          Individual, IndividualVote, Meeting, MeetingHansard,
+                          MeetingSpeech, Motion, Party, Question, Vote,
+                          VoteSummary)
+
 
 class CouncilAdmin(admin.ModelAdmin):
     formfield_overrides = {
@@ -43,4 +47,3 @@ admin.site.register(MeetingSpeech)
 admin.site.register(MeetingHansard)
 admin.site.register(CouncilMember, CouncilMemberAdmin)
 admin.site.register(CouncilMembershipType)
-

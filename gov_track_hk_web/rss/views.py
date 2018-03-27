@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.core.cache import cache
-import requests
-import dateutil.parser
-from django.contrib.syndication.views import Feed
-from subscriber.models import News
-from django.utils import feedgenerator
+from datetime import datetime, time, timedelta
 from hashlib import md5
-from datetime import datetime, timedelta, time
-from api.models import Consultation
+
+import dateutil.parser
+import requests
+from django.contrib.syndication.views import Feed
+from django.core.cache import cache
 from django.db.models import Q
+from django.shortcuts import render
+from django.utils import feedgenerator
+
+from api.models import Consultation
+from subscriber.models import News
+
 # Create your views here.
 
 class ConsultationsFeed(Feed):
