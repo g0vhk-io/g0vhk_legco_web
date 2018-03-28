@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import { withStyles } from 'material-ui/styles';
 import Menu from './Menu';
 import AbsentRank from './AbsentRank';
+import Topbar from '../home/Topbar';
 
 const styles = () => ({
   jumbotron: {
@@ -25,6 +26,7 @@ class Home extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
+        <Topbar />
         <AppBar position="static" className={classes.appBar}>
            <div className={classes.jumbotron}>
              <h1><div>立法會</div></h1>
