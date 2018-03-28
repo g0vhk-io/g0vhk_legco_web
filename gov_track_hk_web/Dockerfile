@@ -7,11 +7,18 @@ COPY *.js ./
 COPY js /usr/src/node_app/js
 RUN npm run build-production
 
-FROM python:3.5.5 as py-env
+FROM python:3.5.5-slim as py-env
+
+RUN apt-get update && apt-get install -y \
+        gcc \
+        gettext \
+        mysql-client libmysqlclient-dev \
+        libxml2-dev libxslt1-dev \
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 COPY ./requirements.txt /usr/src/app/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && rm -r /root/.cache
 
 
 COPY . /usr/src/app
