@@ -9,6 +9,10 @@ RUN npm run build-production
 
 FROM python:3.5.5-slim as py-env
 
+ENV TINI_VERSION v0.17.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
 RUN apt-get update && apt-get install -y \
         gcc \
         gettext \
@@ -36,4 +40,5 @@ ENV MYSQL_PASSWORD="$MYSQL_PASSWORD"
 ENV MYSQL_HOST="$MYSQL_HOST"
 ENV MYSQL_DATABASE="$MYSQL_DATABASE"
 ENV MYSQL_PORT="$MYSQL_PORT"
-CMD ./run.sh
+ENTRYPOINT ["/tini", "-g", "--"]
+CMD ["./run.sh"]
