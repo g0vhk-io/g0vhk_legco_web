@@ -1,11 +1,7 @@
 {% extends 'legco/base.html'%}
 {% load legco_extras %}
 {%block og_title%}g0vhk.io - {{vote.motion.name_ch}}{%endblock og_title%}
-{%block og_desc%}{{vote.motion.name_ch}}
-日期: {{vote.date|parse_date_chinese}} {{vote.time}}<br/>
-動議人: {%if vote.motion.mover_ch|length > 0 %}{{vote.motion.mover_ch}}{%else%}沒有{%endif%}<br/>
-結果: {{overall_result|vote_result_chinese}}<br/>
-{%endblock%}
+{%block og_desc%}{{vote.motion.name_ch}}{%endblock%}
 {%block og_image%}{{og_image_url}}{%endblock%}
 {%block og_image_width%}1200{%endblock%}
 {%block og_image_height%}630{%endblock%}
