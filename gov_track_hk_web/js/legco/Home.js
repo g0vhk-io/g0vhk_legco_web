@@ -30,6 +30,8 @@ class Home extends Component {
         <AppBar position="static" className={classes.appBar}>
            <div className={classes.jumbotron}>
              <h1><div>立法會</div></h1>
+             <br/>
+             <br/>
            </div>
         </AppBar>
         <Menu />
