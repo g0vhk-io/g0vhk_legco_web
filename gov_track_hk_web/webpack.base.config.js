@@ -4,10 +4,11 @@ var BundleTracker = require('webpack-bundle-tracker')
 
 module.exports = {
   context: __dirname,
-
+  devtool: '#source-map',
   entry: [
     './js/index',
     './js/legco/index',
+    './js/legco/absent/index',
   ],
 
   output: {

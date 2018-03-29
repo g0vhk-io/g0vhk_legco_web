@@ -1,40 +1,7 @@
-{% extends 'legco/base.html'%}
-{% block og_desc%}線上民主平台 - 立法會最常缺席議員{%endblock%}
-{% block page_content%}
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-<div class="container-full">
-    <div class="jumbotron" id="legco-absent-most-jumbotron" style="margin-bottom:0px">
-        <h1>立法會</h1>
-        <div class="fb-like" data-href="https://www.facebook.com/g0vhk.io/" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
-
-    </div>
-    <ol class="breadcrumb">
-         <li><a href="/legco">首頁</a></li>
-        <li class="active">最常缺席議員 (2016-2020)</li>
-    </ol>
-
-
-    <div id="myDiv" style="width: 80%; height: 1200px; margin-left:20px"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <script>
-        $(document).ready(function () {
-            $.getJSON('/api/most_absent/?size=70', function(json)
-            {
-                console.log(json);
-                var labels = json.map(function(d){return "<a href='/legco/individual/" + d.id + "'>" + d.name + "</a>" + "&nbsp;&nbsp;&nbsp;";});
-                var values = json.map(function(d){return d.total;});
-                var colors = json.map(function(d) {if (d.total > 50) return '#990000'; if (d.total > 20) return '#e6e600';if (d.total > 10)  return '#0099ff'; return '#66ff66';});
-                labels.reverse();
-                values.reverse();
-                colors.reverse();
-                Plotly.newPlot('myDiv', [{type:'bar', x: values, marker:{color:colors}, y:labels, orientation:'h'}], {yaxis:{autotick:false}, title:'最常缺席議員 (2016-2020)',titlefont:{size:40, family:'cwtexhei,Arial'}});
-            });
-        });
-
-    </script>
-</div>
-<br/>
-<br/>
-<br/>
-<br/>
+{% extends 'legco/parent.html' %}
+{% block title %}g0vhk.io 最常缺席議員{% endblock %}
+{% block og_title %}g0vhk.io 最常缺席議員{% endblock %}
+{% block container %}
+  <div id="legco-absent-root">
+  </div>
 {% endblock %}
