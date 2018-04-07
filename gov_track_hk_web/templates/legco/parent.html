@@ -1,0 +1,43 @@
+{% load render_bundle from webpack_loader %}
+<html>
+  <head>
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link href="/static/index.css" rel="stylesheet" />
+    <link href="/static/hansard.css" rel="stylesheet" />
+    <meta charSet="utf-8" />
+    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+    <title>{%block title%}g0vhk{%endblock%}</title>
+    <meta property="og:url" content="{{request.build_absolute_uri}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{%block og_title%}g0vhk{%endblock%}" />
+    <meta property="og:description" content="{%block og_desc%}線上民主平台{%endblock%}" />
+    <meta property="og:image" content="{%block og_image%}/static/gov_bg.png{%endblock%}"/>
+    <meta property="og:image:width" content="{%block og_image_width%}1600{%endblock%}"/>
+    <meta property="og:image:height" content="{%block og_image_height%}800{%endblock%}"/>
+
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.1.0/jquery.countdown.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.css"
+    ></link>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/flipcountdown/3.0.5/jquery.flipcountdown.min.js"
+    ></script>
+    <script src="/static/clock.js"></script>
+  </head>
+  <body>
+    {% block container %}
+    {% endblock %}
+    {% render_bundle 'main' %}
+  </body>
+</html>
