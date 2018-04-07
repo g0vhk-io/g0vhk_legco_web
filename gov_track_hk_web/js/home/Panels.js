@@ -80,7 +80,7 @@ class Panels extends Component {
                       </a>
                     </TableCell>
                     <TableCell>
-                      {r.date}
+                      {r.date.substring(0, 10)}
                     </TableCell>
                   </TableRow>);
               })
