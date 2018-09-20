@@ -16,13 +16,13 @@ RUN chmod +x /tini
 RUN apt-get update && apt-get install -y \
         gcc \
         gettext \
-        mysql-client libmysqlclient-dev \
+        mysql-client default-libmysqlclient-dev \
         libxml2-dev libxslt1-dev \
     --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 COPY ./requirements.txt /usr/src/app/
-RUN pip install --no-cache-dir -r requirements.txt && rm -r /root/.cache
+RUN pip install --no-cache-dir -r requirements.txt
 
 
 COPY . /usr/src/app
