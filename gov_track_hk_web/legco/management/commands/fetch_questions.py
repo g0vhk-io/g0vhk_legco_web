@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 import requests
 from lxml.html.clean import clean_html
 from django.db import transaction
@@ -7,7 +8,7 @@ from legco.models import Bill,  BillCommittee, BillThirdReading, BillFirstReadin
 from lxml import etree
 from datetime import *
 from dateutil.parser import *
-import md5
+from hashlib import md5
 from lxml.html.clean import Cleaner
 from django.db.utils import *
 import re
@@ -38,7 +39,7 @@ class Command(BaseCommand):
 
             for i in range(0, len(dates)):
                 date = datetime.strptime(dates[i], '%d.%m.%Y')
-                print date
+                print(date)
                 table = tables[i]
                 for row in table.xpath(".//tr")[1:]:
                     cells = row.xpath("td")
@@ -84,11 +85,11 @@ class Command(BaseCommand):
                     answer_text = press_release[reply_start + 3:]
                     #print(question_text)
                     #print(answer_text)
-                    #print link
-                    #print date
-                    #print individual.name_en
-                    #print key
-                    #print question_type
+                    #print(link)
+                    #print(date)
+                    #print(individual.name_en)
+                    #print(key)
+                    #print(question_type)
                     question = Question()
                     question.key = key
                     question.individual = individual

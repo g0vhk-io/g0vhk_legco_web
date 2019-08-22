@@ -1,15 +1,16 @@
 {% extends 'legco/base.html'%}
 {% block page_content%}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/react-router/2.6.1/ReactRouter.min.js"></script>
 <div class="container-full">
-    <div class="jumbotron" id="legco-meeting-jumbotron" style="margin-bottom:0px">
+  <div class="jumbotron" id="legco-meeting-jumbotron" style="margin-bottom:0px">
     <h1>會議</h1>
-    <br/>
-    <br/>
-    </div>
+    <br />
+    <br />
+  </div>
 </div>
 <ol class="breadcrumb">
   <li><a href="/legco">首頁</a></li>
@@ -17,32 +18,33 @@
 </ol>
 
 <div class="container-full">
-<div style="float:left; margin-left:60px">
-<h3> 發言搜尋</h3>
-<div  class="input-group" style="width:300px">
-<input type="text" placeholder="關鍵字" id="search_keyword" class="form-control" value=""/>
-<span class="input-group-btn">
-<button class="btn btn-default" type="button" id="search_btn">搜尋</button>
-</span>
-</div>
+  <div style="float:left; margin-left:60px">
+    <h3> 發言搜尋</h3>
+    <div class="input-group" style="width:300px">
+      <input type="text" placeholder="關鍵字" id="search_keyword" class="form-control" value="" />
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="search_btn">搜尋</button>
+      </span>
+    </div>
 
-<h3>年份</h3>
-<button id="btn_2012" href="#" class="btn">2012-2013</button>
-<button id="btn_2013" href="#" class="btn">2013-2014</button>
-<button id="btn_2014" href="#" class="btn">2014-2015</button>
-<button id="btn_2015" href="#" class="btn">2015-2016</button>
-<button id="btn_2016" href="#" class="btn">2016-2017</button>
-<button id="btn_2017" href="#" class="btn">2017-2018</button>
-<div id="meetings">
-</div>
-</div>
+    <h3>年份</h3>
+    <button id="btn_2012" href="#" class="btn">2012-2013</button>
+    <button id="btn_2013" href="#" class="btn">2013-2014</button>
+    <button id="btn_2014" href="#" class="btn">2014-2015</button>
+    <button id="btn_2015" href="#" class="btn">2015-2016</button>
+    <button id="btn_2016" href="#" class="btn">2016-2017</button>
+    <button id="btn_2017" href="#" class="btn">2017-2018</button>
+    <button id="btn_2018" href="#" class="btn">2018-2019</button>
+    <div id="meetings">
+    </div>
+  </div>
 
 </div>
 <div style="clear:both">
 </div>
 </div>
-<br/>
-<br/>
+<br />
+<br />
 {% verbatim %}
 <script type="text/babel">
 var Meetings = React.createClass({
@@ -52,7 +54,7 @@ var Meetings = React.createClass({
 
   fetchMeetings:function(year)
   {
-   this.serverRequest = $.get("/api/meetings/" + year, function (result) {
+   this.serverRequest = $.get("https://api.g0vhk.io/legco/hansards/" + year, function (result) {
       this.setState({'data':result});
     }.bind(this));
   },
@@ -131,13 +133,13 @@ $(document).ready(function()
     $("#btn_2015").click(function(){list(2015);});
     $("#btn_2016").click(function(){list(2016);});
     $("#btn_2017").click(function(){list(2017);});
+    $("#btn_2018").click(function(){list(2018);});
 });
 
 list(2015)
 </script>
 <script>
-$("#search_btn").click(function()
-{ window.location = '/legco/speeches/' + $("#search_keyword").val();});
+  $("#search_btn").click(function () { window.location = '/legco/speeches/' + $("#search_keyword").val(); });
 </script>
 {% endverbatim %}
 {% endblock%}
