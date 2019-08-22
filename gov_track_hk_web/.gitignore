@@ -1,5 +1,6 @@
 *.pyc
 xmls/*.xml
+webpack-stats-prod.json
 
 # vim
 *.swo

@@ -5,7 +5,7 @@ from legco.models import Bill,  BillCommittee, BillThirdReading, BillFirstReadin
 from lxml import etree
 from datetime import *
 from dateutil.parser import *
-import md5
+from hashlib import md5
 
 
 url = "http://app.legco.gov.hk/BillsDB/odata/Vbills?$format=json&$inlinecount=allpages&$filter=year(bill_gazette_date)%20ge%202010"
