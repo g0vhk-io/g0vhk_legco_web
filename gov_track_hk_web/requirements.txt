@@ -7,7 +7,7 @@ cssselect==0.9.2
 cycler==0.10.0
 demjson==2.2.4
 django-dirtyfields==1.0
-djangorestframework==3.7.7
+djangorestframework==3.9.1
 jieba==0.38
 lxml==3.6.0
 pyparsing==2.1.8
