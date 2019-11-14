@@ -1,4 +1,4 @@
-django==1.11.11
+django==1.11.23
 setuptools
 MarkupSafe==0.23
 mysqlclient==1.3.12
